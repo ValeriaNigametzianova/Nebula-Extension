@@ -67,14 +67,20 @@
             <div class="title Title">Внешний вид</div>
             <div class="preview"></div>
             <div class="levers">
-                <div class="lever">
+                <div class="blur_degree">
                     <div class="name mark">Степень размытия</div>
-                    <div class="slider">
-                        <div class="line"></div>
-                    </div>
+                    <input class="slider" type="range" value="50" min="0" max="100">
+                    <!-- <output class="output" name="output" for="range">
+                        50
+                      </output> -->
+                </div>
+                <div class="blur_color">
+                    <div class="name mark">Цвет размытия</div>
+                    <div class="color_window"></div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/JS/slider.js"></script>
 </body>
 </html>
