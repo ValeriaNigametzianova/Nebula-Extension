@@ -1,0 +1,28 @@
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+   color: var(--Dark-grey, #AAB1BB);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color: var(--Dark-grey, #AAB1BB);
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color: var(--Dark-grey, #AAB1BB);
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: var(--Dark-grey, #AAB1BB);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--Dark-grey, #AAB1BB);
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color: var(--Dark-grey, #AAB1BB);
+}
+
+input{
+    border: 0;
+    border-bottom: 1px solid var(--Black, #02020B);
+    outline: 0; 
+    color: var(--Black, #02020B);
+}

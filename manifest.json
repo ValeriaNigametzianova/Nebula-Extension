@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "version": "1.0.0",
+    "name": "Nebula",
+    "description": "",
+    "action":{
+        "default_popup": "HTML/popup.html"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "JS/content.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "permissions":
+    [
+        "tabs"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background":{
+        "service_worker": "JS/background.js"
+    }
+}

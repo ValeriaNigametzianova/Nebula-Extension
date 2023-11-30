@@ -1,0 +1,74 @@
+/* colors */
+
+:root{
+    --Black: hsl(240, 69%, 3%);
+    --Red: #F05365;
+    --Lidght-grey:#E8ECEF;
+    --Dark-grey:#AAB1BB;
+    --White: #fff;
+    --Background: #FBFBFB;
+}
+
+/* fonts */
+.title{
+    font-size: 24px;
+    color: var(--Black, #02020B);
+    font-family: Geologica;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.button-text{
+    color: var(--White, #FFF);
+    font-family: Geologica;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.subtitle{
+    color: var(--Black, #02020B);
+    font-family: Geologica;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.main-text{
+    color: var(--Black, #02020B);
+    font-family: Geologica;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.mark{
+    color: var(--Black, #02020B);
+    font-family: Geologica;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.pop-text{
+    color: var(--Black, #02020B);
+    font-family: Geologica;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.popup-button-text{
+    color: var(--White, #FFF);
+    font-family: Geologica;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
