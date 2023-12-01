@@ -1,0 +1,44 @@
+.btn{
+    cursor: pointer;
+}
+
+.btn_link:hover{
+    color: var(--Dark-grey)
+}
+
+.btn_red{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-radius: 2px;
+  background: var(--Red, #F05365);
+  border: 0px;
+  border-radius: 2px;
+}
+
+.btn_red:hover{
+    background: #ff697a;
+}
+
+.btn_red:active{
+    background: #ff4a60;
+}
+
+.btn_black{
+    display: flex;
+    background: var(--Black, #02020B);
+    justify-content: center;
+    align-items: center;
+    color: var(--White, #FFF);
+    border: 1px solid var(--Black, #02020B);
+    padding: 10px;
+}
+
+.btn_black:hover{
+    background:  #282833;
+}
+.btn_black:active{
+    color: var(--Black, #02020B);
+    background: var(--Background, #FBFBFB);
+}
