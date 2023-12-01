@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/CSS/global/variables.css">
     <link rel="stylesheet" href="/CSS/global/input.css">
+    <link rel="stylesheet" href="/CSS/global/toggle.css">
+    <link rel="stylesheet" href="/CSS/global/buttons.css">
     <link rel="stylesheet" href="/CSS/pages/popup.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,28 +20,31 @@
         <h1 class="title">Небула</h1>
         <div class="toggle">
             <div main-text>выкл</div>
-            <div class="toggle-btn" id="_2nd-toggle-btn">
+            <div class="toggle-btn" id="_1st_toggle-btn">
                 <input type="checkbox">
                 <span></span>
             </div>
             <div main-text>вкл</div>
         </div>
         <div class="links">
-            <div class="btn_setting popup-text" id="btn_setting">Перейти ко всем настройкам</div>
-            <div class="popup-text">Помощь</div>
+            <div class="btn btn_link popup-text" id="btn_setting">Перейти ко всем настройкам</div>
+            <div class="btn btn_link popup-text">Помощь</div>
         </div>
         <div class="add_world">
             <div class="inputs">
                 <input type="text popup-text" class="input_popup" placeholder="Введите слово">
-                <select name="categories" id="categories" class="dropdown_popup"> 
+                <select name="categories popup-text" id="categories" class="dropdown_popup"> 
+                    <option value=""  selected>Категория</option>
                     <option value="films">Фильмы</option> 
                     <option value="games">Игры</option> 
                     <option value="news">Новости</option> 
                     <option value="people">Люди</option>
-                    <option value="new_category"><button>Добавить категорию</button></option>
+                    <option value="new_category">
+                        <button>Добавить категорию</button>
+                    </option>
                 </select>
             </div>
-            <button class="add_button_popup">Добавить</button>
+            <button class="btn_red add_button_popup popup-button-text">Добавить</button>
         </div>
     </div>
 
