@@ -1,4 +1,4 @@
-const settingsButton = document.querySelector('.btn_setting')
+const settingsButton = document.getElementById('btn_setting')
 if (settingsButton) {
   settingsButton.addEventListener('click', (e) => {
     const url = chrome.runtime.getURL('/HTML/page.html')
