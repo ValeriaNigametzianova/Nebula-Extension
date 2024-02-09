@@ -16,14 +16,14 @@
         <button class="help_button btn_red title">?</button>
         <div class="left_side">
             <div class="tabs">
-                <button class="tab btn_black title" id="btn_worlds">Слова</button>
+                <button class="tab btn_black title" id="btn_words">Слова</button>
                 <button class="tab btn_black title" id="btn_domens">Домены</button>
                 <button class="tab btn_black title" id="btn_wish">Отложенные</button>
             </div>
             <div class="wrapper_content">
-                <div class="add_world_section">
-                    <input class="input_page main-text" placeholder="Введите слово или фразу"></input>
-                    <select class="dropdown_page main-text">
+                <div class="add_word_section">
+                    <input id='word_input' class="input_page main-text" placeholder="Введите слово или фразу"></input>
+                    <select id='category_input'  class="dropdown_page main-text">
                         <option value=""  selected>Категория</option>
                         <option value="films">Фильмы</option> 
                         <option value="games">Игры</option> 
@@ -32,8 +32,10 @@
                         <option value="new_category">
                             <button>Добавить категорию</button>
                         </option>
+                        
                     </select>
-                    <button class="button-text add_button_page btn_red">Добавить</button>
+                    <button id='add_new_word' class="button-text add_button_page btn_red">Добавить</button>
+                    <button id='clear_all' class="button-text add_button_page btn_red">Удалить все</button>
                 </div>
                 <div class="list_section">
                     <div class="list_start_line">
@@ -44,138 +46,19 @@
                         </select>
                     </div>
                     <div class="list_header">
-                        <div class="world mark">Слово</div>
+                        <div class="word mark">Слово</div>
                         <div class="category mark">Категория</div>
                     </div>
                     <div class="list">
                         <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
+                            <div class="item_word main-text">Звездные войны</div>
                             <div class="item_category main-text">Фильмы</div>
                             <div class="actions">
                                 <object data="/Icons/Edit.svg" alt="edit"></object>
                                 <object data="/Icons/Trash.svg" alt="delete"></object>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_word main-text">Зездные вонйы</div>
-                            <div class="item_category main-text">Фильмы</div>
-                            <div class="actions">
-                                <object data="/Icons/Edit.svg" alt="edit"></object>
-                                <object data="/Icons/Trash.svg" alt="delete"></object>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -224,7 +107,7 @@
                     </div>
                 </div>
                 <div class="show_options">
-                    <div class="show_world">
+                    <div class="show_word">
                         <div class="name mark">Показать слово</div>
                         <div class="show_toggle" id="show_toggle">
                             <input type="checkbox">
@@ -242,6 +125,6 @@
             </div>
         </div>
     </div>
-    <script src="/JS/slider.js"></script>
+    <script src="/JS/page.js"></script>
 </body>
 </html>

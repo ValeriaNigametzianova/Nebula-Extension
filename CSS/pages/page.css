@@ -63,7 +63,7 @@ body{
     /* grid-template-areas:
     "first hollow1 second hollow2 third"; */
 }
-.add_world_section{
+.add_word_section{
     display: grid;
     margin-bottom: 150px;
     grid-template-columns: 402px 50px 210px 60px 168px;
@@ -123,7 +123,7 @@ body{
     grid-template-columns: 402px 50px 210px 60px 168px;
     margin-bottom: 20px;
 
-    > .world{
+    > .word{
         grid-column: 1/ 2;
         margin-left: 10px;
         color: var(--Dark-grey, #AAB1BB);

@@ -76,7 +76,7 @@ input[type="checkbox"] {
 
 /*  --------------------------------- */
 
-.show_world, .show_category{
+.show_word, .show_category{
     display: flex;
     flex-direction: column;
     gap: 20px;

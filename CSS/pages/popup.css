@@ -30,7 +30,7 @@
 .btn_setting{
   cursor: pointer;
 }
-.add_world{
+.add_word{
   display: flex;
   flex-direction: column;
   gap: 20px;
