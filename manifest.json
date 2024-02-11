@@ -4,12 +4,12 @@
     "name": "Nebula",
     "description": "",
     "action":{
-        "default_popup": "HTML/popup.html"
+        "default_popup": "index.html"
     },
     "content_scripts": [
         {
             "js": [
-                "JS/content.js"
+                "src/content.jsx"
             ],
             "matches": [
                 "<all_urls>"
