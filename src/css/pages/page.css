@@ -176,6 +176,7 @@ body {
   background: var(--Dark-grey, #aab1bb);
   flex-shrink: 0;
   margin-bottom: 60px;
+  backdrop-filter: blur(attr(value));
 }
 
 .levers {
@@ -219,6 +220,21 @@ body {
   background: var(--Red, #f05365);
   cursor: pointer;
   border-radius: 7px;
+}
+
+.slider-label {
+  position: relative;
+  transform-origin: center center;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-radius: 50%;
+  text-align: center;
+  margin-left: -4px;
+  left: attr(value);
+  color: var(--Red, #f05365);
+  font-size: 16px;
 }
 
 .blur_color {

@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { ListItem } from '../components/ListItem'
 import { Dropdown } from '../components/Dropdown'
+import { Slider } from '../components/Slider'
 
 export const SettingsPage = () => {
   const [word, setWord] = useState('')
   const [category, setCategory] = useState('')
+
+  // useEffect(() => {
+  //   chrome.storage.sync.get(null, (allkeys) => {
+  //     console.log('storage: ', allkeys.blur_degree || '50')
+  //     setBlur(allkeys.blur_degree || '50')
+  //   })
+  // }, [])
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(() => {
@@ -30,6 +38,7 @@ export const SettingsPage = () => {
       //   addListItem(word, category)
     }
   }
+
   return (
     <div className='wrapper_page'>
       <button className='help_button btn_red title'>?</button>
@@ -95,11 +104,15 @@ export const SettingsPage = () => {
 
       <div className='right_side'>
         <div className='title Title'>Внешний вид</div>
-        <div className='preview'></div>
+        <div className='preview'>
+          ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается лучше, чем ожидалось, заявила первый
+          заместитель главы Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
+        </div>
         <div className='levers'>
           <div className='blur_degree'>
             <div className='name mark'>Степень размытия</div>
-            <input className='slider' type='range' value='50' onChange={() => {}} min='0' max='100' />
+            <Slider></Slider>
+            {/* <input className='slider' type='range' value='50' onChange={() => {}} min='0' max='100' />z */}
             {/* <output className="output" name="output" for="range">
                         50
                       </output>  */}
