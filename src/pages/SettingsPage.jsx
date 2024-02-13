@@ -8,11 +8,13 @@ import { BlurColorPicker } from '../components/BlurColorPicker'
 export const SettingsPage = () => {
   const [word, setWord] = useState('')
   const [category, setCategory] = useState('')
+  const [word_list, setWordList] = useState(null)
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener((event) => {
+      if (event.word_list) setWordList(event.word_list.newValue)
       chrome.storage.sync.get(null, (allkeys) => {
-        console.log('blur_settings: ', allkeys.blur_settings)
+        console.log('allkeys: ', allkeys)
       })
       return () => {
         chrome.storage.sync.onChanged.removeListener(storageListener)
@@ -20,16 +22,24 @@ export const SettingsPage = () => {
     })
   }, [])
 
-  const addWord = async (e) => {
+  useEffect(() => {
+    chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
+      setWordList(word_list)
+      console.log('word_list', word_list)
+    })
+  }, [])
+
+  const addWord = async () => {
     if (word && category) {
-      const currentCategories = await chrome.storage.sync.get([word])
-      const list = currentCategories[word]
+      const { word_list } = await chrome.storage.sync.get(['word_list'])
+      console.log('word_list', word_list)
+      const list = word_list[word]
 
       if (list) {
         if (list.includes(category)) return
         list.push(category)
-        await chrome.storage.sync.set({ word_list: { [word]: list } })
-      } else await chrome.storage.sync.set({ word_list: { [word]: [category] } })
+        await chrome.storage.sync.set({ word_list: { ...word_list, [word]: list } })
+      } else await chrome.storage.sync.set({ word_list: { ...word_list, [word]: [category] } })
     }
   }
 
@@ -63,7 +73,7 @@ export const SettingsPage = () => {
             <button
               className='button-text add_button_page btn_red'
               onClick={async (e) => {
-                chrome.storage.sync.clear()
+                chrome.storage.sync.remove(['word_list'])
               }}
             >
               Удалить все
@@ -82,15 +92,13 @@ export const SettingsPage = () => {
               <div className='category mark'>Категория</div>
             </div>
             <div id='list' className='list'>
-              <div className='item'>
-                <div className='item_word main-text'>Звездные войны</div>
-                <div className='item_category main-text'>Фильмы</div>
-                <div>
-                  <object data='../icons/Edit.svg' alt='edit'></object>
-                  <object data='../icons/Trash.svg' alt='delete'></object>
-                </div>
-              </div>
-              <ListItem word='fuf' category='Люди' />
+              {word_list ? (
+                Object.entries(word_list).map((el) => (
+                  <ListItem key={el[0] + ' ' + el[1]} word={el[0]} category={el[1]} />
+                ))
+              ) : (
+                <div>Load</div>
+              )}
             </div>
           </div>
         </div>

@@ -5,6 +5,16 @@ export const Prewiew = () => {
   const ref = useRef(null)
 
   useEffect(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener((event) => {
+      if (event.blur_settings) setSettings(event.blur_settings.newValue)
+
+      return () => {
+        chrome.storage.sync.onChanged.removeListener(storageListener)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
       blur_settings && setSettings(blur_settings)
     })
