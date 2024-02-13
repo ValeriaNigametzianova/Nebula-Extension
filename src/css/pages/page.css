@@ -176,7 +176,8 @@ body {
   background: var(--Dark-grey, #aab1bb);
   flex-shrink: 0;
   margin-bottom: 60px;
-  backdrop-filter: blur(attr(value));
+  filter: blur(attr(value));
+  background-color: attr(value);
 }
 
 .levers {
@@ -244,13 +245,24 @@ body {
   gap: 20px;
 }
 
-.color_window {
-  width: 40px;
-  height: 40px;
-  border-radius: 7px;
-  border: 1px solid var(--Black, #02020b);
-  background: #c9f5ff;
-  flex-shrink: 0;
+input[type='color'] {
+  margin-right: 8px;
+  -webkit-appearance: none;
+  border: none;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  background: none;
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+  }
+  &::-webkit-color-swatch {
+    border: 1px solid var(--Black, #02020b);
+    border-radius: 7px;
+    padding: 0;
+  }
 }
 
 .additional_effects {

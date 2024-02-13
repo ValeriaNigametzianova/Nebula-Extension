@@ -2,22 +2,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ListItem } from '../components/ListItem'
 import { Dropdown } from '../components/Dropdown'
 import { Slider } from '../components/Slider'
+import { Prewiew } from '../components/Prewiew'
+import { BlurColorPicker } from '../components/BlurColorPicker'
 
 export const SettingsPage = () => {
   const [word, setWord] = useState('')
   const [category, setCategory] = useState('')
 
-  // useEffect(() => {
-  //   chrome.storage.sync.get(null, (allkeys) => {
-  //     console.log('storage: ', allkeys.blur_degree || '50')
-  //     setBlur(allkeys.blur_degree || '50')
-  //   })
-  // }, [])
-
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(() => {
       chrome.storage.sync.get(null, (allkeys) => {
-        console.log('storage: ', allkeys)
+        console.log('blur_settings: ', allkeys.blur_settings)
       })
       return () => {
         chrome.storage.sync.onChanged.removeListener(storageListener)
@@ -33,9 +28,8 @@ export const SettingsPage = () => {
       if (list) {
         if (list.includes(category)) return
         list.push(category)
-        await chrome.storage.sync.set({ [word]: list })
-      } else await chrome.storage.sync.set({ [word]: [category] })
-      //   addListItem(word, category)
+        await chrome.storage.sync.set({ word_list: { [word]: list } })
+      } else await chrome.storage.sync.set({ word_list: { [word]: [category] } })
     }
   }
 
@@ -104,22 +98,15 @@ export const SettingsPage = () => {
 
       <div className='right_side'>
         <div className='title Title'>Внешний вид</div>
-        <div className='preview'>
-          ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается лучше, чем ожидалось, заявила первый
-          заместитель главы Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
-        </div>
+        <Prewiew />
         <div className='levers'>
           <div className='blur_degree'>
             <div className='name mark'>Степень размытия</div>
             <Slider></Slider>
-            {/* <input className='slider' type='range' value='50' onChange={() => {}} min='0' max='100' />z */}
-            {/* <output className="output" name="output" for="range">
-                        50
-                      </output>  */}
           </div>
           <div className='blur_color'>
             <div className='name mark'>Цвет размытия</div>
-            <div className='color_window'></div>
+            <BlurColorPicker />
           </div>
           <div className='additional_effects'>
             <div className='name mark'>Дополнительные эффекты</div>
@@ -135,7 +122,9 @@ export const SettingsPage = () => {
           </div>
           <div className='effects_color'>
             <div className='name mark'>Цвет эффекта</div>
-            <div className='color_window'></div>
+            <div>
+              <input id='colorpicker' type='color' />
+            </div>
           </div>
           <div className='hover_behavior'>
             <div className='name mark'>Поведение при наведении</div>
