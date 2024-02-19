@@ -1,44 +1,54 @@
-.btn{
-    cursor: pointer;
+.btn {
+  cursor: pointer;
 }
 
-.btn_link:hover{
-    color: var(--Dark-grey)
+.btn_link:hover {
+  color: var(--Dark-grey);
 }
 
-.btn_red{
+.btn_red {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
   border-radius: 2px;
-  background: var(--Red, #F05365);
+  background: var(--Red, #f05365);
   border: 0px;
   border-radius: 2px;
 }
 
-.btn_red:hover{
-    background: #ff697a;
+.btn_red:hover {
+  background: #ff697a;
 }
 
-.btn_red:active{
-    background: #ff4a60;
+.btn_red:active {
+  background: #ff4a60;
 }
 
-.btn_black{
-    display: flex;
-    background: var(--Black, #02020B);
-    justify-content: center;
-    align-items: center;
-    color: var(--White, #FFF);
-    border: 1px solid var(--Black, #02020B);
-    padding: 10px;
+.btn_black {
+  display: flex;
+  background: var(--Black, #02020b);
+  justify-content: center;
+  align-items: center;
+  color: var(--White, #fff);
+  border: 1px solid var(--Black, #02020b);
+  padding: 10px;
 }
 
-.btn_black:hover{
-    background:  #282833;
+.btn_black:hover {
+  background: #282833;
 }
-.btn_black:active{
-    color: var(--Black, #02020B);
-    background: var(--Background, #FBFBFB);
+.btn_black:active {
+  color: var(--Black, #02020b);
+  background: var(--Background, #fbfbfb);
+}
+
+.btn_black_select {
+  display: flex;
+  background: var(--Background, #fbfbfb);
+  justify-content: center;
+  align-items: center;
+  color: var(--Black, #02020b);
+  border: 1px solid var(--Black, #02020b);
+  padding: 10px;
 }
