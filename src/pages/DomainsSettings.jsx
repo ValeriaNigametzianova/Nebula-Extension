@@ -7,15 +7,17 @@ const DomainsSettings = () => {
   const [domain_list, setDomainList] = useState(null)
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener((event) => {
-      if (event.domain_list) setDomainList(event.domain_list.newValue)
-      chrome.storage.sync.get(null, (allkeys) => {
-        console.log('allkeys: ', allkeys)
-      })
-      return () => {
-        chrome.storage.sync.onChanged.removeListener(storageListener)
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        if (event.domain_list) setDomainList(event.domain_list.newValue)
+        chrome.storage.sync.get(null, (allkeys) => {
+          console.log('allkeys: ', allkeys)
+        })
+        return () => {
+          chrome.storage.sync.onChanged.removeListener(storageListener)
+        }
       }
-    })
+    )
   }, [])
 
   useEffect(() => {
@@ -32,8 +34,14 @@ const DomainsSettings = () => {
       console.log('list', list)
       if (list) {
         if (list.includes(domain)) return
-        else await chrome.storage.sync.set({ domain_list: { ...domain_list, [domain]: domainName } })
-      } else await chrome.storage.sync.set({ domain_list: { ...domain_list, [domain]: domainName } })
+        else
+          await chrome.storage.sync.set({
+            domain_list: { ...domain_list, [domain]: domainName },
+          })
+      } else
+        await chrome.storage.sync.set({
+          domain_list: { ...domain_list, [domain]: domainName },
+        })
       ChangeManifest(list)
     }
   }
@@ -76,47 +84,59 @@ const DomainsSettings = () => {
     console.log('blob', blob)
     const manifestURL = URL.createObjectURL(blob)
     console.log('manifestURL', manifestURL)
-    document.querySelector('#my-manifest-placeholder').setAttribute('href', manifestURL)
+    document
+      .querySelector('#my-manifest-placeholder')
+      .setAttribute('href', manifestURL)
   }
 
   return (
-    <div className='wrapper_content'>
-      <div className='add_word_section'>
+    <div className="wrapper_content">
+      <div className="add_word_section">
         <input
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
-          className='input_page main-text'
-          placeholder='https://domain.com'
+          className="input_page main-text"
+          placeholder="https://domain.com"
         ></input>
         <input
           value={domainName}
           onChange={(e) => setDomainName(e.target.value)}
-          className='input_page main-text'
-          placeholder='Можете дать название'
+          className="input_page main-text"
+          placeholder="Можете дать название"
         ></input>
-        <button className='button-text add_button_page btn_red' onClick={addDomain}>
+        <button
+          className="button-text add_button_page btn_red"
+          onClick={addDomain}
+        >
           Добавить
         </button>
-        <button className='button-text add_button_page btn_red' onClick={removeDomains}>
+        <button
+          className="button-text add_button_page btn_red"
+          onClick={removeDomains}
+        >
           Удалить все
         </button>
       </div>
-      <div className='list_section'>
-        <div className='list_start_line'>
-          <div className='list_title subtitle'>Весь список</div>
-          <select name='' id='' className='select_dropdown mark'>
-            <option value='films'>По дате добавления</option>
-            <option value='games'>По алфавиту</option>
+      <div className="list_section">
+        <div className="list_start_line">
+          <div className="list_title subtitle">Весь список</div>
+          <select name="" id="" className="select_dropdown mark">
+            <option value="films">По дате добавления</option>
+            <option value="games">По алфавиту</option>
           </select>
         </div>
-        <div className='list_header'>
-          <div className='word mark'>Имя</div>
-          <div className='category mark'>Домен</div>
+        <div className="list_header">
+          <div className="word mark">Имя</div>
+          <div className="category mark">Домен</div>
         </div>
-        <div id='list' className='list'>
+        <div id="list" className="list">
           {domain_list ? (
             Object.entries(domain_list).map((el) => (
-              <ListItem key={el[0] + ' ' + el[1]} domainName={el[0]} domain={el[1]} />
+              <ListItem
+                key={el[0] + ' ' + el[1]}
+                domainName={el[0]}
+                domain={el[1]}
+              />
             ))
           ) : (
             <div>Load</div>

@@ -11,13 +11,15 @@ export const SettingsPage = () => {
   const [domainButton, setDomainButton] = useState(false)
 
   return (
-    <div className='wrapper_page'>
-      <button className='help_button btn_red title'>?</button>
-      <div className='left_side'>
-        <div className='tabs'>
+    <div className="wrapper_page">
+      <button className="help_button btn_red title">?</button>
+      <div className="left_side">
+        <div className="tabs">
           <button
-            className={wordButton ? 'title tab btn_black_select' : 'title tab btn_black'}
-            id='btn_words'
+            className={
+              wordButton ? 'title tab btn_black_select' : 'title tab btn_black'
+            }
+            id="btn_words"
             onClick={(e) => {
               setActivePage(e.target.id)
               setWordButton(!wordButton)
@@ -27,8 +29,12 @@ export const SettingsPage = () => {
             Слова
           </button>
           <button
-            className={domainButton ? 'title tab btn_black_select' : 'title tab btn_black'}
-            id='btn_domains'
+            className={
+              domainButton
+                ? 'title tab btn_black_select'
+                : 'title tab btn_black'
+            }
+            id="btn_domains"
             onClick={(e) => {
               setActivePage(e.target.id)
               setDomainButton(!domainButton)
@@ -42,58 +48,58 @@ export const SettingsPage = () => {
         {activePage == 'btn_domains' && <DomensSettings />}
       </div>
 
-      <div className='right_side'>
-        <div className='title Title'>Внешний вид</div>
+      <div className="right_side">
+        <div className="title Title">Внешний вид</div>
         <Prewiew />
-        <div className='levers'>
-          <div className='blur_degree'>
-            <div className='name mark'>Степень размытия</div>
+        <div className="levers">
+          <div className="blur_degree">
+            <div className="name mark">Степень размытия</div>
             <Slider></Slider>
           </div>
-          <div className='blur_color'>
-            <div className='name mark'>Цвет размытия</div>
+          <div className="blur_color">
+            <div className="name mark">Цвет размытия</div>
             <BlurColorPicker />
           </div>
-          <div className='additional_effects'>
-            <div className='name mark'>Дополнительные эффекты</div>
-            <div className='effects_wrapper'>
-              <button className='effect'></button>
-              <button className='effect'></button>
-              <button className='effect'></button>
-              <button className='effect'></button>
-              <button className='effect'></button>
-              <button className='effect'></button>
-              <button className='effect'></button>
+          <div className="additional_effects">
+            <div className="name mark">Дополнительные эффекты</div>
+            <div className="effects_wrapper">
+              <button className="effect"></button>
+              <button className="effect"></button>
+              <button className="effect"></button>
+              <button className="effect"></button>
+              <button className="effect"></button>
+              <button className="effect"></button>
+              <button className="effect"></button>
             </div>
           </div>
-          <div className='effects_color'>
-            <div className='name mark'>Цвет эффекта</div>
+          <div className="effects_color">
+            <div className="name mark">Цвет эффекта</div>
             <div>
-              <input id='colorpicker' type='color' />
+              <input id="colorpicker" type="color" />
             </div>
           </div>
-          <div className='hover_behavior'>
-            <div className='name mark'>Поведение при наведении</div>
-            <div className='behavior_wrapper'>
-              <button className='behavior btn_black'>Нет</button>
-              <button className='behavior btn_black'>Размытие</button>
-              <button className='behavior btn_black'>Зум</button>
-              <button className='behavior btn_black'>Размытие</button>
-              <button className='behavior btn_black'>Зум</button>
+          <div className="hover_behavior">
+            <div className="name mark">Поведение при наведении</div>
+            <div className="behavior_wrapper">
+              <button className="behavior btn_black">Нет</button>
+              <button className="behavior btn_black">Размытие</button>
+              <button className="behavior btn_black">Зум</button>
+              <button className="behavior btn_black">Размытие</button>
+              <button className="behavior btn_black">Зум</button>
             </div>
           </div>
-          <div className='show_options'>
-            <div className='show_word'>
-              <div className='name mark'>Показать слово</div>
-              <div className='show_toggle' id='show_toggle'>
-                <input type='checkbox' />
+          <div className="show_options">
+            <div className="show_word">
+              <div className="name mark">Показать слово</div>
+              <div className="show_toggle" id="show_toggle">
+                <input type="checkbox" />
                 <span></span>
               </div>
             </div>
-            <div className='show_category'>
-              <div className='name mark'>Показать категорию</div>
-              <div className='show_toggle' id='show_toggle'>
-                <input type='checkbox' />
+            <div className="show_category">
+              <div className="name mark">Показать категорию</div>
+              <div className="show_toggle" id="show_toggle">
+                <input type="checkbox" />
                 <span></span>
               </div>
             </div>

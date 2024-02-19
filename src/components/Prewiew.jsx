@@ -5,13 +5,15 @@ export const Prewiew = () => {
   const ref = useRef(null)
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener((event) => {
-      if (event.blur_settings) setSettings(event.blur_settings.newValue)
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        if (event.blur_settings) setSettings(event.blur_settings.newValue)
 
-      return () => {
-        chrome.storage.sync.onChanged.removeListener(storageListener)
+        return () => {
+          chrome.storage.sync.onChanged.removeListener(storageListener)
+        }
       }
-    })
+    )
   }, [])
 
   useEffect(() => {
@@ -41,10 +43,11 @@ export const Prewiew = () => {
   }
 
   return (
-    <div className='preview' ref={ref}>
-      <div className='main_text'>
-        ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается лучше, чем ожидалось, заявила первый
-        заместитель главы Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
+    <div className="preview" ref={ref}>
+      <div className="main_text">
+        ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается лучше,
+        чем ожидалось, заявила первый заместитель главы Международного валютного
+        фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
       </div>
     </div>
   )

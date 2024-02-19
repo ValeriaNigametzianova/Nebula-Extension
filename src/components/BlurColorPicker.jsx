@@ -6,7 +6,10 @@ export const BlurColorPicker = () => {
   useEffect(() => {
     chrome.storage.sync
       .get(['blur_settings'])
-      .then(({ blur_settings }) => blur_settings.blur_color && setBlurColor(blur_settings.blur_color))
+      .then(
+        ({ blur_settings }) =>
+          blur_settings.blur_color && setBlurColor(blur_settings.blur_color)
+      )
   }, [])
 
   useEffect(() => {
@@ -14,11 +17,20 @@ export const BlurColorPicker = () => {
       chrome.storage.sync
         .get(['blur_settings'])
         .then(({ blur_settings }) =>
-          chrome.storage.sync.set({ blur_settings: { ...blur_settings, blur_color: blurColor } })
+          chrome.storage.sync.set({
+            blur_settings: { ...blur_settings, blur_color: blurColor },
+          })
         )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
   }, [blurColor])
 
-  return <input id='colorpicker' type='color' value={blurColor} onChange={(e) => setBlurColor(e.target.value)} />
+  return (
+    <input
+      id="colorpicker"
+      type="color"
+      value={blurColor}
+      onChange={(e) => setBlurColor(e.target.value)}
+    />
+  )
 }
