@@ -1,18 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dropdown } from '../components/Dropdown'
 
 export const Popup = () => {
   const [category, setCategory] = useState('')
+  const [value, setValue] = useState(false)
+  useEffect(() => {
+    chrome.storage.sync.get(['status']).then(({ status }) => {
+      status && setValue(status)
+    })
+  }, [])
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      chrome.storage.sync.set({
+        status: value,
+      })
+    }, 200)
+    return () => clearTimeout(delayDebounceFn)
+  }, [value])
+
   return (
     <div className="body">
       <h1 className="title">Небула</h1>
       <div className="toggle">
-        <div main-text>выкл</div>
+        <div className="main-text">выкл</div>
         <div className="toggle-btn" id="_1st_toggle-btn">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={value}
+            onChange={(e) => {
+              setValue(e.target.checked)
+              console.log(e.target.checked, 'value')
+            }}
+          />
           <span></span>
         </div>
-        <div main-text>вкл</div>
+        <div className="main-text">вкл</div>
       </div>
       <div className="links">
         <div

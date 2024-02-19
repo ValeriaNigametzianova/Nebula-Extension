@@ -4,10 +4,14 @@ import { Scripts } from './pages/Scripts'
 
 const root = document.createElement('div')
 root.id = 'crx-root'
-document.body.appendChild(root)
+document.body.prepend(root)
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <Scripts />
+    <Scripts
+      style={{
+        display: 'flex',
+      }}
+    />
   </React.StrictMode>
 )
