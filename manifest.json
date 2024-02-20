@@ -8,9 +8,8 @@
   },
   "content_scripts": [
     {
-      "js": ["src/content.jsx"],
       "matches": ["<all_urls>"],
-      "exclude_globs": []
+      "js": ["src/content.jsx"]
     }
   ],
   "permissions": ["tabs", "storage"],
