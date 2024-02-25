@@ -43,11 +43,13 @@ export const Prewiew = () => {
   }
 
   return (
-    <div className="preview" ref={ref}>
-      <div className="main_text">
-        ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается лучше,
-        чем ожидалось, заявила первый заместитель главы Международного валютного
-        фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
+    <div style={{ overflow: 'hidden', display: 'flex' }}>
+      <div className="preview" ref={ref}>
+        <div className="main_text">
+          ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается
+          лучше, чем ожидалось, заявила первый заместитель главы Международного
+          валютного фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
+        </div>
       </div>
     </div>
   )

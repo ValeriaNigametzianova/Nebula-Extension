@@ -175,7 +175,6 @@ body {
   height: 150px;
   background: var(--Dark-grey, #aab1bb);
   flex-shrink: 0;
-  margin-bottom: 60px;
   filter: blur(attr(value));
   background-color: attr(value);
 }
@@ -184,6 +183,7 @@ body {
   display: grid;
   grid-template-columns: 386px 63px 105px;
   row-gap: 60px;
+  margin-top: 60px;
 }
 
 .blur_degree {
