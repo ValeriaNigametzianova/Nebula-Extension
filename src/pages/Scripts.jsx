@@ -10,25 +10,75 @@ export const Scripts = () => {
     apiKey: import.meta.env.VITE_API_KEY,
     dangerouslyAllowBrowser: true,
   })
+  let resultsHMTL = []
+
   useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setSystemStatus(status)
-      console.log(status, 'status')
     })
   }, [])
+
+  const hideText = () => {
+    const parsedHTML = parseHTML()
+    for (let key in parsedHTML) {
+      parsedHTML[key] = getRandomAIAnswer()
+      const node = document.evaluate(
+        `/${key}`,
+        document.body,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      ).singleNodeValue
+      if (parsedHTML[key]) node.style.backgroundColor = `#52dc02`
+      else node.style.backgroundColor = `#ff4a60`
+    }
+  }
 
   const getRandomAIAnswer = () => {
     return researchTitles[Math.floor(Math.random() * researchTitles.length)]
   }
 
-  const simulateAI = () => {
-    const researchTitle = getRandomAIAnswer()
-    console.log(researchTitle, 'researchTitle')
+  const parseHTML = () => {
+    const parsedHTML = {}
+    const headings = document.evaluate(
+      '//*[contains(text(), "Какаши")]',
+      // '//*/text()[contains(., "Какаши")]',
+      document.body,
+      null,
+      XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+      null
+    )
+    for (let i = 0, length = headings.snapshotLength; i < length; ++i) {
+      resultsHMTL.push(headings.snapshotItem(i))
+      const xpath = getElementXPath(headings.snapshotItem(i))
+      parsedHTML[xpath] = headings.snapshotItem(i).textContent
+    }
+    return parsedHTML
   }
 
-  //   for (let i = 0; i < elems.length; i++) {
-  //     if (elems[i].innerText) elems[i].style.backgroundColor = `#52dc02`
-  //   }
+  const getElementXPath = (element) => {
+    let fullPath = ''
+    for (
+      ;
+      element && element.nodeType == Node.ELEMENT_NODE;
+      element = element.parentNode
+    ) {
+      let index = 0
+      for (
+        let sibling = element.previousSibling;
+        sibling;
+        sibling = sibling.previousSibling
+      ) {
+        if (sibling.nodeType == Node.DOCUMENT_TYPE_NODE) continue
+        if (sibling.nodeName == element.nodeName) ++index
+      }
+      let tagName = element.nodeName.toLowerCase()
+      let pathIndex = index ? '[' + (index + 1) + ']' : ''
+      fullPath = '/' + tagName + pathIndex + fullPath
+    }
+    return fullPath
+  }
+
   const sendPrompts = async () => {
     // const image = await openai.images.generate({ model: 'dall-e-2', prompt: 'A cute baby sea otter' })
     const text = await openai.chat.completions.create({
@@ -46,7 +96,6 @@ export const Scripts = () => {
     console.log(text)
   }
 
-  console.log(elems, 'elems')
   for (let i = 0; i < images.length; i++) {
     images[i].style.filter = `blur(50px)`
   }
@@ -70,7 +119,7 @@ export const Scripts = () => {
           fontSize: '20px',
           marginTop: '20px',
         }}
-        onClick={simulateAI}
+        onClick={hideText}
       >
         AHAHAHAHAHHA
       </button>
