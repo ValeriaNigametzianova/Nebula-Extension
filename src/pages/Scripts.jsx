@@ -6,22 +6,50 @@ export const Scripts = () => {
   const elems = document.body.getElementsByTagName('*')
   const images = document.body.getElementsByTagName('img')
   const researchTitles = [true, false]
+  let resultsHMTL = []
+  const [blurColor, setBlurColor] = useState('')
+  const [blurDegree, setBlurDegree] = useState('')
+  const [wordList, setWordList] = useState(null)
   const openai = new OpenAI({
     apiKey: import.meta.env.VITE_API_KEY,
     dangerouslyAllowBrowser: true,
   })
-  let resultsHMTL = []
 
   useEffect(() => {
-    chrome.storage.sync.get(['status']).then(({ status }) => {
-      status && setSystemStatus(status)
+    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
+      setBlurColor(blur_settings.blur_color)
+      setBlurDegree(blur_settings.blur_degree)
     })
   }, [])
 
-  const hideText = () => {
+  useEffect(() => {
+    chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
+      setWordList(word_list)
+    })
+  }, [])
+
+  const getAIResponse = async () => {
     const parsedHTML = parseHTML()
-    for (let key in parsedHTML) {
-      parsedHTML[key] = getRandomAIAnswer()
+    const content = `Your task is to identify all spoilers in the text. You get two objects.The first object contains key-value pairs, where the key is the word to be blocked and the value is an array of categories in the context of which the word can be used. The second object contains key-value pairs, in which the key is an identifier and the value is the text in which to look for spoilers. It is necessary to read all texts from the second object and match them with words from the first object. If the text contains a spoiler in the right context, it is true. If the text does not contain spoilers, it is false. As a result, only the object with the key being the identifier from the second object and the value being true or false depending on the spoilers found in the text. The first object: ${JSON.stringify(wordList)}. The second object: ${JSON.stringify(parsedHTML)}`
+    const response = await openai.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content,
+        },
+      ],
+      model: 'gpt-3.5-turbo',
+    })
+    // for (let key in parsedHTML) {
+    //   AIResponse[key] = getRandomAIAnswer()
+    // }
+    const AIResponse = JSON.parse(response.choices[0].message.content)
+    return AIResponse
+  }
+
+  const hideText = async () => {
+    const AIResponse = await getAIResponse()
+    for (let key in AIResponse) {
       const node = document.evaluate(
         `/${key}`,
         document.body,
@@ -29,8 +57,14 @@ export const Scripts = () => {
         XPathResult.FIRST_ORDERED_NODE_TYPE,
         null
       ).singleNodeValue
-      if (parsedHTML[key]) node.style.backgroundColor = `#52dc02`
-      else node.style.backgroundColor = `#ff4a60`
+      const oldParent = node.parentNode
+      const wrapper = document.createElement('div')
+      wrapper.setAttribute('class', 'nebula_mask_wrapper')
+      wrapper.style.backgroundColor = blurColor
+      wrapper.style.filter = `blur(${blurDegree / 8}px)`
+      oldParent.style.overflow = `hidden`
+      oldParent.replaceChild(wrapper, node)
+      wrapper.appendChild(node)
     }
   }
 
@@ -79,25 +113,8 @@ export const Scripts = () => {
     return fullPath
   }
 
-  const sendPrompts = async () => {
-    // const image = await openai.images.generate({ model: 'dall-e-2', prompt: 'A cute baby sea otter' })
-    const text = await openai.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: `
-        Следующий текст содержит спойлеры к Наруто? Ответь только true или false.
-
-        Однако Какаши, выбранный членом альянса пяти деревень ниндзя, едва не становится Шестым Хокаге (хоть, по собственному признанию, не стремился к этому титулу и считает, что есть люди, более достойные его), однако, перед его официальным назначением предыдущий правитель, Пятая Хокаге Цунаде приходит в себя.`,
-        },
-      ],
-      model: 'gpt-3.5-turbo',
-    })
-    console.log(text)
-  }
-
   for (let i = 0; i < images.length; i++) {
-    images[i].style.filter = `blur(50px)`
+    images[i].style.filter = `blur(25px)`
   }
 
   return (
@@ -109,19 +126,25 @@ export const Scripts = () => {
       }}
     >
       <button
+        className="btn_red"
         style={{
           width: '300px',
           padding: '10px 25px',
-          color: 'red',
-          backgroundColor: 'black',
+          color: '#fff',
+          backgroundColor: '#f05365',
           cursor: 'pointer',
           fontFamily: 'Geologica',
           fontSize: '20px',
           marginTop: '20px',
+          marginBottom: '20px',
+          border: '0px',
+          borderRadius: '2px',
         }}
-        onClick={hideText}
+        onClick={() => {
+          hideText()
+        }}
       >
-        AHAHAHAHAHHA
+        Замаскировать контент
       </button>
     </div>
   )
