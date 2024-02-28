@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export const Dropdown = ({ state, setState, className }) => {
+export const Dropdown = ({ state, setState }) => {
+  const removeTags = (indexToRemove) => {
+    setState([...state.filter((_, index) => index !== indexToRemove)])
+  }
+  const addTags = (event) => {
+    if (event.target.value !== '') {
+      setState([...state, event.target.value])
+      // props.selectedTags([...tags, event.target.value])
+      event.target.value = ''
+    }
+  }
   return (
-    <select
-      value={state}
-      className={className}
-      onChange={(e) => setState(e.target.value)}
-    >
-      <option value="">Категория</option>
-      <option value="Фильмы">Фильмы</option>
-      <option value="Игры">Игры</option>
-      <option value="Новости">Новости</option>
-      <option value="Люди">Люди</option>
-      <option>Добавить категорию</option>
-    </select>
+    <div className="tags-input main-text">
+      <ul id="tags">
+        {state &&
+          state.map((tag, index) => (
+            <li key={index} className="tag">
+              <span className="tag-title">{tag}</span>
+              <span
+                className="tag-close-icon"
+                onClick={() => removeTags(index)}
+              >
+                x
+              </span>
+            </li>
+          ))}
+      </ul>
+      <input
+        type="text"
+        className="input_page"
+        onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
+        placeholder="Добавить тэг - Enter"
+      />
+    </div>
   )
 }

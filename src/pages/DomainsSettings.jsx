@@ -101,7 +101,7 @@ const DomainsSettings = () => {
         <input
           value={domainName}
           onChange={(e) => setDomainName(e.target.value)}
-          className="input_page main-text"
+          className="input_page_right main-text"
           placeholder="Можете дать название"
         ></input>
         <button

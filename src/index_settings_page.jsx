@@ -7,6 +7,7 @@ import './css/global/input.css'
 import './css/global/toggle.css'
 import './css/global/buttons.css'
 import './css/pages/page.css'
+import './css/global/dropdown.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

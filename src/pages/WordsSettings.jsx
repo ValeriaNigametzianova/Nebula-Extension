@@ -4,7 +4,7 @@ import { Dropdown } from '../components/Dropdown'
 
 const WordsSettings = () => {
   const [word, setWord] = useState('')
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState([])
   const [word_list, setWordList] = useState(null)
 
   useEffect(() => {
@@ -34,14 +34,17 @@ const WordsSettings = () => {
       console.log('word_list', word_list)
       const list = word_list ? word_list[word] : null
       if (list) {
-        if (list.includes(category)) return
-        list.push(category)
+        category.forEach((category) => {
+          if (list.includes(category)) return
+          console.log('return is working')
+          list.push(category)
+        })
         await chrome.storage.sync.set({
           word_list: { ...word_list, [word]: list },
         })
       } else
         await chrome.storage.sync.set({
-          word_list: { ...word_list, [word]: [category] },
+          word_list: { ...word_list, [word]: category },
         })
     }
   }
@@ -55,11 +58,7 @@ const WordsSettings = () => {
           className="input_page main-text"
           placeholder="Введите слово или фразу"
         ></input>
-        <Dropdown
-          state={category}
-          setState={setCategory}
-          className="dropdown_page main-text"
-        />
+        <Dropdown state={category} setState={setCategory} />
         <button
           className="button-text add_button_page btn_red"
           onClick={addWord}
