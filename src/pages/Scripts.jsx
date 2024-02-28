@@ -1,5 +1,6 @@
 import OpenAI from 'openai'
 import React, { useEffect, useState } from 'react'
+import '../css/global/spoiler.css'
 
 export const Scripts = () => {
   const [systemStatus, setSystemStatus] = useState(false)
@@ -47,8 +48,13 @@ export const Scripts = () => {
     return AIResponse
   }
 
+  const str =
+    '{\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[6]/td[2]/a": false,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[10]/td[2]/a": true,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[41]/td[2]/a": true,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[102]/td[2]/a": true\n}'
+
   const hideText = async () => {
-    const AIResponse = await getAIResponse()
+    const AIResponse = emulateAIAnswer()
+    console.log('ai', AIResponse)
+    // const AIResponse = await getAIResponse()
     for (let key in AIResponse) {
       const node = document.evaluate(
         `/${key}`,
@@ -63,13 +69,57 @@ export const Scripts = () => {
       wrapper.style.backgroundColor = blurColor
       wrapper.style.filter = `blur(${blurDegree / 8}px)`
       oldParent.style.overflow = `hidden`
+      oldParent.style.position = `relative`
       oldParent.replaceChild(wrapper, node)
       wrapper.appendChild(node)
+      console.log(1, wrapper.style)
+      console.log(2, wrapper.offsetHeight)
+
+      let spoiler = document.createElement('div')
+      spoiler.setAttribute('class', 'spoiler')
+      oldParent.appendChild(spoiler)
+      for (let i = 0; i < 500; i++) {
+        dots(spoiler)
+      }
     }
   }
 
-  const getRandomAIAnswer = () => {
-    return researchTitles[Math.floor(Math.random() * researchTitles.length)]
+  const dots = (spoiler) => {
+    let dot = document.createElement('div')
+    dot.className = 'dot'
+    dot.style.top = spoiler.offsetHeight * Math.random() + 'px'
+    dot.style.left = spoiler.offsetWidth * Math.random() + 'px'
+    let size = Math.random() * 0.5
+    dot.style.height = size + 'mm'
+    dot.style.width = size + 'mm'
+    // dot.animate(
+    //   [
+    //     { transform: `translate( ${size * Math.random(0.5)}px` },
+    //     { transform: `translate( ${size * Math.random(0.5)}px` },
+    //   ],
+    //   {
+    //     duration: 500,
+    //     iterations: Infinity,
+    //   }
+    // )
+
+    // dot.style.transform =
+    //   `translate(` +
+    //   size * Math.random(0.5) +
+    //   'px, ' +
+    //   size * Math.random(0.5) +
+    //   'px)'
+    console.log('aaaaaaaaaaaaaaaaaaaa', dot.style.transform)
+    spoiler.appendChild(dot)
+  }
+
+  const emulateAIAnswer = () => {
+    const parsedHTML = parseHTML()
+    for (let el in parsedHTML) {
+      el = Math.random() < 0.5
+    }
+    return parsedHTML
+    // return researchTitles[Math.floor(Math.random() * researchTitles.length)]
   }
 
   const parseHTML = () => {
