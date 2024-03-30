@@ -32,6 +32,8 @@ export const Scripts = () => {
   const getAIResponse = async () => {
     const parsedHTML = parseHTML()
     const content = `Your task is to identify all spoilers in the text. You get two objects.The first object contains key-value pairs, where the key is the word to be blocked and the value is an array of categories in the context of which the word can be used. The second object contains key-value pairs, in which the key is an identifier and the value is the text in which to look for spoilers. It is necessary to read all texts from the second object and match them with words from the first object. If the text contains a spoiler in the right context, it is true. If the text does not contain spoilers, it is false. As a result, only the object with the key being the identifier from the second object and the value being true or false depending on the spoilers found in the text. The first object: ${JSON.stringify(wordList)}. The second object: ${JSON.stringify(parsedHTML)}`
+    console.log(JSON.stringify(wordList), 'JSON.stringify(wordList)')
+    console.log(JSON.stringify(parsedHTML), 'JSON.stringify(parsedHTML)')
     const response = await openai.chat.completions.create({
       messages: [
         {
@@ -53,7 +55,6 @@ export const Scripts = () => {
 
   const hideText = async () => {
     const AIResponse = emulateAIAnswer()
-    console.log('ai', AIResponse)
     // const AIResponse = await getAIResponse()
     for (let key in AIResponse) {
       const node = document.evaluate(
@@ -65,52 +66,29 @@ export const Scripts = () => {
       ).singleNodeValue
       const oldParent = node.parentNode
       const wrapper = document.createElement('div')
-      wrapper.setAttribute('class', 'nebula_mask_wrapper')
-      wrapper.style.backgroundColor = blurColor
-      wrapper.style.filter = `blur(${blurDegree / 8}px)`
-      oldParent.style.overflow = `hidden`
-      oldParent.style.position = `relative`
-      oldParent.replaceChild(wrapper, node)
-      wrapper.appendChild(node)
-      console.log(1, wrapper.style)
-      console.log(2, wrapper.offsetHeight)
+      if (oldParent) {
+        const mask_wrapper = document.createElement('div')
+        mask_wrapper.setAttribute('class', 'nebula_mask_wrapper')
+        mask_wrapper.style.backgroundColor = blurColor
+        mask_wrapper.style.filter = `blur(${blurDegree / 8}px)`
+        wrapper.style.overflow = `hidden`
+        wrapper.style.position = `relative`
+        // oldParent.style.overflow = `hidden`
+        // oldParent.style.position = `relative`
+        oldParent.replaceChild(wrapper, node)
+        wrapper.appendChild(mask_wrapper)
+        mask_wrapper.appendChild(node)
+      } else {
+        return
+      }
 
       let spoiler = document.createElement('div')
       spoiler.setAttribute('class', 'spoiler')
-      oldParent.appendChild(spoiler)
+      wrapper.appendChild(spoiler)
       for (let i = 0; i < 500; i++) {
         dots(spoiler)
       }
     }
-  }
-
-  const dots = (spoiler) => {
-    let dot = document.createElement('div')
-    dot.className = 'dot'
-    dot.style.top = spoiler.offsetHeight * Math.random() + 'px'
-    dot.style.left = spoiler.offsetWidth * Math.random() + 'px'
-    let size = Math.random() * 0.5
-    dot.style.height = size + 'mm'
-    dot.style.width = size + 'mm'
-    // dot.animate(
-    //   [
-    //     { transform: `translate( ${size * Math.random(0.5)}px` },
-    //     { transform: `translate( ${size * Math.random(0.5)}px` },
-    //   ],
-    //   {
-    //     duration: 500,
-    //     iterations: Infinity,
-    //   }
-    // )
-
-    // dot.style.transform =
-    //   `translate(` +
-    //   size * Math.random(0.5) +
-    //   'px, ' +
-    //   size * Math.random(0.5) +
-    //   'px)'
-    console.log('aaaaaaaaaaaaaaaaaaaa', dot.style.transform)
-    spoiler.appendChild(dot)
   }
 
   const emulateAIAnswer = () => {
@@ -124,18 +102,23 @@ export const Scripts = () => {
 
   const parseHTML = () => {
     const parsedHTML = {}
-    const headings = document.evaluate(
-      '//*[contains(text(), "Какаши")]',
-      // '//*/text()[contains(., "Какаши")]',
-      document.body,
-      null,
-      XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
-      null
-    )
-    for (let i = 0, length = headings.snapshotLength; i < length; ++i) {
-      resultsHMTL.push(headings.snapshotItem(i))
-      const xpath = getElementXPath(headings.snapshotItem(i))
-      parsedHTML[xpath] = headings.snapshotItem(i).textContent
+    for (let key in wordList) {
+      const headings = document.evaluate(
+        // '//*/[normalize-space(text(), )',
+        // '//*[string-length(normalize-space(text())) > 0]',
+        `//*[contains(text(), "${key}")]`,
+        // '//*/text()[contains(., "Какаши")]',
+        document.body,
+        null,
+        XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
+        null
+      )
+
+      for (let i = 0, length = headings.snapshotLength; i < length; ++i) {
+        resultsHMTL.push(headings.snapshotItem(i))
+        const xpath = getElementXPath(headings.snapshotItem(i))
+        if (xpath) parsedHTML[xpath] = headings.snapshotItem(i).textContent
+      }
     }
     return parsedHTML
   }
@@ -147,6 +130,9 @@ export const Scripts = () => {
       element && element.nodeType == Node.ELEMENT_NODE;
       element = element.parentNode
     ) {
+      if (element.nodeName === 'SCRIPT') {
+        return
+      }
       let index = 0
       for (
         let sibling = element.previousSibling;
@@ -163,9 +149,19 @@ export const Scripts = () => {
     return fullPath
   }
 
-  for (let i = 0; i < images.length; i++) {
-    images[i].style.filter = `blur(25px)`
+  const dots = (spoiler) => {
+    let dot = document.createElement('div')
+    dot.className = 'dot'
+    dot.style.top = spoiler.offsetHeight * Math.random() + 'px'
+    dot.style.left = spoiler.offsetWidth * Math.random() + 'px'
+    let size = Math.random() * 0.5
+    dot.style.height = size + 'mm'
+    dot.style.width = size + 'mm'
+    spoiler.appendChild(dot)
   }
+  // for (let i = 0; i < images.length; i++) {
+  //   images[i].style.filter = `blur(25px)`
+  // }
 
   return (
     <div
