@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const Dropdown = ({ state, setState }) => {
+export const Dropdown = ({ state, setState, className }) => {
   const removeTags = (indexToRemove) => {
     setState([...state.filter((_, index) => index !== indexToRemove)])
   }
@@ -12,14 +12,20 @@ export const Dropdown = ({ state, setState }) => {
     }
   }
   return (
-    <div className="tags-input main-text">
+    <div className="tags_input main_text">
+      <input
+        type="text"
+        className={className}
+        onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
+        placeholder="Добавить тэг - Enter"
+      />
       <ul id="tags">
         {state &&
           state.map((tag, index) => (
             <li key={index} className="tag">
               <span className="tag-title">{tag}</span>
               <span
-                className="tag-close-icon"
+                className="tag_close_icon"
                 onClick={() => removeTags(index)}
               >
                 x
@@ -27,12 +33,6 @@ export const Dropdown = ({ state, setState }) => {
             </li>
           ))}
       </ul>
-      <input
-        type="text"
-        className="input_page"
-        onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
-        placeholder="Добавить тэг - Enter"
-      />
     </div>
   )
 }

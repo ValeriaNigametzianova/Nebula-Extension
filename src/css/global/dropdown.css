@@ -1,6 +1,8 @@
-.tags-input {
+.tags_input {
   display: flex;
+  flex-direction: column;
   grid-column: 3 / 4;
+  gap: 20px;
   /* border-bottom: 1px solid var(--Black, #02020b); */
 
   /* input {
@@ -36,14 +38,16 @@
   margin: 0 8px 8px 0;
   background: var(--Black, #02020b);
 
-  .tag-close-icon {
+  > .tag_close_icon {
     display: block;
     width: 12px;
     height: 12px;
     text-align: center;
     font-size: 10px;
+    line-height: 100%;
+    font-weight: 700;
     margin-left: 8px;
-    color: #0052cc;
+    color: #000000;
     border-radius: 50%;
     background: #fff;
     cursor: pointer;
@@ -51,7 +55,7 @@
 }
 
 @media screen and (max-width: 567px) {
-  .tags-input {
+  .tags_input {
     width: calc(100vw - 32px);
   }
 }

@@ -66,6 +66,7 @@ body {
   display: grid;
   margin-bottom: 150px;
   grid-template-columns: 306px 50px 306px 60px 168px;
+  align-items: start;
 }
 
 .input_page {

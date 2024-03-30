@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Dropdown } from '../components/Dropdown'
 
 export const Popup = () => {
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState([])
   const [value, setValue] = useState(false)
+  const [word, setWord] = useState('')
+  const [word_list, setWordList] = useState(null)
+
   useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setValue(status)
@@ -18,6 +21,54 @@ export const Popup = () => {
     }, 200)
     return () => clearTimeout(delayDebounceFn)
   }, [value])
+
+  useEffect(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        if (event.word_list) setWordList(event.word_list.newValue)
+        chrome.storage.sync.get(null, (allkeys) => {
+          console.log('allkeys: ', allkeys)
+        })
+        return () => {
+          chrome.storage.sync.onChanged.removeListener(storageListener)
+        }
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
+      setWordList(word_list)
+      console.log('word_list', word_list)
+    })
+  }, [])
+
+  const addWord = async () => {
+    console.log(1)
+    if (word && category) {
+      console.log(2)
+      const { word_list } = await chrome.storage.sync.get(['word_list'])
+      console.log('word_list', word_list)
+      const list = word_list ? word_list[word] : null
+      if (list) {
+        category.forEach((category) => {
+          if (list.includes(category)) return
+          console.log('return is working')
+          list.push(category)
+        })
+        await chrome.storage.sync.set({
+          word_list: { ...word_list, [word]: list },
+        })
+        console.log('push word')
+      } else {
+        await chrome.storage.sync.set({
+          word_list: { ...word_list, [word]: category },
+        })
+        console.log('push category')
+      }
+    }
+    setCategory([])
+  }
 
   return (
     <div className="body">
@@ -54,17 +105,24 @@ export const Popup = () => {
       <div className="add_word">
         <div className="inputs">
           <input
-            type="text popup-text"
+            value={word}
+            onChange={(e) => setWord(e.target.value)}
             className="input_popup"
             placeholder="Введите слово"
           />
           <Dropdown
             state={category}
             setState={setCategory}
-            className="dropdown_popup"
+            className="dropdown_popup input_popup"
           />
         </div>
-        <button className="btn_red add_button_popup popup-button-text">
+        <button
+          className="btn_red add_button_popup popup-button-text"
+          onClick={() => {
+            addWord
+            console.log(1111)
+          }}
+        >
           Добавить
         </button>
       </div>

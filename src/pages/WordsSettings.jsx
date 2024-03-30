@@ -24,19 +24,16 @@ const WordsSettings = () => {
   useEffect(() => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
       setWordList(word_list)
-      console.log('word_list', word_list)
     })
   }, [])
 
   const addWord = async () => {
     if (word && category) {
       const { word_list } = await chrome.storage.sync.get(['word_list'])
-      console.log('word_list', word_list)
       const list = word_list ? word_list[word] : null
       if (list) {
         category.forEach((category) => {
           if (list.includes(category)) return
-          console.log('return is working')
           list.push(category)
         })
         await chrome.storage.sync.set({
@@ -47,6 +44,7 @@ const WordsSettings = () => {
           word_list: { ...word_list, [word]: category },
         })
     }
+    setCategory([])
   }
 
   return (
@@ -58,7 +56,11 @@ const WordsSettings = () => {
           className="input_page main-text"
           placeholder="Введите слово или фразу"
         ></input>
-        <Dropdown state={category} setState={setCategory} />
+        <Dropdown
+          state={category}
+          setState={setCategory}
+          className="input_page"
+        />
         <button
           className="button-text add_button_page btn_red"
           onClick={addWord}
@@ -68,10 +70,8 @@ const WordsSettings = () => {
         <button
           className="button-text add_button_page btn_red"
           onClick={async (e) => {
-            console.log(1)
             const keys = Object.keys(word_list)
             await chrome.storage.sync.remove(['word_list'])
-            console.log(2, keys)
           }}
         >
           Удалить все
