@@ -1,6 +1,10 @@
+import ReactDOM from 'react-dom/client'
 import OpenAI from 'openai'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../css/global/spoiler.css'
+import '../css/global/buttons.css'
+import ShowContentButton from '../components/ShowContentButton'
+import { HiddenBlock } from '../components/content/HiddenBlock'
 
 export const Scripts = () => {
   const [systemStatus, setSystemStatus] = useState(false)
@@ -8,20 +12,14 @@ export const Scripts = () => {
   const images = document.body.getElementsByTagName('img')
   const researchTitles = [true, false]
   let resultsHMTL = []
-  const [blurColor, setBlurColor] = useState('')
-  const [blurDegree, setBlurDegree] = useState('')
   const [wordList, setWordList] = useState(null)
+  const mask_style = ''
   const openai = new OpenAI({
     apiKey: import.meta.env.VITE_API_KEY,
     dangerouslyAllowBrowser: true,
   })
 
-  useEffect(() => {
-    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
-      setBlurColor(blur_settings.blur_color)
-      setBlurDegree(blur_settings.blur_degree)
-    })
-  }, [])
+  const first = useRef(<ShowContentButton />)
 
   useEffect(() => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
@@ -43,15 +41,9 @@ export const Scripts = () => {
       ],
       model: 'gpt-3.5-turbo',
     })
-    // for (let key in parsedHTML) {
-    //   AIResponse[key] = getRandomAIAnswer()
-    // }
     const AIResponse = JSON.parse(response.choices[0].message.content)
     return AIResponse
   }
-
-  const str =
-    '{\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[6]/td[2]/a": false,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[10]/td[2]/a": true,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[41]/td[2]/a": true,\n  "/html/body/div[2]/section[2]/div[4]/div[2]/div[3]/div[2]/div/center[2]/table/tbody/tr[102]/td[2]/a": true\n}'
 
   const hideText = async () => {
     const AIResponse = emulateAIAnswer()
@@ -65,28 +57,22 @@ export const Scripts = () => {
         null
       ).singleNodeValue
       const oldParent = node.parentNode
+
+      // создаем подкорень Реакта
       const wrapper = document.createElement('div')
+      wrapper.setAttribute('class', 'hidden_block_wrapper')
+      wrapper.id = 'root ' + key
+      oldParent.replaceChild(wrapper, node)
+      // oldParent.append(wrapper)
+
       if (oldParent) {
-        const mask_wrapper = document.createElement('div')
-        mask_wrapper.setAttribute('class', 'nebula_mask_wrapper')
-        mask_wrapper.style.backgroundColor = blurColor
-        mask_wrapper.style.filter = `blur(${blurDegree / 8}px)`
-        wrapper.style.overflow = `hidden`
-        wrapper.style.position = `relative`
-        // oldParent.style.overflow = `hidden`
-        // oldParent.style.position = `relative`
-        oldParent.replaceChild(wrapper, node)
-        wrapper.appendChild(mask_wrapper)
-        mask_wrapper.appendChild(node)
+        ReactDOM.createRoot(wrapper).render(
+          <React.StrictMode>
+            <HiddenBlock node={node} />
+          </React.StrictMode>
+        )
       } else {
         return
-      }
-
-      let spoiler = document.createElement('div')
-      spoiler.setAttribute('class', 'spoiler')
-      wrapper.appendChild(spoiler)
-      for (let i = 0; i < 500; i++) {
-        dots(spoiler)
       }
     }
   }
@@ -97,14 +83,12 @@ export const Scripts = () => {
       el = Math.random() < 0.5
     }
     return parsedHTML
-    // return researchTitles[Math.floor(Math.random() * researchTitles.length)]
   }
 
   const parseHTML = () => {
     const parsedHTML = {}
     for (let key in wordList) {
       const headings = document.evaluate(
-        // '//*/[normalize-space(text(), )',
         // '//*[string-length(normalize-space(text())) > 0]',
         `//*[contains(text(), "${key}")]`,
         // '//*/text()[contains(., "Какаши")]',
@@ -149,16 +133,6 @@ export const Scripts = () => {
     return fullPath
   }
 
-  const dots = (spoiler) => {
-    let dot = document.createElement('div')
-    dot.className = 'dot'
-    dot.style.top = spoiler.offsetHeight * Math.random() + 'px'
-    dot.style.left = spoiler.offsetWidth * Math.random() + 'px'
-    let size = Math.random() * 0.5
-    dot.style.height = size + 'mm'
-    dot.style.width = size + 'mm'
-    spoiler.appendChild(dot)
-  }
   // for (let i = 0; i < images.length; i++) {
   //   images[i].style.filter = `blur(25px)`
   // }

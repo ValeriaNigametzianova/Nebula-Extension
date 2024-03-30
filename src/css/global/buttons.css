@@ -2,6 +2,9 @@
   cursor: pointer;
 }
 
+.btn_link {
+}
+
 .btn_link:hover {
   color: var(--Dark-grey);
 }
@@ -51,4 +54,10 @@
   color: var(--Black, #02020b);
   border: 1px solid var(--Black, #02020b);
   padding: 10px;
+}
+
+.btn_show_content {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }

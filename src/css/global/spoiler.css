@@ -14,13 +14,18 @@
   /* animation-name: dots; */
   /* animation-iteration-count: 0.5s infinite; */
 }
-.nebula_mask_wrapper:hover .spoiler {
-  max-width: 0;
-  background: transparent;
+.hidden_block_wrapper {
+  position: relative;
+  overflow: hidden;
 }
 
 .nebula_mask_wrapper {
   position: relative;
+}
+
+.nebula_mask_wrapper:hover .spoiler {
+  max-width: 0;
+  background: transparent;
 }
 
 .spoiler {
