@@ -4,11 +4,37 @@ import { Prewiew } from '../components/Prewiew'
 import { BlurColorPicker } from '../components/BlurColorPicker'
 import WordsSettings from './WordsSettings'
 import DomensSettings from './DomainsSettings'
+import { EffectsColorPicker } from '../components/EffectsColorPicker'
+import { EffectsPanel } from '../components/EffectsPanel'
+import { HoverBehaviorPanel } from '../components/HoverBehaviorPanel'
 
 export const SettingsPage = () => {
   const [activePage, setActivePage] = useState('btn_words')
   const [wordButton, setWordButton] = useState(true)
   const [domainButton, setDomainButton] = useState(false)
+  const [blurColor, setBlurColor] = useState('#5cc9ff')
+  const [effectColor, setEffectColor] = useState('#fff')
+  const [value, setValue] = useState('50')
+  const DEFAULT_OBJECT = {
+    blur_degree: '50',
+    blur_color: '#5cc9ff',
+    effect_color: '#fff',
+    effect: 'none',
+  }
+  useEffect(() => {
+    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
+      blur_settings?.blur_degree && setValue(blur_settings.blur_degree)
+    })
+  }, [])
+  const resetSettings = async (e) => {
+    await chrome.storage.sync.set({
+      blur_settings: DEFAULT_OBJECT,
+    })
+    setBlurColor(DEFAULT_OBJECT.blur_color)
+    setEffectColor(DEFAULT_OBJECT.effect_color)
+    setValue(DEFAULT_OBJECT.blur_degree)
+    setValue(DEFAULT_OBJECT.effect)
+  }
 
   return (
     <div className="wrapper_page">
@@ -50,43 +76,37 @@ export const SettingsPage = () => {
 
       <div className="right_side">
         <div className="title Title">Внешний вид</div>
-        <Prewiew />
+        <Prewiew
+          blurColor={blurColor}
+          effectColor={effectColor}
+          value={value}
+        />
         <div className="levers">
           <div className="blur_degree">
             <div className="name mark">Степень размытия</div>
-            <Slider></Slider>
+            <Slider value={value} setValue={setValue}></Slider>
           </div>
           <div className="blur_color">
             <div className="name mark">Цвет размытия</div>
-            <BlurColorPicker />
+            <BlurColorPicker
+              blurColor={blurColor}
+              setBlurColor={setBlurColor}
+            />
           </div>
           <div className="additional_effects">
             <div className="name mark">Дополнительные эффекты</div>
-            <div className="effects_wrapper">
-              <button className="effect"></button>
-              <button className="effect"></button>
-              <button className="effect"></button>
-              <button className="effect"></button>
-              <button className="effect"></button>
-              <button className="effect"></button>
-              <button className="effect"></button>
-            </div>
+            <EffectsPanel />
           </div>
           <div className="effects_color">
             <div className="name mark">Цвет эффекта</div>
-            <div>
-              <input id="colorpicker" type="color" />
-            </div>
+            <EffectsColorPicker
+              effectColor={effectColor}
+              setEffectColor={setEffectColor}
+            />
           </div>
           <div className="hover_behavior">
             <div className="name mark">Поведение при наведении</div>
-            <div className="behavior_wrapper">
-              <button className="behavior btn_black">Нет</button>
-              <button className="behavior btn_black">Размытие</button>
-              <button className="behavior btn_black">Зум</button>
-              <button className="behavior btn_black">Размытие</button>
-              <button className="behavior btn_black">Зум</button>
-            </div>
+            <HoverBehaviorPanel />
           </div>
           <div className="show_options">
             <div className="show_word">
@@ -105,6 +125,9 @@ export const SettingsPage = () => {
             </div>
           </div>
         </div>
+        <button className="behavior btn_red" onClick={resetSettings}>
+          Сбросить все
+        </button>
       </div>
     </div>
   )

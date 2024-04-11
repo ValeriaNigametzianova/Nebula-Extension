@@ -1,0 +1,83 @@
+#first {
+  animation: first 0.5s infinite alternate linear;
+}
+#second {
+  animation: second 0.5s infinite alternate linear;
+}
+#third {
+  animation: third 0.5s infinite alternate linear;
+}
+#fourth {
+  animation: fourth 0.5s infinite alternate linear;
+}
+#fifth {
+  animation: fifth 0.5s infinite alternate linear;
+}
+
+#dots {
+  display: flex;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  & > div > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+circle {
+  fill: '#fff';
+}
+
+@keyframes first {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(3%, -7%);
+  }
+}
+
+@keyframes second {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-5%, -5%);
+  }
+}
+
+@keyframes third {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(5%, -5%);
+  }
+}
+
+@keyframes fourth {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-5%, 5%);
+  }
+}
+
+@keyframes fifth {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(5%, 5%);
+  }
+}

@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Dots } from './effects/Dots'
+import { Flowers } from './effects/Flowers'
 
-export const Prewiew = () => {
+export const Prewiew = ({ blurColor, effectColor, value }) => {
   const [settings, setSettings] = useState(null)
+  const [previewHeight, setPrewiewHeight] = useState(null)
+  const [previewWidth, setPrewiewWigth] = useState(null)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export const Prewiew = () => {
 
   useEffect(() => {
     settings && setPrewiewSettings(settings)
-  })
+  }, [settings])
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(() => {
@@ -38,18 +42,51 @@ export const Prewiew = () => {
   }, [])
 
   const setPrewiewSettings = (settings) => {
-    ref.current.style.filter = `blur(${settings.blur_degree / 8}px)`
-    ref.current.style.backgroundColor = `${settings.blur_color}`
+    console.log(ref.current.style, 'ref.current.style')
+    ref.current.style.filter = settings
+      ? `blur(${settings.blur_degree / 8}px)`
+      : `blur(${value}px)`
+
+    ref.current.style.backgroundColor = settings
+      ? `${settings.blur_color}`
+      : `${blurColor}`
+    setPrewiewHeight(ref.current.offsetHeight)
+    setPrewiewWigth(ref.current.offsetWidth)
   }
 
   return (
-    <div style={{ overflow: 'hidden', display: 'flex' }}>
-      <div className="preview" ref={ref}>
-        <div className="main_text">
-          ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается
-          лучше, чем ожидалось, заявила первый заместитель главы Международного
-          валютного фонда (МВФ) Гита Гопинат в интервью журналу Foreign Policy.
+    <div className="preview_wrap">
+      <div
+        className={
+          settings?.hover_behavior === 'zoom'
+            ? 'effects_wrap zoom'
+            : settings?.hover_behavior === 'blur'
+              ? 'effects_wrap blur'
+              : 'effects_wrap'
+        }
+      >
+        <div className="preview" ref={ref}>
+          <div className="main_text">
+            ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается
+            лучше, чем ожидалось, заявила первый заместитель главы
+            Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу
+            Foreign Policy.
+          </div>
         </div>
+        {settings?.effect === 'dots_effect' ? (
+          <Dots
+            effectColor={settings ? settings?.effect_color : effectColor}
+            previewHeight={previewHeight}
+            previewWidth={previewWidth}
+          />
+        ) : null}
+        {settings?.effect === 'flowers_effect' ? (
+          <Flowers
+            effectColor={settings ? settings?.effect_color : effectColor}
+            previewHeight={previewHeight}
+            previewWidth={previewWidth}
+          />
+        ) : null}
       </div>
     </div>
   )

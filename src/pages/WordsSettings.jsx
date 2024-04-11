@@ -70,7 +70,6 @@ const WordsSettings = () => {
         <button
           className="button-text add_button_page btn_red"
           onClick={async (e) => {
-            const keys = Object.keys(word_list)
             await chrome.storage.sync.remove(['word_list'])
           }}
         >

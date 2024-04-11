@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 
-export const BlurColorPicker = ({ blurColor, setBlurColor }) => {
+export const EffectsColorPicker = ({ effectColor, setEffectColor }) => {
   useEffect(() => {
     chrome.storage.sync
       .get(['blur_settings'])
       .then(
         ({ blur_settings }) =>
-          blur_settings?.blur_color && setBlurColor(blur_settings.blur_color)
+          blur_settings?.effect_color &&
+          setEffectColor(blur_settings.effect_color)
       )
   }, [])
 
@@ -14,19 +15,19 @@ export const BlurColorPicker = ({ blurColor, setBlurColor }) => {
     const delayDebounceFn = setTimeout(() => {
       chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
         chrome.storage.sync.set({
-          blur_settings: { ...blur_settings, blur_color: blurColor },
+          blur_settings: { ...blur_settings, effect_color: effectColor },
         })
       )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
-  }, [blurColor])
+  }, [effectColor])
 
   return (
     <input
       id="colorpicker"
       type="color"
-      value={blurColor}
-      onChange={(e) => setBlurColor(e.target.value)}
+      value={effectColor}
+      onChange={(e) => setEffectColor(e.target.value)}
     />
   )
 }

@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-export const Slider = () => {
+export const Slider = ({ value, setValue }) => {
   const labelRef = useRef(null)
   const inputRef = useRef(null)
-  const [value, setValue] = useState('50')
 
   useEffect(() => {
     chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
-      blur_settings.blur_degree && setValue(blur_settings.blur_degree)
+      blur_settings?.blur_degree && setValue(blur_settings.blur_degree)
     })
   }, [])
 
@@ -16,13 +15,11 @@ export const Slider = () => {
       (value / inputRef.current.max) * inputRef.current.offsetWidth * 0.97 +
       'px'
     const delayDebounceFn = setTimeout(() => {
-      chrome.storage.sync
-        .get(['blur_settings'])
-        .then(({ blur_settings }) =>
-          chrome.storage.sync.set({
-            blur_settings: { ...blur_settings, blur_degree: value },
-          })
-        )
+      chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
+        chrome.storage.sync.set({
+          blur_settings: { ...blur_settings, blur_degree: value },
+        })
+      )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
   }, [value])
