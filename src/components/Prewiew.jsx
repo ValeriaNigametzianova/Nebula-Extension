@@ -42,7 +42,6 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
   }, [])
 
   const setPrewiewSettings = (settings) => {
-    console.log(ref.current.style, 'ref.current.style')
     ref.current.style.filter = settings
       ? `blur(${settings.blur_degree / 8}px)`
       : `blur(${value}px)`

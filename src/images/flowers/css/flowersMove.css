@@ -20,7 +20,7 @@
 
 #big_flower {
   transform-origin: center;
-  animation: foregroundFlower 1s infinite linear;
+  animation: foregroundFlower 3s infinite linear;
 }
 
 #small_flower {
@@ -28,7 +28,7 @@
 }
 @keyframes foregroundFlower {
   100% {
-    transform: translate(0, 100%) rotate(0.25turn);
+    transform: rotate(1turn);
   }
 }
 

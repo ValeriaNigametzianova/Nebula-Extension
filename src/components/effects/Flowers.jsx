@@ -6,16 +6,21 @@ export const Flowers = ({ effectColor, previewHeight, previewWidth }) => {
   const blockWidth = 50
   const blockHeight = 50
 
-  console.log(previewHeight)
-  console.log(previewWidth)
-
   const repeatCount =
     Math.ceil(previewWidth / blockWidth) *
     Math.ceil(previewHeight / blockHeight)
   if (!previewHeight || !previewWidth) return null
 
   return (
-    <div id="flowers">
+    <div
+      id="flowers"
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat( ${Math.ceil(previewWidth / blockWidth)}, ${blockWidth}px)`,
+        gridTemplateRows: `repeat(${Math.ceil(previewHeight / blockHeight)}, ${blockHeight})`,
+        gridAutoFlow: 'row',
+      }}
+    >
       {Array.apply(null, Array(Math.ceil(repeatCount))).map((_, index) => (
         <div
           key={index}
