@@ -16,8 +16,6 @@
 
 #dots {
   display: flex;
-  flex-shrink: 1;
-  flex-wrap: wrap;
   position: absolute;
   top: 0;
   left: 0;
