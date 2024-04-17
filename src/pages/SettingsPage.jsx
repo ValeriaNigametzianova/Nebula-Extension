@@ -43,7 +43,7 @@ export const SettingsPage = () => {
         <div className="tabs">
           <button
             className={
-              wordButton ? 'btn_black_select title tab' : 'btn_black title tab'
+              wordButton ? 'title btn_black_select tab' : 'title btn_black tab'
             }
             id="btn_words"
             onClick={(e) => {
@@ -57,8 +57,8 @@ export const SettingsPage = () => {
           <button
             className={
               domainButton
-                ? 'btn_black_select title tab'
-                : 'btn_black title tab'
+                ? 'title btn_black_select tab'
+                : 'title btn_black tab'
             }
             id="btn_domains"
             onClick={(e) => {
