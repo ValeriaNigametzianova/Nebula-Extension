@@ -28,7 +28,7 @@ const WordsSettings = () => {
   }, [])
 
   const addWord = async () => {
-    if (word && category) {
+    if (word && category.length > 0) {
       const { word_list } = await chrome.storage.sync.get(['word_list'])
       const list = word_list ? word_list[word] : null
       if (list) {
@@ -43,8 +43,9 @@ const WordsSettings = () => {
         await chrome.storage.sync.set({
           word_list: { ...word_list, [word]: category },
         })
+      setWord('')
+      setCategory([])
     }
-    setCategory([])
   }
 
   return (

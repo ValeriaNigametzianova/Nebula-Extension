@@ -22,11 +22,11 @@
 }
 
 .btn_red:hover {
-  background: #ff697a;
+  background: var(--Light-red, #ff697a);
 }
 
 .btn_red:active {
-  background: #ff4a60;
+  background: var(--Light-red, #ff697a);
 }
 
 .btn_black {
@@ -75,4 +75,18 @@
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.icon_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  padding: 5px;
+}
+
+.icon_button:hover {
+  background-color: var(--White, #ffffff);
+  border-radius: 2px;
 }

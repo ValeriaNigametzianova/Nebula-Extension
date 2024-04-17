@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import '../css/global/slider.css'
 
 export const Slider = ({ value, setValue }) => {
   const labelRef = useRef(null)
@@ -30,8 +31,8 @@ export const Slider = ({ value, setValue }) => {
   }
 
   return (
-    <div className="range-slider">
-      <span ref={labelRef} className="slider-label">
+    <div className="range_slider">
+      <span ref={labelRef} className="slider_label">
         {value}
       </span>
       <input

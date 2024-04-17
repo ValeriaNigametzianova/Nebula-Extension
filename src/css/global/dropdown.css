@@ -3,18 +3,6 @@
   flex-direction: column;
   grid-column: 3 / 4;
   gap: 20px;
-  /* border-bottom: 1px solid var(--Black, #02020b); */
-
-  /* input {
-    flex: 1;
-    border: none;
-    height: 46px;
-    font-size: 14px;
-    padding: 4px 0 0 0;
-    &:focus {
-      outline: transparent;
-    }
-  } */
 }
 
 #tags {

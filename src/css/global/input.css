@@ -1,28 +1,39 @@
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-   color: var(--Dark-grey, #AAB1BB);
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: var(--Dark-grey, #aab1bb);
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color: var(--Dark-grey, #AAB1BB);
-   opacity:  1;
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: var(--Dark-grey, #aab1bb);
+  opacity: 1;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color: var(--Dark-grey, #AAB1BB);
-   opacity:  1;
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: var(--Dark-grey, #aab1bb);
+  opacity: 1;
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color: var(--Dark-grey, #AAB1BB);
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--Dark-grey, #aab1bb);
 }
-::-ms-input-placeholder { /* Microsoft Edge */
-    color: var(--Dark-grey, #AAB1BB);
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--Dark-grey, #aab1bb);
 }
 
-::placeholder { /* Most modern browsers support this now. */
-   color: var(--Dark-grey, #AAB1BB);
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: var(--Dark-grey, #aab1bb);
 }
 
-input{
-    border: 0;
-    border-bottom: 1px solid var(--Black, #02020B);
-    outline: 0; 
-    color: var(--Black, #02020B);
+input {
+  border: 0;
+  border-bottom: 1px solid var(--Black, #02020b);
+  outline: 0;
+  color: var(--Black, #02020b);
+}
+
+input:hover,
+:focus {
+  border-bottom: 1px solid var(--Red, #f05365);
 }

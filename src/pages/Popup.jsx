@@ -67,6 +67,7 @@ export const Popup = () => {
         console.log('push category')
       }
     }
+    setWord('')
     setCategory([])
   }
 
@@ -81,7 +82,6 @@ export const Popup = () => {
             checked={value}
             onChange={(e) => {
               setValue(e.target.checked)
-              console.log(e.target.checked, 'value')
             }}
           />
           <span></span>
@@ -119,8 +119,7 @@ export const Popup = () => {
         <button
           className="btn_red add_button_popup popup-button-text"
           onClick={() => {
-            addWord
-            console.log(1111)
+            addWord()
           }}
         >
           Добавить

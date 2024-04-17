@@ -57,8 +57,8 @@ export const Scripts = () => {
       ],
       model: 'gpt-3.5-turbo',
     })
-    console.log('res', response.choices[0].message.content)
     const AIResponse = JSON.parse(response.choices[0].message.content)
+
     return AIResponse
   }
 
