@@ -7,7 +7,6 @@ export const Dropdown = ({ state, setState, className }) => {
   const addTags = (event) => {
     if (event.target.value !== '') {
       setState([...state, event.target.value])
-      // props.selectedTags([...tags, event.target.value])
       event.target.value = ''
     }
   }

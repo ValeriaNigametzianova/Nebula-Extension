@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppendChild } from './hooks/useAppendChild'
 import { Flowers } from '../effects/Flowers'
 import { Dots } from '../effects/Dots'
+import ShowContentButton from '../ShowContentButton'
 
 export const HiddenBlock = ({ node }) => {
   const nodeRef = useAppendChild(node)
@@ -69,14 +70,7 @@ export const HiddenBlock = ({ node }) => {
         )}
       </div>
 
-      <button
-        className="btn_show_content"
-        onClick={() => {
-          setVisibility(!visibility)
-        }}
-      >
-        Показать
-      </button>
+      <ShowContentButton onClick={setVisibility} visibility={visibility} />
     </div>
   )
 }
