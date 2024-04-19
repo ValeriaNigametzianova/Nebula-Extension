@@ -26,6 +26,11 @@ export const SettingsPage = () => {
       blur_settings?.blur_degree && setValue(blur_settings.blur_degree)
     })
   }, [])
+  useEffect(() => {
+    chrome.storage.sync.get(null, (allkeys) => {
+      console.log('allkeys: ', allkeys)
+    })
+  })
   const resetSettings = async (e) => {
     await chrome.storage.sync.set({
       blur_settings: DEFAULT_OBJECT,
@@ -112,14 +117,14 @@ export const SettingsPage = () => {
             <div className="show_word">
               <div className="name mark">Показать слово</div>
               <div className="show_toggle" id="show_toggle">
-                <input type="checkbox" />
+                <input className="checkbox_input" type="checkbox" />
                 <span></span>
               </div>
             </div>
             <div className="show_category">
               <div className="name mark">Показать категорию</div>
               <div className="show_toggle" id="show_toggle">
-                <input type="checkbox" />
+                <input className="checkbox_input" type="checkbox" />
                 <span></span>
               </div>
             </div>

@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { ListItem } from '../components/ListItem'
 import { Dropdown } from '../components/Dropdown'
+import { addWord } from '../components/utils/wordsUtils'
+import { useSortList } from '../components/utils/sorting'
 
 const WordsSettings = () => {
   const [word, setWord] = useState('')
   const [category, setCategory] = useState([])
   const [word_list, setWordList] = useState(null)
+  const [filter, setFilter] = useState('date')
+  const [ascending, setAscending] = useState(true)
+
+  const sortedWordList = useSortList(word_list, filter, ascending)
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
@@ -27,27 +33,6 @@ const WordsSettings = () => {
     })
   }, [])
 
-  const addWord = async () => {
-    if (word && category.length > 0) {
-      const { word_list } = await chrome.storage.sync.get(['word_list'])
-      const list = word_list ? word_list[word] : null
-      if (list) {
-        category.forEach((category) => {
-          if (list.includes(category)) return
-          list.push(category)
-        })
-        await chrome.storage.sync.set({
-          word_list: { ...word_list, [word]: list },
-        })
-      } else
-        await chrome.storage.sync.set({
-          word_list: { ...word_list, [word]: category },
-        })
-      setWord('')
-      setCategory([])
-    }
-  }
-
   return (
     <div className="wrapper_content">
       <div className="add_word_section">
@@ -64,7 +49,11 @@ const WordsSettings = () => {
         />
         <button
           className="button-text add_button_page btn_red"
-          onClick={addWord}
+          onClick={() => {
+            addWord(word, category)
+            setWord('')
+            setCategory([])
+          }}
         >
           Добавить
         </button>
@@ -80,10 +69,22 @@ const WordsSettings = () => {
       <div className="list_section">
         <div className="list_start_line">
           <div className="list_title subtitle">Весь список</div>
-          <select name="" id="" className="select_dropdown mark">
-            <option value="films">По дате добавления</option>
-            <option value="games">По алфавиту</option>
-          </select>
+          <div className="list_sorting">
+            <button
+              className="btn_black"
+              style={{ borderRadius: '2px' }}
+              onClick={() => setAscending(!ascending)}
+            >
+              {ascending ? 'A-Z' : 'Z-A'}
+            </button>
+            <select
+              className="select_dropdown mark"
+              onClick={(e) => setFilter(e.target.value)}
+            >
+              <option value="date">По дате добавления</option>
+              <option value="alphabet">По алфавиту</option>
+            </select>
+          </div>
         </div>
         <div className="list_header">
           <div className="word mark">Слово</div>
@@ -91,11 +92,12 @@ const WordsSettings = () => {
         </div>
         <div id="list" className="list">
           {word_list ? (
-            Object.entries(word_list).map((el) => (
+            sortedWordList.map((word) => (
               <ListItem
-                key={el[0] + ' ' + el[1]}
-                word={el[0]}
-                category={el[1]}
+                key={word}
+                word={word}
+                categories={word_list[word].categories}
+                word_list={word_list}
               />
             ))
           ) : (

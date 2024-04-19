@@ -8,29 +8,58 @@ import ShowContentButton from '../components/ShowContentButton'
 import { HiddenBlock } from '../components/content/HiddenBlock'
 
 export const Scripts = () => {
-  const [systemStatus, setSystemStatus] = useState(false)
   const [wordList, setWordList] = useState(null)
+  const [domainsList, setDomainsList] = useState(null)
   const elementsArray = []
-  const mask_style = ''
+  const [URLIncludes, setURLIncludes] = useState(false)
   const openai = new OpenAI({
     apiKey: import.meta.env.VITE_API_KEY,
     dangerouslyAllowBrowser: true,
   })
 
-  const first = useRef(<ShowContentButton />)
-
   useEffect(() => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
       setWordList(word_list)
     })
+    setURL()
   }, [])
 
-  // useEffect(() => {
-  //   if (wordList) {
-  //     hideText()
-  //     console.log('end hiding')
-  //   }
-  // }, [wordList])
+  useEffect(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        console.log(event)
+        if (event.domains_list) {
+          setURL()
+        }
+      }
+    )
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
+  }, [])
+
+  const setURL = () => {
+    const currentURL = window.location.href
+    chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
+      setDomainsList(domains_list)
+
+      // Если список доменов пустой, то досрочно выходим. Также убираем флаг URLIncluds
+      if (Object.keys(domains_list).length === 0) {
+        setURLIncludes(false)
+        return
+      }
+
+      for (let key in domains_list) {
+        if (currentURL.includes(key) || key.includes(currentURL)) {
+          setURLIncludes(true)
+        } else {
+          setURLIncludes(false)
+          //     hideText()
+          //   }
+        }
+      }
+    })
+  }
 
   const getAIResponse = async () => {
     parseHTML()
@@ -70,7 +99,6 @@ export const Scripts = () => {
 
     for (let key in AIResponse) {
       if (AIResponse[key] === true) {
-        console.log(elementsArray, 'node')
         const node = elementsArray[key]
         const oldParent = node.parentNode
 
@@ -118,37 +146,12 @@ export const Scripts = () => {
     // return elementsArray
   }
 
-  // const getElementXPath = (element) => {
-  //   let fullPath = ''
-  //   for (
-  //     ;
-  //     element && element.nodeType == Node.ELEMENT_NODE;
-  //     element = element.parentNode
-  //   ) {
-  //     if (element.nodeName === 'SCRIPT') {
-  //       return
-  //     }
-  //     let index = 0
-  //     for (
-  //       let sibling = element.previousSibling;
-  //       sibling;
-  //       sibling = sibling.previousSibling
-  //     ) {
-  //       if (sibling.nodeType == Node.DOCUMENT_TYPE_NODE) continue
-  //       if (sibling.nodeName == element.nodeName) ++index
-  //     }
-  //     let tagName = element.nodeName.toLowerCase()
-  //     let pathIndex = index ? '[' + (index + 1) + ']' : ''
-  //     fullPath = '/' + tagName + pathIndex + fullPath
-  //   }
-  //   return fullPath
-  // }
-
   const getElementsArray = (element) => {
     if (
       element &&
       element.nodeType == Node.ELEMENT_NODE &&
       element.nodeName !== 'SCRIPT'
+      // && element.nodeName !== 'A'
     ) {
       elementsArray.push(element)
     }
@@ -166,29 +169,31 @@ export const Scripts = () => {
         alignItems: 'center',
       }}
     >
-      <button
-        className="btn_red"
-        style={{
-          width: '300px',
-          padding: '10px 25px',
-          color: '#fff',
-          backgroundColor: '#f05365',
-          cursor: 'pointer',
-          fontFamily: 'Geologica',
-          fontSize: '20px',
-          marginTop: '20px',
-          marginBottom: '20px',
-          border: '0px',
-          borderRadius: '2px',
-        }}
-        onClick={() => {
-          console.log('start hiding')
-          hideText()
-          console.log('end hiding')
-        }}
-      >
-        Замаскировать контент
-      </button>
+      {URLIncludes ? null : (
+        <button
+          className="btn_red"
+          style={{
+            width: '300px',
+            padding: '10px 25px',
+            color: '#fff',
+            backgroundColor: '#f05365',
+            cursor: 'pointer',
+            fontFamily: 'Geologica',
+            fontSize: '20px',
+            marginTop: '20px',
+            marginBottom: '20px',
+            border: '0px',
+            borderRadius: '2px',
+          }}
+          onClick={() => {
+            console.log('start hiding')
+            hideText()
+            console.log('end hiding')
+          }}
+        >
+          Замаскировать контент
+        </button>
+      )}
     </div>
   )
 }

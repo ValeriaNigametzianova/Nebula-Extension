@@ -1,26 +1,55 @@
 import React, { useEffect, useState } from 'react'
 import { Dropdown } from '../components/Dropdown'
+import { addWord } from '../components/utils/wordsUtils'
+import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
+
+// const getCurrentURL = async () => {
+//   return await
+// }
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
-  const [value, setValue] = useState(false)
   const [word, setWord] = useState('')
   const [word_list, setWordList] = useState(null)
+  const [isWorked, setIsWorked] = useState(false)
+  const [whiteURl, setWhiteURL] = useState(false)
+  const [currentURL, setCurrentURL] = useState('')
 
   useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
-      status && setValue(status)
+      status && setIsWorked(status)
+    })
+    chrome.tabs
+      .query({
+        active: true,
+      })
+      .then((res) => {
+        setCurrentURL(res[0].url)
+        console.log(res[0].url, 'res')
+      })
+  }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
+      for (let key in domains_list) {
+        if (currentURL.includes(key) || key.includes(currentURL)) {
+          setWhiteURL(true)
+          return
+        } else {
+          setWhiteURL(false)
+        }
+      }
     })
   }, [])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       chrome.storage.sync.set({
-        status: value,
+        status: isWorked,
       })
     }, 200)
     return () => clearTimeout(delayDebounceFn)
-  }, [value])
+  }, [isWorked])
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
@@ -43,34 +72,6 @@ export const Popup = () => {
     })
   }, [])
 
-  const addWord = async () => {
-    console.log(1)
-    if (word && category) {
-      console.log(2)
-      const { word_list } = await chrome.storage.sync.get(['word_list'])
-      console.log('word_list', word_list)
-      const list = word_list ? word_list[word] : null
-      if (list) {
-        category.forEach((category) => {
-          if (list.includes(category)) return
-          console.log('return is working')
-          list.push(category)
-        })
-        await chrome.storage.sync.set({
-          word_list: { ...word_list, [word]: list },
-        })
-        console.log('push word')
-      } else {
-        await chrome.storage.sync.set({
-          word_list: { ...word_list, [word]: category },
-        })
-        console.log('push category')
-      }
-    }
-    setWord('')
-    setCategory([])
-  }
-
   return (
     <div className="body">
       <h1 className="title">Небула</h1>
@@ -78,10 +79,11 @@ export const Popup = () => {
         <div className="main-text">выкл</div>
         <div className="toggle-btn" id="_1st_toggle-btn">
           <input
+            className="checkbox_input"
             type="checkbox"
-            checked={value}
+            checked={isWorked}
             onChange={(e) => {
-              setValue(e.target.checked)
+              setIsWorked(e.target.checked)
             }}
           />
           <span></span>
@@ -89,6 +91,19 @@ export const Popup = () => {
         <div className="main-text">вкл</div>
       </div>
       <div className="links">
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <div>Доверять этому сайту</div>
+          <input
+            type="checkbox"
+            style={{ height: '20px', width: '20px' }}
+            checked={whiteURl}
+            onChange={(e) => {
+              setWhiteURL(e.target.checked)
+              if (e.target.checked) addDomain(currentURL, '')
+              else deleteDomain(currentURL)
+            }}
+          ></input>
+        </div>
         <div
           className="btn btn_link popup-text"
           id="btn_setting"
@@ -118,8 +133,10 @@ export const Popup = () => {
         </div>
         <button
           className="btn_red add_button_popup popup-button-text"
-          onClick={() => {
-            addWord()
+          onClick={async () => {
+            await addWord(word, category)
+            setWord('')
+            setCategory([])
           }}
         >
           Добавить

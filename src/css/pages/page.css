@@ -1,5 +1,6 @@
 body {
   font-family: 'Geologica';
+  background-color: var(--Background, #fbfbfb);
 }
 
 .help_button {
@@ -94,16 +95,21 @@ body {
   display: grid;
 }
 .list_start_line {
-  display: grid;
-  grid-template-columns: 402px 50px 210px 60px 168px;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 40px;
   align-items: start;
 }
 .list_title {
-  grid-column: 1/2;
   justify-self: start;
   align-self: start;
   margin-left: 10px;
+}
+
+.list_sorting {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .select_dropdown {
