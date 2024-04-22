@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListItem } from '../components/ListItem'
-import { Dropdown } from '../components/Dropdown'
+import { TagAdderInput } from '../components/TagAdderInput'
 import { addWord } from '../components/utils/wordsUtils'
 import { useSortList } from '../components/utils/sorting'
 
@@ -42,7 +42,7 @@ const WordsSettings = () => {
           className="input_page main-text"
           placeholder="Введите слово или фразу"
         ></input>
-        <Dropdown
+        <TagAdderInput
           state={category}
           setState={setCategory}
           className="input_page"
@@ -59,7 +59,7 @@ const WordsSettings = () => {
         </button>
         <button
           className="button-text add_button_page btn_red"
-          onClick={async (e) => {
+          onClick={async () => {
             await chrome.storage.sync.remove(['word_list'])
           }}
         >

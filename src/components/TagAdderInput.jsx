@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const Dropdown = ({ state, setState, className }) => {
+export const TagAdderInput = ({ state, setState, className }) => {
   const removeTags = (indexToRemove) => {
     setState([...state.filter((_, index) => index !== indexToRemove)])
   }

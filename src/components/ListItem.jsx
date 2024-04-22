@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Trash } from '../icons/Trash'
 import { Edit } from '../icons/Edit'
-import { Dropdown } from './Dropdown'
+import { TagAdderInput } from './TagAdderInput'
 import { Accept } from '../icons/Accept'
 import { deleteWord, editWord } from './utils/wordsUtils'
 import { deleteDomain, editDomain } from './utils/domainsUtils'
@@ -49,7 +49,7 @@ export const ListItem = (props) => {
             ))}
           </div>
         ) : (
-          <Dropdown
+          <TagAdderInput
             state={categories}
             setState={setCategories}
             className="input_page"

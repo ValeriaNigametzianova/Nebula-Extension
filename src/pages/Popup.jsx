@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Dropdown } from '../components/Dropdown'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
+import { TagAdderInput } from '../components/TagAdderInput'
 
 // const getCurrentURL = async () => {
 //   return await
@@ -125,7 +125,7 @@ export const Popup = () => {
             className="input_popup"
             placeholder="Введите слово"
           />
-          <Dropdown
+          <TagAdderInput
             state={category}
             setState={setCategory}
             className="dropdown_popup input_popup"
