@@ -20,7 +20,7 @@
   line-height: normal;
 }
 
-.button-text {
+.button_text {
   color: var(--White, #fff);
   font-family: Geologica;
   font-size: 16px;
@@ -38,7 +38,7 @@
   line-height: normal;
 }
 
-.main-text {
+.main_text {
   color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 16px;
@@ -56,7 +56,7 @@
   line-height: normal;
 }
 
-.pop-text {
+.pop_text {
   color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 12px;
@@ -65,7 +65,7 @@
   line-height: normal;
 }
 
-.popup-button-text {
+.popup_button_text {
   color: var(--White, #fff);
   font-family: Geologica;
   font-size: 14px;

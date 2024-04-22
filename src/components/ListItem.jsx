@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Trash } from '../icons/Trash'
 import { Edit } from '../icons/Edit'
-import { TagAdderInput } from './TagAdderInput'
+import { TagAdderInput } from './TagAdder/TagAdderInput'
 import { Accept } from '../icons/Accept'
 import { deleteWord, editWord } from './utils/wordsUtils'
 import { deleteDomain, editDomain } from './utils/domainsUtils'
@@ -17,31 +17,31 @@ export const ListItem = (props) => {
     <div className={editMode === false ? 'item' : 'item_active'}>
       {props.word &&
         (editMode === false ? (
-          <div className="item_word main-text">{props.word}</div>
+          <div className="item_word main_text">{props.word}</div>
         ) : (
           <input
             value={newWord}
             onChange={(e) => setNewWord(e.target.value)}
-            className="input_page main-text"
+            className="input_page main_text"
             placeholder="Введите слово или фразу"
           ></input>
         ))}
 
       {props.domain &&
         (editMode === false ? (
-          <div className="item_word main-text">{props.domain}</div>
+          <div className="item_word main_text">{props.domain}</div>
         ) : (
           <input
             value={newDomain}
             onChange={(e) => setNewDomain(e.target.value)}
-            className="input_page main-text"
+            className="input_page main_text"
             placeholder="https://domain.com"
           ></input>
         ))}
 
       {props.categories &&
         (editMode === false ? (
-          <div className="item_category main-text">
+          <div className="item_category main_text">
             {categories.map((category, index) => (
               <span key={index}>
                 {index === categories.length - 1 ? category : category + ', '}
@@ -58,12 +58,12 @@ export const ListItem = (props) => {
 
       {props.domain &&
         (editMode === false ? (
-          <div className="item_category main-text">{domainName}</div>
+          <div className="item_category main_text">{domainName}</div>
         ) : (
           <input
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
-            className="input_page_right main-text"
+            className="input_page_right main_text"
             placeholder="Можете дать название"
           ></input>
         ))}

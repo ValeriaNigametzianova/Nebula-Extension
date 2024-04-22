@@ -102,3 +102,13 @@
   background-color: var(--White, #ffffff);
   border-radius: 2px;
 }
+
+.icon_button_black {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Black, #000000);
+  border: 0;
+  padding: 6px;
+  border-radius: 50%;
+}

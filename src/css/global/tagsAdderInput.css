@@ -1,8 +1,37 @@
-.tags_input {
+.tags_adder {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   grid-column: 3 / 4;
-  gap: 20px;
+  gap: 10px;
+  justify-content: start;
+  align-items: center;
+}
+
+.tagAdderInput_page {
+  .tags_adder_placeholder {
+    color: #aab1bb;
+    cursor: pointer;
+    padding: 9px 0;
+  }
+}
+
+.tagAdderInput_popup {
+  border-bottom: 1px solid var(--Black);
+  .tags_adder_placeholder {
+    color: #aab1bb;
+    cursor: pointer;
+    padding: 0 0 6px 0;
+  }
+}
+
+.tags_input {
+  border: 1px solid var(--Black);
+  border-radius: 3px;
+  padding: 3px 4px;
+  &:hover,
+  &:focus {
+    border: 1px solid var(--Red);
+  }
 }
 
 #tags {
@@ -10,34 +39,43 @@
   flex-wrap: wrap;
   padding: 0;
   margin: 0;
+
+  flex-direction: row;
+  align-items: center;
+  align-content: flex-start;
+  gap: 10px;
 }
 
 .tag {
-  width: auto;
-  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--White, #fff);
-  padding: 0 4px;
-  font-size: 12px;
+  gap: 4px;
+  width: auto;
+  height: 24px;
+  padding: 3px 4px;
   list-style: none;
-  border-radius: 6px;
-  margin: 0 8px 8px 0;
-  background: var(--Black, #02020b);
+  border-radius: 3px;
+  background: transparent;
+  border: 1px solid var(--Black);
+}
 
-  > .tag_close_icon {
-    display: block;
-    width: 12px;
-    height: 12px;
-    text-align: center;
-    font-size: 10px;
-    line-height: 100%;
-    font-weight: 700;
-    margin-left: 8px;
-    color: #000000;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-  }
+.tag_icon {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--Black, #000000);
+  cursor: pointer;
+  padding: 3px;
+  border: none;
+}
+
+.tag_icon_add {
+  padding: 6px;
+
+  width: 21px;
+  height: 21px;
 }

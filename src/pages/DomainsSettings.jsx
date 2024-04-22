@@ -45,17 +45,17 @@ const DomainsSettings = () => {
         <input
           value={domain}
           onChange={(e) => setDomain(e.target.value)}
-          className="input_page main-text"
+          className="input_page main_text"
           placeholder="https://domain.com"
         ></input>
         <input
           value={domainName}
           onChange={(e) => setDomainName(e.target.value)}
-          className="input_page_right main-text"
+          className="input_page_right main_text"
           placeholder="Можете дать название"
         ></input>
         <button
-          className="button-text add_button_page btn_red"
+          className="button_text add_button_page btn_red"
           onClick={async () => {
             await addDomain(domain, domainName)
             setDomain('')
@@ -65,7 +65,7 @@ const DomainsSettings = () => {
           Добавить
         </button>
         <button
-          className="button-text add_button_page btn_red"
+          className="button_text add_button_page btn_red"
           onClick={removeDomains}
         >
           Удалить все

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
-import { TagAdderInput } from '../components/TagAdderInput'
+import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 
 // const getCurrentURL = async () => {
 //   return await
@@ -76,7 +76,7 @@ export const Popup = () => {
     <div className="body">
       <h1 className="title">Небула</h1>
       <div className="toggle">
-        <div className="main-text">выкл</div>
+        <div className="main_text">выкл</div>
         <div className="toggle-btn" id="_1st_toggle-btn">
           <input
             className="checkbox_input"
@@ -88,7 +88,7 @@ export const Popup = () => {
           />
           <span></span>
         </div>
-        <div className="main-text">вкл</div>
+        <div className="main_text">вкл</div>
       </div>
       <div className="links">
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -128,11 +128,11 @@ export const Popup = () => {
           <TagAdderInput
             state={category}
             setState={setCategory}
-            className="dropdown_popup input_popup"
+            className={'tagAdderInput_popup'}
           />
         </div>
         <button
-          className="btn_red add_button_popup popup-button-text"
+          className="btn_red add_button_popup popup_button_text"
           onClick={async () => {
             await addWord(word, category)
             setWord('')
