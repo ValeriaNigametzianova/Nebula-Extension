@@ -3,9 +3,18 @@ import react from '@vitejs/plugin-react'
 import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
 import { fileURLToPath } from 'url'
+import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig({
-  plugins: [react(), crx({ manifest })],
+  plugins: [
+    react(),
+    crx({ manifest }),
+    eslintPlugin({
+      cache: false,
+      include: ['./src/**/*.js', './src/**/*.jsx'],
+      exclude: [],
+    }),
+  ],
   server: {
     port: 5713,
   },
