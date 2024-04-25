@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListItem } from '../components/ListItem'
 import { addDomain } from '../components/utils/domainsUtils'
 import { useSortList } from '../components/utils/sorting'
+import { WordAdder } from '../components/WordAdder'
 
 const DomainsSettings = () => {
-  const [domain, setDomain] = useState('')
-  const [domainName, setDomainName] = useState('')
   const [domainsList, setDomainList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
@@ -41,36 +40,13 @@ const DomainsSettings = () => {
 
   return (
     <div className="wrapper_content">
-      <div className="add_word_section">
-        <input
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          className="input_page main_text"
-          placeholder="https://domain.com"
-        ></input>
-        <input
-          value={domainName}
-          onChange={(e) => setDomainName(e.target.value)}
-          className="input_page_right main_text"
-          placeholder="Можете дать название"
-        ></input>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={async () => {
-            await addDomain(domain, domainName)
-            setDomain('')
-            setDomainName('')
-          }}
-        >
-          Добавить
-        </button>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={removeDomains}
-        >
-          Удалить все
-        </button>
-      </div>
+      <WordAdder
+        subtitle="Добавьте сайт, на котором не следует анализировать"
+        placeholder="https://domain.com"
+        onSubmit={(domain, domainName) => {
+          addDomain(domain, domainName)
+        }}
+      />
       <div className="list_section">
         <div className="list_start_line">
           <div className="list_title subtitle">Весь список</div>
@@ -94,6 +70,9 @@ const DomainsSettings = () => {
         <div className="list_header">
           <div className="word mark">Домен</div>
           <div className="category mark">Имя</div>
+          <button className="mark btn_link" onClick={removeDomains}>
+            Удалить все
+          </button>
         </div>
         <div id="list" className="list">
           {domainsList ? (

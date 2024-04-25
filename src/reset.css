@@ -62,6 +62,9 @@ sup {
 img {
   border-style: none;
 }
+button{
+  border: 0;
+}
 button,
 input,
 optgroup,

@@ -34,6 +34,6 @@ input {
 }
 
 input:hover,
-:focus {
+input:focus {
   border-bottom: 1px solid var(--Red, #f05365);
 }

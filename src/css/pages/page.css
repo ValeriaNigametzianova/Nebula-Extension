@@ -1,6 +1,5 @@
 body {
   font-family: 'Geologica';
-  background-color: var(--Background, #fbfbfb);
 }
 
 .help_button {
@@ -19,55 +18,66 @@ body {
 .wrapper_page {
   display: grid;
   height: 100vh;
-  grid-template-columns: 990px 728px;
+  grid-template-columns: min(956px, 65%) min(575px, 35%);
   justify-content: space-between;
-  gap: 202px;
+  padding: 60px 100px 0 100px;
+  gap: 30px;
+  background-color: var(--Background, #F2F5F8);
   grid-template-areas: 'A B';
 }
 .left_side {
   grid-area: A;
   display: block;
-  padding: 40px 0 40px 100px;
 }
 
 .right_side {
+  max-width: min(575px, 35%);
   display: block;
   position: fixed;
   right: 0;
+  top:0;
   grid-area: B;
   height: 100vh;
-  padding: 55px 100px 40px 70px;
-  background-color: #f2f5f8;
+  padding: 75px 100px 50px 70px;
+  background-color: var(--White, #ffffff);
 
   > .title {
-    margin-bottom: 50px;
+    margin-bottom: 75px;
   }
 }
 
 .tabs {
-  display: flex;
-  flex-direction: row;
-  gap: 13px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 }
 
 .tab {
-  width: 288px;
-  padding: 15px 10px;
-  border-radius: 3px;
+  width: auto;
 }
 
-.wrapper_content {
-  display: grid;
-  /* grid-template-areas:
-    "first hollow1 second hollow2 third"; */
-}
+
 .add_word_section {
   display: grid;
-  margin-bottom: 150px;
-  grid-template-columns: 306px 50px 306px 60px 168px;
+  grid-template-columns: 32% auto 38% auto 19%;
+  row-gap: 40px;
   align-items: start;
+  background-color: var(--White, #ffffff);
+  border-radius: 5px;
+  padding: 30px 30px 61px 30px;
+  margin-bottom: 30px;
+
+  @media screen and (max-width: 1440px) {
+  padding: 30px 20px;
+  grid-template-columns: 46% auto 46% 0 0;
+  }
+
+  .subtitle{
+    color: var(--Dark-grey, #aab1bb);
+    grid-column: 1 / 6;
+    margin-left: 10px;
+  }
 }
 
 .input_page {
@@ -89,10 +99,25 @@ body {
 
 .add_button_page {
   grid-column: 5 / 6;
+
+  @media screen and (max-width: 1440px) {
+    grid-column: 1 / 4;
+  }
 }
 
 .list_section {
-  display: grid;
+  background-color: var(--White, #ffffff);
+  padding: 30px;
+  border-radius: 5px;
+
+  @media screen and (max-width: 1440px) {
+    padding: 30px 20px 20px 20px;
+  }
+
+  .subtitle{
+    color: var(--Dark-grey, #aab1bb);
+    margin-left: 10px;
+  }
 }
 .list_start_line {
   display: flex;
@@ -100,16 +125,15 @@ body {
   margin-bottom: 40px;
   align-items: start;
 }
-.list_title {
-  justify-self: start;
-  align-self: start;
-  margin-left: 10px;
-}
 
 .list_sorting {
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  
+  >.btn_black{
+    padding: 8px 7px 9px 7px;
+  }
 }
 
 .select_dropdown {
@@ -118,18 +142,21 @@ body {
   border: 0;
   border-bottom: 1px solid var(--Black, #02020b);
   outline: 0;
-  grid-column: 4 / 6;
-  justify-self: end;
   align-self: start;
 }
 
 .list_header {
   display: grid;
-  grid-template-columns: 306px 50px 306px 60px 168px;
-  margin-left: 10px;
+  grid-template-columns: 32% auto 38% auto 19%;
   margin-bottom: 20px;
 
+  @media screen and (max-width: 1440px) {
+    padding: 30px 20px;
+    grid-template-columns: 42% auto 25% auto 17%;
+    }
+
   > .word {
+    margin-left: 10px;
     grid-column: 1/ 2;
     color: var(--Dark-grey, #aab1bb);
   }
@@ -137,6 +164,12 @@ body {
   > .category {
     grid-column: 3/4;
     color: var(--Dark-grey, #aab1bb);
+  }
+
+  >.btn_link{
+    grid-column: 5/6;
+    justify-self: end;
+    text-align: right;
   }
 }
 
@@ -147,8 +180,8 @@ body {
 
 .item {
   display: grid;
-  padding: 10px 30px 10px 10px;
-  grid-template-columns: 306px 50px 306px 60px 138px;
+  padding: 14px 25px 15px 10px;
+  grid-template-columns: 33% auto 50% auto 7.5%;
   align-items: center;
   border-radius: 2px;
 
@@ -164,7 +197,7 @@ body {
     display: flex;
     grid-column: 5/6;
     justify-self: end;
-    gap: 10px;
+    gap: 5px;
   }
 }
 
@@ -175,16 +208,16 @@ body {
     display: flex;
     grid-column: 5/6;
     justify-self: end;
-    gap: 10px;
+    gap: 5px;
   }
 }
 
 .item_active {
   display: grid;
-  padding: 15px 30px 15px 10px;
-  grid-template-columns: 306px 50px 306px 60px 138px;
+  padding: 10px 25px 10px 10px;
+  grid-template-columns:  33% auto 50% auto 7.5%;
   background-color: var(--Light-grey, #e8ecef);
-  align-items: start;
+  align-items: center;
   border-radius: 2px;
 
   > .item_word {
@@ -200,7 +233,7 @@ body {
     display: flex;
     grid-column: 5/6;
     justify-self: end;
-    gap: 10px;
+    gap: 5px;
   }
 }
 

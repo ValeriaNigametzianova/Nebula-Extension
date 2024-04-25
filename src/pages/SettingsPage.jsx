@@ -3,7 +3,7 @@ import { Slider } from '../components/Slider'
 import { Prewiew } from '../components/Prewiew'
 import { BlurColorPicker } from '../components/BlurColorPicker'
 import WordsSettings from './WordsSettings'
-import DomensSettings from './DomainsSettings'
+import DomainsSettings from './DomainsSettings'
 import { EffectsColorPicker } from '../components/EffectsColorPicker'
 import { EffectsPanel } from '../components/EffectsPanel'
 import { HoverBehaviorPanel } from '../components/HoverBehaviorPanel'
@@ -48,7 +48,7 @@ export const SettingsPage = () => {
         <div className="tabs">
           <button
             className={
-              wordButton ? 'title btn_black_select tab' : 'title btn_black tab'
+              wordButton ? 'title btn_tab tab' : 'title btn_tab tab'
             }
             id="btn_words"
             onClick={(e) => {
@@ -62,8 +62,8 @@ export const SettingsPage = () => {
           <button
             className={
               domainButton
-                ? 'title btn_black_select tab'
-                : 'title btn_black tab'
+                ? 'title btn_tab tab'
+                : 'title btn_tab tab'
             }
             id="btn_domains"
             onClick={(e) => {
@@ -76,7 +76,7 @@ export const SettingsPage = () => {
           </button>
         </div>
         {activePage == 'btn_words' && <WordsSettings />}
-        {activePage == 'btn_domains' && <DomensSettings />}
+        {activePage == 'btn_domains' && <DomainsSettings />}
       </div>
 
       <div className="right_side">

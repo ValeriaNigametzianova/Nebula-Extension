@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Flower_1 } from '../../images/flowers/svg/1.jsx'
 import { Flower_2 } from '../../images/flowers/svg/2.jsx'
 

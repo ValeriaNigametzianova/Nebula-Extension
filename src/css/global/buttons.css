@@ -1,12 +1,21 @@
-.btn {
+.btn_tab {
+  cursor: pointer;
+  display: flex;
+  background: transparent;
+  justify-content: center;
+  align-items: center;
+  color: var(--Black, #02020b);
+  padding: 15px 10px ;
 }
 
 .btn_link {
+  cursor: pointer;
+  color: var(--Dark-grey, #aab1bb);
+  background-color: transparent;
 }
 
-.btn_link:hover {
-  cursor: pointer;
-  color: var(--Dark-grey);
+.btn_link:hover, .btn_link:focus {
+  color: var(--Light-red, #FD484D);
 }
 
 .btn_red {
@@ -37,6 +46,7 @@
   align-items: center;
   color: var(--White, #fff);
   border: 1px solid var(--Black, #02020b);
+  border-radius: 2px;
   padding: 10px;
 }
 
@@ -95,12 +105,13 @@
   align-items: center;
   background-color: transparent;
   border: 0;
+  border-radius: 50%;
   padding: 5px;
 }
 
 .icon_button:hover {
   background-color: var(--White, #ffffff);
-  border-radius: 2px;
+  border-radius: 50%;
 }
 
 .icon_button_black {

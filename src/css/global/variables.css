@@ -2,12 +2,13 @@
 
 :root {
   --Black: hsl(240, 69%, 3%);
-  --Red: #f05365;
-  --Light-red: #ff697a;
+  --Red: #FD484D;
+  --Light-red: #FD484D;
   --Lidght-grey: #e8ecef;
   --Dark-grey: #aab1bb;
   --White: #fff;
-  --Background: #fbfbfb;
+  --Background: #F2F5F8;
+  
 }
 
 /* fonts */

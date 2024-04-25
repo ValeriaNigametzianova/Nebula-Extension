@@ -52,7 +52,7 @@ export const ListItem = (props) => {
           <TagAdderInput
             state={categories}
             setState={setCategories}
-            className="input_page"
+            className="tagAdderInput_page"
           />
         ))}
 

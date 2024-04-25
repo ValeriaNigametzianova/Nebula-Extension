@@ -19,7 +19,6 @@ export const TagAdderInput = ({ state, setState, className }) => {
 
   useEffect(() => {
     if (inputVisible) inputRef.current.focus()
-    console.log(state.length, 'state.lenght')
   }, [inputVisible])
 
   useEffect(() => {
@@ -83,6 +82,7 @@ export const TagAdderInput = ({ state, setState, className }) => {
             setInputVisible(true)
             addTags(inputValue)
             setInputValue('')
+            if (inputVisible) inputRef.current.focus()
           }}
         >
           <AddIcon />

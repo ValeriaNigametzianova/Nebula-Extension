@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import OpenAI from 'openai'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/global/spoiler.css'
 import '../css/global/buttons.css'
 import '../css/pages/page.css'

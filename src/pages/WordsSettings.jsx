@@ -3,10 +3,9 @@ import { ListItem } from '../components/ListItem'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { addWord } from '../components/utils/wordsUtils'
 import { useSortList } from '../components/utils/sorting'
+import { WordAdder } from '../components/WordAdder'
 
 const WordsSettings = () => {
-  const [word, setWord] = useState('')
-  const [category, setCategory] = useState([])
   const [word_list, setWordList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
@@ -34,8 +33,9 @@ const WordsSettings = () => {
   }, [])
 
   return (
-    <div className="wrapper_content">
-      <div className="add_word_section">
+    <div>
+      {/* <div className="add_word_section">
+        <div className='subtitle'> Добавьте слово, которое следует замаскировать</div>
         <input
           value={word}
           onChange={(e) => setWord(e.target.value)}
@@ -48,7 +48,7 @@ const WordsSettings = () => {
           className={'tagAdderInput_page'}
         />
         <button
-          className="button_text add_button_page btn_red"
+          className="button_text add_button_page btn_black"
           onClick={() => {
             addWord(word, category)
             setWord('')
@@ -57,25 +57,25 @@ const WordsSettings = () => {
         >
           Добавить
         </button>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={async () => {
-            await chrome.storage.sync.remove(['word_list'])
-          }}
-        >
-          Удалить все
-        </button>
-      </div>
+        
+      </div> */}
+      <WordAdder
+        subtitle="Добавьте слово, которое следует замаскировать"
+        placeholder="Введите слово или фразу"
+        onSubmit={(word, categories) => {
+          addWord(word, categories)
+        }}
+        multi
+      />
       <div className="list_section">
         <div className="list_start_line">
-          <div className="list_title subtitle">Весь список</div>
+          <div className="subtitle">Весь список слов</div>
           <div className="list_sorting">
             <button
-              className="btn_black"
-              style={{ borderRadius: '2px' }}
+              className="btn_black mark"
               onClick={() => setAscending(!ascending)}
             >
-              {ascending ? 'A-Z' : 'Z-A'}
+              {ascending ? 'А-Я' : 'Я-А'}
             </button>
             <select
               className="select_dropdown mark"
@@ -88,7 +88,15 @@ const WordsSettings = () => {
         </div>
         <div className="list_header">
           <div className="word mark">Слово</div>
-          <div className="category mark">Категория</div>
+          <div className="category mark">Категории</div>
+          <button
+            className="mark btn_link"
+            onClick={async () => {
+              await chrome.storage.sync.remove(['word_list'])
+            }}
+          >
+            Удалить все
+          </button>
         </div>
         <div id="list" className="list">
           {word_list ? (
