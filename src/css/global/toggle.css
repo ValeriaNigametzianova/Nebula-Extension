@@ -85,7 +85,7 @@
 }
 .show_toggle {
   position: relative;
-  width: 104px;
+  width: 88px;
   height: 40px;
   margin: 0 0;
   border-radius: 20px;
@@ -147,5 +147,5 @@
 
 #show_toggle .checkbox_input:checked + span:before {
   background-color: var(--Black, #02020b);
-  transform: translate(69px, 0px);
+  transform: translate(53px, 0px);
 }

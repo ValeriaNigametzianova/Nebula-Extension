@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
@@ -15,6 +15,8 @@ export const Popup = () => {
   const [whiteURl, setWhiteURL] = useState(false)
   const [currentURL, setCurrentURL] = useState('')
 
+  const checkboxRef = useRef(null)
+
   useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setIsWorked(status)
@@ -25,7 +27,6 @@ export const Popup = () => {
       })
       .then((res) => {
         setCurrentURL(res[0].url)
-        console.log(res[0].url, 'res')
       })
   }, [])
 
@@ -92,10 +93,21 @@ export const Popup = () => {
       </div>
       <div className="links">
         <div style={{ display: 'flex', gap: '10px' }}>
-          <div>Доверять этому сайту</div>
+          <div
+            className="btn btn_link popup-text"
+            onClick={(checkboxRef) => {
+              console.log(checkboxRef.current.checked, 'checkboxRef.current')
+              // setWhiteURL(checkboxRef.current.checked)
+              // if (checkboxRef.current.checked) addDomain(currentURL, '')
+              // else deleteDomain(currentURL)
+            }}
+          >
+            Доверять этому сайту
+          </div>
           <input
+            ref={checkboxRef}
+            className="checkbox_popup"
             type="checkbox"
-            style={{ height: '20px', width: '20px' }}
             checked={whiteURl}
             onChange={(e) => {
               setWhiteURL(e.target.checked)
