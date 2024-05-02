@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   color: var(--Black, #02020b);
-  padding: 15px 10px ;
+  padding: 15px 10px;
 }
 
 .btn_link {
@@ -14,8 +14,9 @@
   background-color: transparent;
 }
 
-.btn_link:hover, .btn_link:focus {
-  color: var(--Light-red, #FD484D);
+.btn_link:hover,
+.btn_link:focus {
+  color: var(--Light-red, #fd484d);
 }
 
 .btn_red {
@@ -27,7 +28,6 @@
   border-radius: 2px;
   background: var(--Red, #f05365);
   border: 0px;
-  border-radius: 2px;
 }
 
 .btn_red:hover {
@@ -41,7 +41,7 @@
 .btn_black {
   cursor: pointer;
   display: flex;
-  background: var(--Black, #02020b);
+  background-color: var(--Black, #02020b);
   justify-content: center;
   align-items: center;
   color: var(--White, #fff);
@@ -53,7 +53,7 @@
 .btn_black_selected {
   cursor: pointer;
   display: flex;
-  background: var(--Background, #fbfbfb);
+  background-color: transparent;
   justify-content: center;
   align-items: center;
   color: var(--Black, #02020b);

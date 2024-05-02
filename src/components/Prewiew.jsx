@@ -65,7 +65,7 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
         }
       >
         <div className="preview" ref={ref}>
-          <div className="main_text">
+          <div className="main_text" style={{ padding: '10px' }}>
             ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается
             лучше, чем ожидалось, заявила первый заместитель главы
             Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу

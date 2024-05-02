@@ -49,7 +49,7 @@ const DomainsSettings = () => {
       />
       <div className="list_section">
         <div className="list_start_line">
-          <div className="list_title subtitle">Весь список</div>
+          <div className="list_title subtitle">Весь список сайтов</div>
           <div className="list_sorting">
             <button
               className="btn_black"
