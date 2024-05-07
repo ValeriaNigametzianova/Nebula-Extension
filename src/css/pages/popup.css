@@ -32,7 +32,7 @@
 }
 
 .checkbox_popup:not(:checked) {
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .checkbox_popup:checked {

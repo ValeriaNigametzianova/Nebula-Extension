@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
+import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 
 // const getCurrentURL = async () => {
 //   return await
@@ -16,32 +17,40 @@ export const Popup = () => {
   const [currentURL, setCurrentURL] = useState('')
 
   const checkboxRef = useRef(null)
-
+  chrome.runtime.onMessage.addListener((request) => {
+    console.log('get status', request)
+  })
   useEffect(() => {
+    function listener(activeInfo) {
+      chrome.tabs.get(activeInfo.tabId, (tab) => {
+        setCurrentURL(tab.url)
+      })
+    }
+    chrome.tabs.onActivated.addListener(listener)
+
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setIsWorked(status)
     })
-    chrome.tabs
-      .query({
-        active: true,
-      })
-      .then((res) => {
-        setCurrentURL(res[0].url)
-      })
+
+    return () => {
+      chrome.tabs.onActivated.removeListener(listener)
+    }
   }, [])
 
   useEffect(() => {
     chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
       for (let key in domains_list) {
-        if (currentURL.includes(key) || key.includes(currentURL)) {
+        const currentOrigin = new URL(currentURL).origin
+        if (key.includes(currentOrigin)) {
+          console.log('yes')
           setWhiteURL(true)
-          return
         } else {
+          console.log('no')
           setWhiteURL(false)
         }
       }
     })
-  }, [])
+  }, [currentURL])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -56,9 +65,7 @@ export const Popup = () => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
         if (event.word_list) setWordList(event.word_list.newValue)
-        chrome.storage.sync.get(null, (allkeys) => {
-          console.log('allkeys: ', allkeys)
-        })
+        if (event.status) setIsWorked(event.status.newValue)
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }
@@ -69,7 +76,6 @@ export const Popup = () => {
   useEffect(() => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
       setWordList(word_list)
-      console.log('word_list', word_list)
     })
   }, [])
 
@@ -109,12 +115,15 @@ export const Popup = () => {
             className="checkbox_popup"
             type="checkbox"
             checked={whiteURl}
-            onChange={(e) => {
-              setWhiteURL(e.target.checked)
-              if (e.target.checked) addDomain(currentURL, '')
-              else deleteDomain(currentURL)
+            onChange={async (e) => {
+              console.log('e.target.checked', e.target.checked)
+              setWhiteURL(!whiteURl)
+              if (e.target.checked) await addDomain(currentURL, '')
+              else await deleteDomain(currentURL)
             }}
-          ></input>
+          >
+            {console.log('whiteURl', whiteURl)}
+          </input>
         </div>
         <div
           className="btn btn_link popup-text"

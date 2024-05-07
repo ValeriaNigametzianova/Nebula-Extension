@@ -4,8 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
+    "build-extension": "npm run build && copy src\\manifest.json dist\\ && copy src\\content.jsx dist\\",
     "preview": "vite preview",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },

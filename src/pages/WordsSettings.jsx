@@ -34,31 +34,6 @@ const WordsSettings = () => {
 
   return (
     <div>
-      {/* <div className="add_word_section">
-        <div className='subtitle'> Добавьте слово, которое следует замаскировать</div>
-        <input
-          value={word}
-          onChange={(e) => setWord(e.target.value)}
-          className="input_page main_text"
-          placeholder="Введите слово или фразу"
-        ></input>
-        <TagAdderInput
-          state={category}
-          setState={setCategory}
-          className={'tagAdderInput_page'}
-        />
-        <button
-          className="button_text add_button_page btn_black"
-          onClick={() => {
-            addWord(word, category)
-            setWord('')
-            setCategory([])
-          }}
-        >
-          Добавить
-        </button>
-        
-      </div> */}
       <WordAdder
         subtitle="Добавьте слово, которое следует замаскировать"
         placeholder="Введите слово или фразу"
