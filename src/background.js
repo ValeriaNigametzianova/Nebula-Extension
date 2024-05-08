@@ -39,7 +39,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
         status: { status },
       },
       (response) => {
-        console.log('contentResponseStatus', response.message)
+        console.log('contentResponseStatus', response?.message)
       }
     )
     if (status && tab.status === 'complete') {
@@ -50,7 +50,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
             answer: 'Yes',
           },
           (response) => {
-            console.log('contentResponseAnswer', response.message)
+            console.log('contentResponseAnswer', response?.message)
           }
         )
       } catch (error) {
