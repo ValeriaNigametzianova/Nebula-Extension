@@ -25,12 +25,10 @@ export const addDomain = async (domain, domainName) => {
           },
         },
       })
-    // ChangeManifest(list)
   }
 }
 
 export const editDomain = async (domain, newDomain, domainName) => {
-  console.log(domain, newDomain, domainName)
   if (domain) {
     const { domains_list } = await chrome.storage.sync.get(['domains_list'])
     const dateCreated = domains_list[domain].dateCreated
