@@ -3,10 +3,7 @@ import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
-
-// const getCurrentURL = async () => {
-//   return await
-// }
+import { sendMessageToBackground } from '../components/utils/sendMessageToBackground'
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
@@ -15,42 +12,41 @@ export const Popup = () => {
   const [isWorked, setIsWorked] = useState(false)
   const [whiteURl, setWhiteURL] = useState(false)
   const [currentURL, setCurrentURL] = useState('')
-
   const checkboxRef = useRef(null)
-  chrome.runtime.onMessage.addListener((request) => {
-    console.log('get status', request)
-  })
-  useEffect(() => {
-    function listener(activeInfo) {
-      chrome.tabs.get(activeInfo.tabId, (tab) => {
-        setCurrentURL(tab.url)
-      })
-    }
-    chrome.tabs.onActivated.addListener(listener)
 
+  useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setIsWorked(status)
     })
 
-    return () => {
-      chrome.tabs.onActivated.removeListener(listener)
-    }
-  }, [])
-
-  useEffect(() => {
-    chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
-      for (let key in domains_list) {
-        const currentOrigin = new URL(currentURL).origin
-        if (key.includes(currentOrigin)) {
-          console.log('yes')
-          setWhiteURL(true)
-        } else {
-          console.log('no')
-          setWhiteURL(false)
-        }
+    chrome.runtime.sendMessage(
+      {
+        message: 'Send me an activeTab',
+      },
+      (response) => {
+        console.log(response)
       }
+    )
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.message === 'Send you activeTabURL') {
+        const activeTabURL = request.activeTabURL
+        setCurrentURL(activeTabURL)
+        chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
+          const currentOrigin = new URL(activeTabURL).origin
+          for (let key in domains_list) {
+            if (key.includes(currentOrigin)) {
+              setWhiteURL(true)
+              break
+            } else {
+              console.log('no whiteURL')
+            }
+          }
+          sendResponse('I got activeTabURL')
+        })
+      }
+      return true
     })
-  }, [currentURL])
+  }, [])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -66,6 +62,7 @@ export const Popup = () => {
       (event) => {
         if (event.word_list) setWordList(event.word_list.newValue)
         if (event.status) setIsWorked(event.status.newValue)
+
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }
@@ -81,7 +78,7 @@ export const Popup = () => {
 
   return (
     <div className="body">
-      <h1 className="title">Небула</h1>
+      <h1 className="nebula_title">Небула</h1>
       <div className="toggle">
         <div className="main_text">выкл</div>
         <div className="toggle-btn" id="_1st_toggle-btn">
@@ -103,9 +100,6 @@ export const Popup = () => {
             className="btn btn_link popup-text"
             onClick={(checkboxRef) => {
               console.log(checkboxRef.current.checked, 'checkboxRef.current')
-              // setWhiteURL(checkboxRef.current.checked)
-              // if (checkboxRef.current.checked) addDomain(currentURL, '')
-              // else deleteDomain(currentURL)
             }}
           >
             Доверять этому сайту
@@ -116,14 +110,19 @@ export const Popup = () => {
             type="checkbox"
             checked={whiteURl}
             onChange={async (e) => {
-              console.log('e.target.checked', e.target.checked)
               setWhiteURL(!whiteURl)
-              if (e.target.checked) await addDomain(currentURL, '')
-              else await deleteDomain(currentURL)
+              if (e.target.checked) {
+                await addDomain(currentURL, '')
+                sendMessageToBackground('Add this tab into list', currentURL)
+              } else {
+                await deleteDomain(currentURL)
+                sendMessageToBackground(
+                  'Remove this tab out of list',
+                  currentURL
+                )
+              }
             }}
-          >
-            {console.log('whiteURl', whiteURl)}
-          </input>
+          ></input>
         </div>
         <div
           className="btn btn_link popup-text"

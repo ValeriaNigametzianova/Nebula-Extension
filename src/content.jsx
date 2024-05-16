@@ -6,15 +6,22 @@ let injected = false
 
 //one message connection
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request?.answer === 'Yes') {
+  if (request.answer === 'Yes') {
     injectExtension()
     sendResponse({ message: 'ok' })
+  } else {
+    sendResponse({ message: 'no ok' })
   }
-  if (request?.message === 'sendM') {
-    console.log('uraaaaaa vse rabotaet')
-    sendResponse({ message: 'ok-sendM' })
+
+  if (request.message === 'Add this tab into list') {
+    removeExtension()
+    sendResponse({ message: 'Script was removed' })
   }
-  sendResponse({ message: 'no ok' })
+
+  if (request.message === 'Remove this tab out of list') {
+    injectExtension()
+    sendResponse({ message: 'Script was injected' })
+  }
   return true
 })
 
@@ -22,17 +29,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 var port = chrome.runtime.connect({ name: 'nebula-script' })
 port.postMessage({ execute: 'execute?' })
 port.onMessage.addListener(function (msg) {
-  console.log('msg', msg)
   if (msg.answer === 'Yes') {
     injectExtension()
   }
+  port.disconnect()
 })
-port.disconnect()
 
 chrome.storage.sync.onChanged.addListener((changes) => {
+  console.log('chan', changes)
   if (changes.status) {
-    const newValue = changes.status.newValue
-    console.log('Extension status changed:', newValue)
+    const newValue = changes.status?.newValue
     if (newValue) {
       injectExtension()
     } else {
@@ -42,7 +48,9 @@ chrome.storage.sync.onChanged.addListener((changes) => {
 })
 
 function injectExtension() {
-  if (injected) return
+  if (injected) {
+    return
+  }
   injected = true
   console.log('Injecting extension...', new Date().toLocaleString())
   const root = document.createElement('div')

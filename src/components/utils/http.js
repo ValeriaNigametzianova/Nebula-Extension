@@ -18,7 +18,6 @@ export const AnalyseHTML = async (wordList, elementsArray) => {
 export const testRequest = async (url) => {
   const res = await fetch(
     `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/testRequest`,
-    // `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/gigachat`,
     {
       method: 'POST',
       headers: {

@@ -8,6 +8,7 @@ import { AnalyseHTML, testRequest } from '../components/utils/http'
 import { debounce } from '../components/utils/debounce'
 import { getElementsArray } from '../components/content/preparationForAnalyse/getElementsArray'
 import { parseHTML } from '../components/content/preparationForAnalyse/parseHTML'
+import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 
 export const Scripts = () => {
   const [wordList, setWordList] = useState(null)
@@ -17,6 +18,8 @@ export const Scripts = () => {
   const [URLIncludes, setURLIncludes] = useState(false)
   const currentURL = window.location.href
   const [domainList, setDomainsList] = useState(null)
+
+  useLogAllKeys()
 
   useEffect(() => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
@@ -38,21 +41,16 @@ export const Scripts = () => {
     }
   }, [])
 
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    if (document.readyState !== 'loading') {
-      document.getElementsByTagName('body')[0].style.visibility = 'hidden'
-      parseHTML(wordList, elementsArray)
-      wordList && elementsArray && hideText(elementsArray)
-      document.getElementsByTagName('body')[0].style.visibility = 'visible'
-    } else {
-      document.addEventListener('DOMContentLoaded', function () {
-        document.getElementsByTagName('body')[0].style.visibility = 'hidden'
-        parseHTML(wordList, elementsArray)
-        wordList && elementsArray && hideText(elementsArray)
-        document.getElementsByTagName('body')[0].style.visibility = 'visible'
-      })
+    parseHTML(wordList, elementsArray)
+    console.log('params', loading, wordList, elementsArray?.length)
+    if (!loading && wordList && !elementsArray?.length) {
+      setLoading(true)
+      console.log('hideText')
+      hideText(elementsArray)
     }
-  }, [wordList])
+  }, [wordList, elementsArray, loading])
 
   const URLExceptionsSetter = () => {
     chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
@@ -111,7 +109,10 @@ export const Scripts = () => {
     //   array.map((el) => el.textContent)
     // )
     const AIResponse = await testRequest(currentURL)
-    console.log(AIResponse, 'AIResponse')
+    // const AIResponse = Object.assign(
+    //   {},
+    //   elementsArray.map(() => true)
+    // )
 
     for (let key in AIResponse) {
       if (AIResponse[key] === true) {
@@ -141,6 +142,8 @@ export const Scripts = () => {
   //   1000
   // )
 
+  // return null
+
   return (
     <div
       style={{
@@ -149,7 +152,9 @@ export const Scripts = () => {
         alignItems: 'center',
       }}
     >
-      {URLIncludes ? null : (
+      {URLIncludes ? (
+        <></>
+      ) : (
         <button
           className="btn_red"
           style={{
@@ -164,9 +169,11 @@ export const Scripts = () => {
             marginBottom: '20px',
             border: '0px',
             borderRadius: '2px',
+            zIndex: '5',
           }}
           onClick={() => {
             console.log('start hiding')
+            hideText(elementsArray)
             console.log('end hiding')
           }}
         >
