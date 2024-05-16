@@ -2,17 +2,16 @@
 
 :root {
   --Black: hsl(240, 69%, 3%);
-  --Red: #FD484D;
-  --Light-red: #FD484D;
+  --Red: #fd484d;
+  --Light-red: #fd484d;
   --Lidght-grey: #e8ecef;
   --Dark-grey: #aab1bb;
   --White: #fff;
-  --Background: #F2F5F8;
-  
+  --Background: #f2f5f8;
 }
 
 /* fonts */
-.title {
+.nebula_title {
   font-size: 24px;
   color: var(--Black, #02020b);
   font-family: Geologica;

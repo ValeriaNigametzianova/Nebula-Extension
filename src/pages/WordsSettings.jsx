@@ -16,9 +16,6 @@ const WordsSettings = () => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
         if (event.word_list) setWordList(event.word_list.newValue)
-        chrome.storage.sync.get(null, (allkeys) => {
-          console.log('allkeys: ', allkeys)
-        })
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }
@@ -84,7 +81,7 @@ const WordsSettings = () => {
               />
             ))
           ) : (
-            <div>Load</div>
+            <div className="mark">Нет добавленных слов</div>
           )}
         </div>
       </div>

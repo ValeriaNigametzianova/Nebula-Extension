@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 
-.title {
+.nebula_title {
   display: flex;
   justify-content: center;
 }

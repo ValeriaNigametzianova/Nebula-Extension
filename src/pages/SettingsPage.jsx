@@ -46,49 +46,15 @@ export const SettingsPage = () => {
 
   return (
     <div className="wrapper_page">
-      <button
-        className="btn_red"
-        style={{
-          width: '300px',
-          padding: '10px 25px',
-          color: '#fff',
-          backgroundColor: '#f05365',
-          cursor: 'pointer',
-          fontFamily: 'Geologica',
-          fontSize: '20px',
-          marginTop: '20px',
-          marginBottom: '20px',
-          border: '0px',
-          borderRadius: '2px',
-        }}
-        onClick={() => {
-          fetch('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
-            method: 'POST',
-            // maxBodyLength: Infinity,
-            headers: {
-              // 'Content-Type': 'application/x-www-form-urlencoded',
-              Accept: 'application/json',
-              Rquid: self.crypto.randomUUID().toString(),
-              Authorization:
-                'Basic MWY1OWNlYTctMjgwMi00ZDY5LTk0MzgtYjRlOTg2YWIwNjhmOmFjMmMwMjIzLTYwMGYtNGU2Ny05MjEyLTgxMDUwZGFlNTQwMw==',
-            },
-            body: new URLSearchParams({
-              scope: 'GIGACHAT_API_PERS',
-            }),
-          }).then((response) => {
-            console.log(response, 'gchat response')
-            console.log(JSON.stringify(response))
-            return JSON.parse(response.choises[0].message.content)
-          })
-        }}
-      >
-        Замаскировать контент
-      </button>
-      <button className="help_button btn_red title">?</button>
+      <button className="help_button btn_red nebula_title">?</button>
       <div className="left_side">
         <div className="tabs">
           <button
-            className={wordButton ? 'title btn_tab tab' : 'title btn_tab tab'}
+            className={
+              wordButton
+                ? 'nebula_title btn_tab tab'
+                : 'nebula_title btn_tab tab'
+            }
             id="btn_words"
             onClick={(e) => {
               setActivePage(e.target.id)
@@ -99,7 +65,11 @@ export const SettingsPage = () => {
             Слова
           </button>
           <button
-            className={domainButton ? 'title btn_tab tab' : 'title btn_tab tab'}
+            className={
+              domainButton
+                ? 'nebula_title btn_tab tab'
+                : 'nebula_title btn_tab tab'
+            }
             id="btn_domains"
             onClick={(e) => {
               setActivePage(e.target.id)
@@ -126,7 +96,7 @@ export const SettingsPage = () => {
             : { position: 'fixed' }
         }
       >
-        <div className="title">Внешний вид</div>
+        <div className="nebula_title">Внешний вид</div>
         <Prewiew
           blurColor={blurColor}
           effectColor={effectColor}

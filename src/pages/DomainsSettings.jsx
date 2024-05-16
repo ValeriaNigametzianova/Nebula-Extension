@@ -52,11 +52,10 @@ const DomainsSettings = () => {
           <div className="list_title subtitle">Весь список сайтов</div>
           <div className="list_sorting">
             <button
-              className="btn_black"
-              style={{ borderRadius: '2px' }}
+              className="btn_black mark"
               onClick={() => setAscending(!ascending)}
             >
-              {ascending ? 'A-Z' : 'Z-A'}
+              {ascending ? 'А-Я' : 'Я-А'}
             </button>
             <select
               className="select_dropdown mark"
@@ -84,7 +83,7 @@ const DomainsSettings = () => {
               />
             ))
           ) : (
-            <div>Load</div>
+            <div>Нет добавленных сайтов</div>
           )}
         </div>
       </div>
