@@ -9,8 +9,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.answer === 'Yes') {
     injectExtension()
     sendResponse({ message: 'ok' })
-  } else {
-    sendResponse({ message: 'no ok' })
   }
 
   if (request.message === 'Add this tab into list') {
@@ -21,6 +19,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === 'Remove this tab out of list') {
     injectExtension()
     sendResponse({ message: 'Script was injected' })
+  } else {
+    sendResponse({ message: 'no ok' })
   }
   return true
 })

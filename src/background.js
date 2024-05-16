@@ -61,26 +61,43 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return true
     })
   }
-  if (
-    message === 'Add this tab into list' ||
-    message === 'Remove this tab out of list'
-  ) {
-    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
-      if (request.tabURL === tabs[0].url) {
-        await chrome.tabs.sendMessage(
-          tabs[0].id,
-          {
-            message,
-          },
-          (response) => {
-            console.log('resp from content', response)
-          }
-        )
-        sendResponse('Thanks, Popup. Tab was getting')
-        return true
-      }
-    })
-  }
+
   console.log('CATCH')
   return true
+})
+
+chrome.storage.sync.onChanged.addListener((changes) => {
+  if (!changes.domains_list) return
+
+  const { newValue, oldValue } = changes.domains_list
+  const newArray = Object.keys(newValue)
+  const oldArray = Object.keys(oldValue)
+  const addingURL = newArray.length > oldArray.length
+  const filteredURL = addingURL
+    ? newArray.find((newURL) => !oldArray.includes(newURL))
+    : oldArray.find((oldURL) => !newArray.includes(oldURL))
+  console.log(filteredURL)
+
+  chrome.tabs.query({}, async (tabs) => {
+    for (let tab of tabs) {
+      if (tab.url === filteredURL)
+        if (tab.active && !addingURL) {
+          chrome.tabs.sendMessage(
+            tab.id,
+            { message: 'Remove this tab out of list' },
+            (response) => {
+              console.log('Remove ex', response)
+            }
+          )
+        } else {
+          chrome.tabs.sendMessage(
+            tab.id,
+            { message: 'Add this tab into list' },
+            (response) => {
+              console.log('Remove ex', response)
+            }
+          )
+        }
+    }
+  })
 })

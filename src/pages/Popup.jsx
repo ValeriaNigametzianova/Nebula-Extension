@@ -3,7 +3,6 @@ import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
-import { sendMessageToBackground } from '../components/utils/sendMessageToBackground'
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
@@ -113,13 +112,8 @@ export const Popup = () => {
               setWhiteURL(!whiteURl)
               if (e.target.checked) {
                 await addDomain(currentURL, '')
-                sendMessageToBackground('Add this tab into list', currentURL)
               } else {
                 await deleteDomain(currentURL)
-                sendMessageToBackground(
-                  'Remove this tab out of list',
-                  currentURL
-                )
               }
             }}
           ></input>
