@@ -14,10 +14,10 @@ export const ListItem = (props) => {
   const [domainName, setDomainName] = useState(props.domainName)
 
   return (
-    <div className={editMode === false ? 'item' : 'item_active'}>
+    <div className={editMode === false ? 'nebula_item' : 'item_active'}>
       {props.word &&
         (editMode === false ? (
-          <div className="item_word main_text">{props.word}</div>
+          <div className="nebula_item_word main_text">{props.word}</div>
         ) : (
           <input
             value={newWord}
@@ -29,7 +29,7 @@ export const ListItem = (props) => {
 
       {props.domain &&
         (editMode === false ? (
-          <div className="item_word main_text">{props.domain}</div>
+          <div className="nebula_item_word main_text">{props.domain}</div>
         ) : (
           <input
             value={newDomain}
@@ -41,7 +41,7 @@ export const ListItem = (props) => {
 
       {props.categories &&
         (editMode === false ? (
-          <div className="item_category main_text">
+          <div className="nebula_item_category main_text">
             {categories.map((category, index) => (
               <span key={index}>
                 {index === categories.length - 1 ? category : category + ', '}
@@ -58,7 +58,7 @@ export const ListItem = (props) => {
 
       {props.domain &&
         (editMode === false ? (
-          <div className="item_category main_text">{domainName}</div>
+          <div className="nebula_item_category main_text">{domainName}</div>
         ) : (
           <input
             value={domainName}
@@ -68,7 +68,11 @@ export const ListItem = (props) => {
           ></input>
         ))}
 
-      <div className={editMode === false ? 'actions' : 'actions_active'}>
+      <div
+        className={
+          editMode === false ? 'nebula_actions' : 'nebula_actions_active'
+        }
+      >
         {editMode === false ? (
           <button
             className="icon_button"

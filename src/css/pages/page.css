@@ -278,25 +278,25 @@
   flex-direction: column;
 }
 
-.item {
+.nebula_item {
   display: grid;
   padding: 14px 25px 15px 10px;
   grid-template-columns: 33% auto 50% auto 7.5%;
   align-items: center;
   border-radius: 2px;
 
-  > .item_word {
+  > .nebula_item_word {
     grid-column: 1/2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  > .item_category {
+  > .nebula_item_category {
     grid-column: 3/4;
     text-wrap: wrap;
   }
-  > .actions {
+  > .nebula_actions {
     visibility: hidden;
     display: flex;
     grid-column: 5/6;
@@ -305,9 +305,9 @@
   }
 }
 
-.item:hover {
+.nebula_item:hover {
   background-color: var(--Light-grey, #e8ecef);
-  > .actions {
+  > .nebula_actions {
     visibility: visible;
     display: flex;
     grid-column: 5/6;
@@ -324,15 +324,15 @@
   align-items: center;
   border-radius: 2px;
 
-  > .item_word {
+  > .nebula_item_word {
     grid-column: 1/2;
   }
 
-  > .item_category {
+  > .nebula_item_category {
     grid-column: 3/4;
   }
 
-  > .actions_active {
+  > .nebula_actions_active {
     visibility: visible;
     display: flex;
     grid-column: 5/6;
