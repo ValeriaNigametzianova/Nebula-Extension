@@ -37,3 +37,24 @@
   transition: 0.35s;
   overflow: hidden;
 }
+
+.hidden_block_show_options {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.show_masked_word {
+  position: absolute;
+  top: 5px;
+  right: 100px;
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+  background-color: var(--White, #02020d);
+  color: var(--Black, #02020d);
+  gap: 5px;
+}
