@@ -2,6 +2,26 @@ import { runInjected } from './components/utils/runInjected'
 
 console.log('CONNECTED')
 
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason == 'install') {
+    console.log('This is a first install!', details)
+
+    const DEFAULT_OBJECT = {
+      blur_degree: '50',
+      blur_color: '#5cc9ff',
+      effect: 'none',
+      effect_color: '#ffffff',
+      hover_behavior: 'none',
+      show_word: false,
+      show_category: false,
+    }
+
+    chrome.storage.sync.set({
+      blur_settings: DEFAULT_OBJECT,
+    })
+  }
+})
+
 //port messaging
 chrome.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg, { sender }) => {
