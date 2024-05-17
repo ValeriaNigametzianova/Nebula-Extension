@@ -29,7 +29,9 @@ export const ListItem = (props) => {
 
       {props.domain &&
         (editMode === false ? (
-          <div className="nebula_item_word main_text">{props.domain}</div>
+          <div title={props.domain} className="nebula_item_word main_text">
+            {props.domain}
+          </div>
         ) : (
           <input
             value={newDomain}
