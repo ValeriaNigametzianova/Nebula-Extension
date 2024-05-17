@@ -3,7 +3,9 @@ import { getElementsArray } from './getElementsArray'
 export const parseHTML = (wordList, elementsArray) => {
   for (let key in wordList) {
     const headings = document.evaluate(
-      `.//*[contains(text(), "${key}")]`,
+      // `.//*[contains(text(), "${key}")]`,
+      `.//*[contains(text(), "${key}") and not(contains(@class, 'nebula'))]`,
+      // `.//*[not(contains(@class, 'nebula'))]`,
       document.body,
       null,
       XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
