@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-export const HoverBehaviorPanel = () => {
-  const [currentBehavior, setCurrentBehavior] = useState('')
-
+export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
   useEffect(() => {
     chrome.storage.sync
       .get(['blur_settings'])
       .then(
         ({ blur_settings }) =>
           blur_settings?.hover_behavior &&
-          setCurrentBehavior(blur_settings.hover_behavior)
+          setHoverBehavior(blur_settings.hover_behavior)
       )
   }, [])
 
@@ -17,47 +15,47 @@ export const HoverBehaviorPanel = () => {
     const delayDebounceFn = setTimeout(() => {
       chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
         chrome.storage.sync.set({
-          blur_settings: { ...blur_settings, hover_behavior: currentBehavior },
+          blur_settings: { ...blur_settings, hover_behavior: hoverBehavior },
         })
       )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
-  }, [currentBehavior])
+  }, [hoverBehavior])
 
   return (
     <div className="behavior_wrapper">
       <button
         className={
-          currentBehavior === 'none'
+          hoverBehavior === 'none'
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
         onClick={(e) => {
-          setCurrentBehavior('none')
+          setHoverBehavior('none')
         }}
       >
         Нет
       </button>
       <button
         className={
-          currentBehavior === 'blur'
+          hoverBehavior === 'blur'
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
         onClick={(e) => {
-          setCurrentBehavior('blur')
+          setHoverBehavior('blur')
         }}
       >
         Размытие
       </button>
       <button
         className={
-          currentBehavior === 'zoom'
+          hoverBehavior === 'zoom'
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
         onClick={(e) => {
-          setCurrentBehavior('zoom')
+          setHoverBehavior('zoom')
         }}
       >
         Зум

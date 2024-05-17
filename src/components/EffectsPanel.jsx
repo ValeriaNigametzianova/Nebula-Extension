@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Flowers } from './effects/Flowers'
 import { Dots_1 } from '../images/dots/svg/1'
 import { Flower_1 } from '../images/flowers/svg/1'
 
-export const EffectsPanel = () => {
-  const [currentEffect, setCurrentEffect] = useState('')
+export const EffectsPanel = ({ effect, setEffect }) => {
+  // const [currentEffect, setCurrentEffect] = useState(effect)
 
   useEffect(() => {
     chrome.storage.sync
       .get(['blur_settings'])
       .then(
         ({ blur_settings }) =>
-          blur_settings?.effect && setCurrentEffect(blur_settings.effect)
+          blur_settings?.effect && setEffect(blur_settings.effect)
       )
   }, [])
 
@@ -19,42 +18,38 @@ export const EffectsPanel = () => {
     const delayDebounceFn = setTimeout(() => {
       chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
         chrome.storage.sync.set({
-          blur_settings: { ...blur_settings, effect: currentEffect },
+          blur_settings: { ...blur_settings, effect: effect },
         })
       )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
-  }, [currentEffect])
+  }, [effect])
 
   return (
     <div className="effects_wrapper">
       <div
-        className={currentEffect === 'none' ? 'effect_selected' : 'effect'}
+        className={effect === 'none' ? 'effect_selected' : 'effect'}
         id="none"
         onClick={(e) => {
-          setCurrentEffect('none')
+          setEffect('none')
         }}
       >
         Нет
       </div>
       <div
-        className={
-          currentEffect === 'dots_effect' ? 'effect_selected' : 'effect'
-        }
+        className={effect === 'dots_effect' ? 'effect_selected' : 'effect'}
         id="dots_effect"
         onClick={(e) => {
-          setCurrentEffect('dots_effect')
+          setEffect('dots_effect')
         }}
       >
         <Dots_1></Dots_1>
       </div>
       <div
-        className={
-          currentEffect === 'flowers_effect' ? 'effect_selected' : 'effect'
-        }
+        className={effect === 'flowers_effect' ? 'effect_selected' : 'effect'}
         id="flowers_effect"
         onClick={(e) => {
-          setCurrentEffect('flowers_effect')
+          setEffect('flowers_effect')
           console.log(e, 'sfsfsdfsf')
         }}
       >
