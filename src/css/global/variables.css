@@ -1,12 +1,12 @@
 /* colors */
 
 :root {
-  --Black: hsl(240, 69%, 3%);
+  --Black: #02020d;
   --Red: #fd484d;
   --Light-red: #fd484d;
   --Lidght-grey: #e8ecef;
   --Dark-grey: #aab1bb;
-  --White: #fff;
+  --White: #ffffff;
   --Background: #f2f5f8;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .button_text {
-  color: var(--White, #fff);
+  color: var(--White, #ffffff);
   font-family: Geologica;
   font-size: 16px;
   font-style: normal;
@@ -66,7 +66,7 @@
 }
 
 .popup_button_text {
-  color: var(--White, #fff);
+  color: var(--White, #ffffff);
   font-family: Geologica;
   font-size: 14px;
   font-style: normal;

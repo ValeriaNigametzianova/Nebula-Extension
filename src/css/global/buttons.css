@@ -44,7 +44,7 @@
   background-color: var(--Black, #02020b);
   justify-content: center;
   align-items: center;
-  color: var(--White, #fff);
+  color: var(--White, #ffffff);
   border: 1px solid var(--Black, #02020b);
   border-radius: 2px;
   padding: 10px;
@@ -82,12 +82,9 @@
 
 .btn_show_content {
   cursor: pointer;
-  position: absolute;
-  top: 5px;
-  right: 5px;
 
   background: var(--Red, #f05365);
-  color: var(--White, #fff);
+  color: var(--White, #ffffff);
   border-radius: 2px;
   border: 0;
   padding: 5px;
