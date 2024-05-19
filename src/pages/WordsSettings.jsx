@@ -71,7 +71,7 @@ const WordsSettings = () => {
           </button>
         </div>
         <div id="list" className="list">
-          {word_list ? (
+          {word_list && Object.keys(word_list).length > 0 ? (
             sortedWordList.map((word) => (
               <ListItem
                 key={word}

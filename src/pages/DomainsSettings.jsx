@@ -74,7 +74,7 @@ const DomainsSettings = () => {
           </button>
         </div>
         <div id="list" className="list">
-          {domainsList ? (
+          {domainsList && Object.keys(domainsList).length > 0 ? (
             sortedDomainsList.map((domain) => (
               <ListItem
                 key={domain}
