@@ -4,7 +4,6 @@ import '../css/global/buttons.css'
 import '../css/pages/page.css'
 import { parseHTML } from '../components/content/preparationForAnalyse/parseHTML'
 import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
-import { URLExceptionsSetter } from '../components/content/preparationForAnalyse/URLExceptionsSetter'
 import { hideText } from '../components/content/preparationForAnalyse/hideText'
 import { useObserveAnalysePages } from '../components/content/hooks/useObserveAnalysePages'
 
@@ -22,25 +21,12 @@ export const Scripts = () => {
     chrome.storage.sync.get(['word_list']).then(({ word_list }) => {
       setWordList(word_list)
     })
-    URLExceptionsSetter(setURLIncludes, currentURL)
-  }, [])
-
-  useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.domains_list) {
-          URLExceptionsSetter(setURLIncludes, currentURL)
-        }
-      }
-    )
-    return () => {
-      chrome.storage.sync.onChanged.removeListener(storageListener)
-    }
   }, [])
 
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     parseHTML(wordList, elementsArray)
+    console.log(123)
     console.log(loading, wordList, elementsArray?.length)
     if (!loading && wordList && elementsArray?.length) {
       setLoading(true)
