@@ -7,18 +7,22 @@ chrome.runtime.onInstalled.addListener((details) => {
     console.log('This is a first install!', details)
 
     const DEFAULT_OBJECT = {
-      blur_degree: '50',
-      blur_color: '#5cc9ff',
-      effect: 'none',
-      effect_color: '#ffffff',
-      hover_behavior: 'none',
-      show_word: false,
-      show_category: false,
+      word_list: {},
+      domains_list: {},
+      blur_settings: {
+        blur_degree: '50',
+        blur_color: '#5cc9ff',
+        effect: 'none',
+        effect_color: '#ffffff',
+        hover_behavior: 'none',
+        show_word: false,
+        show_category: false,
+      },
+      status: false,
+      use_neuronet: false,
     }
 
-    chrome.storage.sync.set({
-      blur_settings: DEFAULT_OBJECT,
-    })
+    chrome.storage.sync.set(DEFAULT_OBJECT)
   }
 })
 
@@ -33,11 +37,10 @@ chrome.runtime.onConnect.addListener((port) => {
         if (senderId === activeTabId && checkForInjecting)
           port.postMessage({ answer: 'Yes' })
         else port.postMessage({ answer: 'No' })
-        port.postMessage({ answer: 'No' })
       })
     }
   })
-  return true
+  // return true возможно не нужно, так как используется при одиночном сообщении
 })
 
 //one message connection
