@@ -30,17 +30,6 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
     settings && setPrewiewSettings(settings)
   }, [settings])
 
-  useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(() => {
-      chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
-        setPrewiewSettings(blur_settings)
-      })
-      return () => {
-        chrome.storage.sync.onChanged.removeListener(storageListener)
-      }
-    })
-  }, [])
-
   const setPrewiewSettings = (settings) => {
     ref.current.style.filter = settings
       ? `blur(${settings.blur_degree / 8}px)`

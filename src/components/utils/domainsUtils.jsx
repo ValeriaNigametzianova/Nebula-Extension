@@ -1,20 +1,8 @@
 export const addDomain = async (domain, domainName) => {
   if (domain) {
     const { domains_list } = await chrome.storage.sync.get(['domains_list'])
-    if (domains_list) {
-      if (domains_list[domain]) return
-      else
-        await chrome.storage.sync.set({
-          domains_list: {
-            ...domains_list,
-            [domain]: {
-              domain_name: domainName,
-              dateCreated: new Date().toISOString(),
-              dateEdited: new Date().toISOString(),
-            },
-          },
-        })
-    } else
+    if (domains_list[domain]) return
+    else {
       await chrome.storage.sync.set({
         domains_list: {
           ...domains_list,
@@ -25,6 +13,7 @@ export const addDomain = async (domain, domainName) => {
           },
         },
       })
+    }
   }
 }
 
