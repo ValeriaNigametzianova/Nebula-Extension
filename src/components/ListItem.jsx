@@ -14,7 +14,7 @@ export const ListItem = (props) => {
   const [domainName, setDomainName] = useState(props.domainName)
 
   return (
-    <div className={editMode === false ? 'nebula_item' : 'item_active'}>
+    <div className={editMode === false ? 'nebula_item' : 'nebula_item_active'}>
       {props.word &&
         (editMode === false ? (
           <div className="nebula_item_word main_text">{props.word}</div>

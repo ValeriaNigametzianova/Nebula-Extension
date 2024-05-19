@@ -4,27 +4,6 @@ import { Scripts } from './pages/Scripts'
 
 let injected = false
 
-//one message connection
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.answer === 'Yes') {
-    injectExtension()
-    sendResponse({ message: 'ok' })
-  }
-
-  if (request.message === 'Add this tab into list') {
-    removeExtension()
-    sendResponse({ message: 'Script was removed' })
-  }
-
-  if (request.message === 'Remove this tab out of list') {
-    injectExtension()
-    sendResponse({ message: 'Script was injected' })
-  } else {
-    sendResponse({ message: 'no ok' })
-  }
-  return true
-})
-
 //port messaging
 var port = chrome.runtime.connect({ name: 'nebula-script' })
 port.postMessage({ execute: 'execute?' })
@@ -47,7 +26,28 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   }
 })
 
-function injectExtension() {
+//one message connection
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.answer === 'Yes') {
+    injectExtension()
+    sendResponse({ message: 'ok' })
+  }
+
+  if (request.message === 'Add this tab into list') {
+    removeExtension()
+    sendResponse({ message: 'Script was removed' })
+  }
+
+  if (request.message === 'Remove this tab out of list') {
+    injectExtension()
+    sendResponse({ message: 'Script was injected' })
+  } else {
+    sendResponse({ message: 'no ok' })
+  }
+  return true
+})
+
+const injectExtension = () => {
   if (injected) {
     return
   }
@@ -68,7 +68,7 @@ function injectExtension() {
   )
 }
 
-function removeExtension() {
+const removeExtension = () => {
   if (!injected) return
   injected = false
   console.log('Removing extension...')

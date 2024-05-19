@@ -14,7 +14,6 @@ export const useObserveAnalysePages = (wordList) => {
       if (el.addedNodes.length > 0) {
         const node = el.addedNodes[el.addedNodes.length - 1]
 
-        console.log(456, node.getAttributeNode('class'))
         if (!node.getAttributeNode('class')) {
           setIsNodeHasClass(false)
         } else {

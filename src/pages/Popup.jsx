@@ -76,7 +76,7 @@ export const Popup = () => {
   }, [])
 
   return (
-    <div className="body">
+    <div className="body_popup">
       <h1 className="nebula_title">Небула</h1>
       <div className="toggle">
         <div className="main_text">выкл</div>
@@ -95,14 +95,7 @@ export const Popup = () => {
       </div>
       <div className="links">
         <div style={{ display: 'flex', gap: '10px' }}>
-          <div
-            className="btn btn_link popup-text"
-            onClick={(checkboxRef) => {
-              console.log(checkboxRef.current.checked, 'checkboxRef.current')
-            }}
-          >
-            Доверять этому сайту
-          </div>
+          <div className="btn btn_link popup-text">Доверять этому сайту</div>
           <input
             ref={checkboxRef}
             className="checkbox_popup"

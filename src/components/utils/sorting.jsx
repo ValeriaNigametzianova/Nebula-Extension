@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 export const useSortList = (list, filter, ascending) => {
   const sortedList = useMemo(() => {
     if (!list) return []
-    console.log(list)
     const array = Object.keys(list)
     if (filter === 'date') {
       if (ascending) {
