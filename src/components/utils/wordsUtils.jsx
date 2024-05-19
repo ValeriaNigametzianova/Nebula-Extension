@@ -1,5 +1,5 @@
 export const addWord = async (word, category) => {
-  if (word && category) {
+  if (word && category.length) {
     const { word_list } = await chrome.storage.sync.get(['word_list'])
     const listOfWordCategories = word_list ? word_list[word]?.categories : null
 

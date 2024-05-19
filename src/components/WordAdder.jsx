@@ -4,9 +4,9 @@ import { TagAdderInput } from './TagAdder/TagAdderInput'
 export const WordAdder = ({
   subtitle,
   placeholder,
-  children,
   onSubmit,
   multi,
+  required,
 }) => {
   const [word, setWord] = useState('')
   const [category, setCategory] = useState(multi ? [] : '')
@@ -34,9 +34,9 @@ export const WordAdder = ({
             placeholder="Можете дать название"
           ></input>
         )}
-        {children}
         <button
           className="button_text add_button_page btn_black"
+          disabled={required && (!word || !category.length)}
           onClick={() => {
             onSubmit(word, category)
             setWord('')

@@ -48,45 +48,45 @@ export const Scripts = () => {
     }
   }, [wordList, elementsArray, loading])
 
-  return null
-}
+  // return null
+  // }
 
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//       }}
-//     >
-//       {URLIncludes ? (
-//         <></>
-//       ) : (
-//         <button
-//           className="btn_red"
-//           style={{
-//             width: '300px',
-//             padding: '10px 25px',
-//             color: '#ffffff',
-//             backgroundColor: '#f05365',
-//             cursor: 'pointer',
-//             fontFamily: 'Geologica',
-//             fontSize: '20px',
-//             marginTop: '20px',
-//             marginBottom: '20px',
-//             border: '0px',
-//             borderRadius: '2px',
-//             zIndex: '5',
-//           }}
-//           onClick={() => {
-//             console.log('start hiding')
-//             hideText(elementsArray)
-//             console.log('end hiding')
-//           }}
-//         >
-//           Замаскировать контент
-//         </button>
-//       )}
-//     </div>
-//   )
-// }
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      {URLIncludes ? (
+        <></>
+      ) : (
+        <button
+          className="btn_red"
+          style={{
+            width: '300px',
+            padding: '10px 25px',
+            color: '#ffffff',
+            backgroundColor: '#f05365',
+            cursor: 'pointer',
+            fontFamily: 'Geologica',
+            fontSize: '20px',
+            marginTop: '20px',
+            marginBottom: '20px',
+            border: '0px',
+            borderRadius: '2px',
+            zIndex: '5',
+          }}
+          onClick={() => {
+            console.log('start hiding')
+            hideText(elementsArray)
+            console.log('end hiding')
+          }}
+        >
+          Замаскировать контент
+        </button>
+      )}
+    </div>
+  )
+}

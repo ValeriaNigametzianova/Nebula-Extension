@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Prewiew } from '../components/Prewiew'
 import { Slider } from '../components/Slider'
-import { BlurColorPicker } from '../components/BlurColorPicker'
 import { EffectsPanel } from '../components/EffectsPanel'
-import { EffectsColorPicker } from '../components/EffectsColorPicker'
+import { ColorPicker } from '../components/ColorPicker'
 import { HoverBehaviorPanel } from '../components/HoverBehaviorPanel'
 import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
+import { SmallToggleButton } from '../components/SmallToggleButton'
 const DEFAULT_OBJECT = {
   blur_degree: '50',
   blur_color: '#5cc9ff',
@@ -45,7 +45,11 @@ export const VisualSettings = () => {
         </div>
         <div className="blur_color">
           <div className="name mark">Цвет размытия</div>
-          <BlurColorPicker blurColor={blurColor} setBlurColor={setBlurColor} />
+          <ColorPicker
+            parameter={blurColor}
+            setParameter={setBlurColor}
+            parameterName={'blur_color'}
+          />
         </div>
         <div className="additional_effects">
           <div className="name mark">Дополнительные эффекты</div>
@@ -53,9 +57,10 @@ export const VisualSettings = () => {
         </div>
         <div className="effects_color">
           <div className="name mark">Цвет эффекта</div>
-          <EffectsColorPicker
-            effectColor={effectColor}
-            setEffectColor={setEffectColor}
+          <ColorPicker
+            parameter={effectColor}
+            setParameter={setEffectColor}
+            parameterName={'effect_color'}
           />
         </div>
         <div className="hover_behavior">
@@ -66,20 +71,11 @@ export const VisualSettings = () => {
           />
         </div>
         <div className="show_options">
-          <div className="show_word">
-            <div className="name mark">Показать слово</div>
-            <div className="show_toggle" id="show_toggle">
-              <input className="checkbox_input" type="checkbox" />
-              <span></span>
-            </div>
-          </div>
-          <div className="show_category">
-            <div className="name mark">Показать категорию</div>
-            <div className="show_toggle" id="show_toggle">
-              <input className="checkbox_input" type="checkbox" />
-              <span></span>
-            </div>
-          </div>
+          <SmallToggleButton title={'Показать слово'} className={'show_word'} />
+          <SmallToggleButton
+            title={'Показать категорию'}
+            className={'show_category'}
+          />
         </div>
         <button className="reset_button mark btn_link" onClick={resetSettings}>
           Сбросить все

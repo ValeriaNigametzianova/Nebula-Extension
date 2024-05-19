@@ -31,7 +31,7 @@ export const TagAdderInput = ({ state, setState, className }) => {
         {state &&
           state.map((tag, index) => (
             <li key={index} className="tag mark">
-              <span className="tag-title">{tag}</span>
+              <span className="tag_title">{tag}</span>
               <button className="tag_icon" onClick={() => removeTags(index)}>
                 <CloseIcon style={{ scale: '1.5' }} />
               </button>

@@ -4,6 +4,7 @@ import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { addWord } from '../components/utils/wordsUtils'
 import { useSortList } from '../components/utils/sorting'
 import { WordAdder } from '../components/WordAdder'
+import { DropdownMenu } from '../components/DropdownMenu'
 
 const WordsSettings = () => {
   const [word_list, setWordList] = useState(null)
@@ -37,6 +38,7 @@ const WordsSettings = () => {
         onSubmit={(word, categories) => {
           addWord(word, categories)
         }}
+        required
         multi
       />
       <div className="list_section">
@@ -49,13 +51,11 @@ const WordsSettings = () => {
             >
               {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <select
-              className="select_dropdown mark"
-              onClick={(e) => setFilter(e.target.value)}
-            >
-              <option value="date">По дате добавления</option>
-              <option value="alphabet">По алфавиту</option>
-            </select>
+            <DropdownMenu
+              onClick={setFilter}
+              option_1={'По дате добавления'}
+              option_2={'По алфавиту'}
+            />
           </div>
         </div>
         <div className="list_header">

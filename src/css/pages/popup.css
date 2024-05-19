@@ -1,4 +1,4 @@
-.body {
+.body_popup {
   width: 300px;
   border-radius: 10px;
   background: var(--Background, #fbfbfb);
@@ -29,10 +29,6 @@
   width: 15px;
   border: 1px solid var(--Black, #000000);
   border-radius: 2px;
-}
-
-.checkbox_popup:not(:checked) {
-  /* opacity: 0; */
 }
 
 .checkbox_popup:checked {
