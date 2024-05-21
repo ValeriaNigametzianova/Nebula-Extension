@@ -12,6 +12,8 @@ const DEFAULT_OBJECT = {
   effect_color: '#ffffff',
   effect: 'none',
   hoverBehavior: 'none',
+  show_word: false,
+  show_category: false,
 }
 
 export const VisualSettings = () => {
@@ -20,8 +22,49 @@ export const VisualSettings = () => {
   const [value, setValue] = useState(DEFAULT_OBJECT.blur_degree)
   const [effect, setEffect] = useState(DEFAULT_OBJECT.effect)
   const [hoverBehavior, setHoverBehavior] = useState(DEFAULT_OBJECT.effect)
+  const [showWord, setShowWord] = useState(DEFAULT_OBJECT.show_word)
+  const [showCategory, setShowCategory] = useState(DEFAULT_OBJECT.show_category)
+  const [useNeuronet, setUseNeuronet] = useState(false)
 
   useLogAllKeys()
+
+  useEffect(() => {
+    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
+      blur_settings?.show_word && setShowWord(blur_settings.show_word)
+      blur_settings?.show_category &&
+        setShowCategory(blur_settings.show_category)
+    })
+  }, [])
+
+  useEffect(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        if (event.use_neuronet) setUseNeuronet(event.use_neuronet.newValue)
+        return () => {
+          chrome.storage.sync.onChanged.removeListener(storageListener)
+        }
+      }
+    )
+  }, [])
+
+  const showWordToggleHandler = (value) => {
+    console.log(value)
+    setShowWord(value)
+    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
+      chrome.storage.sync.set({
+        blur_settings: { ...blur_settings, show_word: value },
+      })
+    )
+  }
+
+  const showCategoryToggleHandler = (value) => {
+    setShowCategory(value)
+    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
+      chrome.storage.sync.set({
+        blur_settings: { ...blur_settings, show_category: value },
+      })
+    )
+  }
 
   const resetSettings = async () => {
     await chrome.storage.sync.set({
@@ -32,6 +75,8 @@ export const VisualSettings = () => {
     setValue(DEFAULT_OBJECT.blur_degree)
     setEffect(DEFAULT_OBJECT.effect)
     setHoverBehavior(DEFAULT_OBJECT.hoverBehavior)
+    setShowWord(DEFAULT_OBJECT.show_word)
+    setShowCategory(DEFAULT_OBJECT.show_category)
   }
 
   return (
@@ -71,10 +116,19 @@ export const VisualSettings = () => {
           />
         </div>
         <div className="show_options">
-          <SmallToggleButton title={'Показать слово'} className={'show_word'} />
+          <SmallToggleButton
+            title={'Показать слово'}
+            className={'show_word'}
+            value={showWord}
+            setValue={showWordToggleHandler}
+          />
           <SmallToggleButton
             title={'Показать категорию'}
             className={'show_category'}
+            value={showCategory}
+            setValue={showCategoryToggleHandler}
+            tooltip="Недоступно без использования нейросети"
+            disabled={!useNeuronet}
           />
         </div>
         <button className="reset_button mark btn_link" onClick={resetSettings}>

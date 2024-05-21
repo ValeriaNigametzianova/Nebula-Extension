@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ListItem } from '../components/ListItem'
-import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { addWord } from '../components/utils/wordsUtils'
 import { useSortList } from '../components/utils/sorting'
 import { WordAdder } from '../components/WordAdder'
@@ -53,6 +52,8 @@ const WordsSettings = () => {
             </button>
             <DropdownMenu
               onClick={setFilter}
+              value_1={'date'}
+              value_2={'alphabet'}
               option_1={'По дате добавления'}
               option_2={'По алфавиту'}
             />

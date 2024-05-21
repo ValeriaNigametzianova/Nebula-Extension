@@ -8,6 +8,11 @@
   padding: 15px 10px;
 }
 
+.btn_tab:focus,
+.btn_tab:focus-visible {
+  border-style: 1px solid var(--Black, #02020d);
+}
+
 .btn_link {
   cursor: pointer;
   color: var(--Dark-grey, #aab1bb);
@@ -97,6 +102,7 @@
 }
 
 .icon_button {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,11 +118,22 @@
 }
 
 .icon_button_black {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--Black, #000000);
+  background-color: var(--Black, #02020d);
   border: 0;
   padding: 6px;
   border-radius: 50%;
+}
+
+.icon_button_toolip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
 }

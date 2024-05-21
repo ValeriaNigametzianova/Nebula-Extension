@@ -1,24 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SmallToggleButton } from '../components/SmallToggleButton'
-import { DropdownMenu } from '../components/DropdownMenu'
+import { NeuronetAdder } from '../components/NeuronetAdder'
 
 export const NeuronetSettings = () => {
-  const [chooseNeuronet, setchooseNeuronet] = useState('')
+  const [useNeuronet, setUseNeuronet] = useState(false)
+
+  useEffect(() => {
+    chrome.storage.sync.get().then((storage) => {
+      console.log(123, storage)
+      setUseNeuronet(storage.use_neuronet)
+    })
+  }, [])
+
+  const toggleHandler = (value) => {
+    setUseNeuronet(value)
+    chrome.storage.sync.set({
+      use_neuronet: value,
+    })
+  }
+
   return (
-    <div className="add_word_section">
-      <div className="subtitle">
-        Использование нейросети при анализе страниц
+    <div className="add_neuronet_section">
+      <div className="header">
+        <div className="subtitle">
+          Использование нейросети при анализе страниц
+        </div>
+        <SmallToggleButton
+          className={'show_word'}
+          value={useNeuronet}
+          setValue={toggleHandler}
+        />
       </div>
-      <SmallToggleButton
-        title={'Использовать нейросеть'}
-        className={'show_word'}
-      />
-      <DropdownMenu
-        onClick={setchooseNeuronet}
-        defaultOption={'Выберите нейросеть'}
-        option_1={'ChatGPT'}
-        option_2={'GigaChat'}
-      />
+
+      <NeuronetAdder useNeuronet={useNeuronet} />
     </div>
   )
 }

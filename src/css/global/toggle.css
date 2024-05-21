@@ -82,7 +82,19 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  .show_toggle_title {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+  }
 }
+
+.show_category:has(.icon_button_toolip) {
+  gap: 16px;
+}
+
 .show_toggle {
   position: relative;
   width: 88px;

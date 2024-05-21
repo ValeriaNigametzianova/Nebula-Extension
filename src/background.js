@@ -20,6 +20,11 @@ chrome.runtime.onInstalled.addListener((details) => {
       },
       status: false,
       use_neuronet: false,
+      neuronet_model: '',
+      API_keys: {
+        ChatGPT: '',
+        GigaChat: '',
+      },
     }
 
     chrome.storage.sync.set(DEFAULT_OBJECT)

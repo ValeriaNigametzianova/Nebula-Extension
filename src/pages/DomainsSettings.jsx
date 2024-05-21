@@ -3,6 +3,7 @@ import { ListItem } from '../components/ListItem'
 import { addDomain } from '../components/utils/domainsUtils'
 import { useSortList } from '../components/utils/sorting'
 import { WordAdder } from '../components/WordAdder'
+import { DropdownMenu } from '../components/DropdownMenu'
 
 const DomainsSettings = () => {
   const [domainsList, setDomainList] = useState(null)
@@ -31,9 +32,6 @@ const DomainsSettings = () => {
 
   const removeDomains = async () => {
     await chrome.storage.sync.remove(['domains_list'])
-    const { domains_list } = await chrome.storage.sync.get(['domains_list'])
-    const list = domains_list ? Object.keys(domains_list) : null
-    // ChangeManifest(list)
   }
 
   const sortedDomainsList = useSortList(domainsList, filter, ascending)
@@ -57,13 +55,13 @@ const DomainsSettings = () => {
             >
               {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <select
-              className="select_dropdown mark"
-              onClick={(e) => setFilter(e.target.value)}
-            >
-              <option value="date">По дате добавления</option>
-              <option value="alphabet">По алфавиту</option>
-            </select>
+            <DropdownMenu
+              onClick={setFilter}
+              value_1={'date'}
+              value_2={'alphabet'}
+              option_1={'По дате добавления'}
+              option_2={'По алфавиту'}
+            />
           </div>
         </div>
         <div className="list_header">
