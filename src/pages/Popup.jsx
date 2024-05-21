@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
-import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
   const [word, setWord] = useState('')
-  const [word_list, setWordList] = useState(null)
+  const [setWordList] = useState(null)
   const [isWorked, setIsWorked] = useState(false)
   const [whiteURl, setWhiteURL] = useState(false)
   const [currentURL, setCurrentURL] = useState('')
@@ -122,7 +121,16 @@ export const Popup = () => {
         >
           Перейти ко всем настройкам
         </div>
-        <div className="btn btn_link popup-text">Помощь</div>
+        <div
+          className="btn btn_link popup-text"
+          onClick={() => {
+            const url = chrome.runtime.getURL('src/html/helpPage.html')
+            chrome.tabs.create({ url })
+            window.close()
+          }}
+        >
+          Помощь
+        </div>
       </div>
       <div className="add_word">
         <div className="inputs">

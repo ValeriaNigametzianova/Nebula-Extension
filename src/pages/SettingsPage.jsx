@@ -13,7 +13,15 @@ export const SettingsPage = () => {
 
   return (
     <div className="wrapper_page">
-      <button className="help_button btn_red nebula_title">?</button>
+      <button
+        className="help_button btn_red nebula_title"
+        onClick={() => {
+          const url = chrome.runtime.getURL('src/html/helpPage.html')
+          chrome.tabs.create({ url })
+        }}
+      >
+        ?
+      </button>
       <div className="left_side">
         <TabBar activePage={activePage} setActivePage={setActivePage} />
         {activePage == 'btn_words' && <WordsSettings />}
