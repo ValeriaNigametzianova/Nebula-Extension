@@ -1,15 +1,15 @@
-export const AnalyseHTML = async (wordList, elementsArray) => {
-  const res = await fetch(
-    `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/chatgpt`,
-    // `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/gigachat`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify({ wordList, elementsArray }),
-    }
-  )
+export const AnalyseHTML = async (wordList, elementsArray, AIModel, APIKey) => {
+  const url =
+    AIModel === 'ChatGPT'
+      ? `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/chatgpt`
+      : `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/gigachat`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({ wordList, elementsArray, APIKey }),
+  })
   const result = await res.json()
   console.log('result', result)
   return result

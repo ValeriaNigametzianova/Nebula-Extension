@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { debounce } from '../../utils/debounce'
 import { getElementsArray } from '../preparationForAnalyse/getElementsArray'
-import { hideText } from '../preparationForAnalyse/hideText'
+import { useHideText } from './useHideText'
 
-export const useObserveAnalysePages = (wordList) => {
+export const useObserveAnalysePages = (wordList, AIModel) => {
   const observeNode = document.getElementsByTagName('body')[0]
   let newElementsArray = []
   const [isNodeHasClass, setIsNodeHasClass] = useState(false)
   const [nodeClass, setNodeClass] = useState('')
+  const hideText = useHideText()
 
   let observer = new MutationObserver((mutations) => {
     mutations.map((el) => {
@@ -42,7 +43,7 @@ export const useObserveAnalysePages = (wordList) => {
     })
 
     if (newElementsArray.length > 0)
-      debouncedHideText(newElementsArray, wordList)
+      debouncedHideText(newElementsArray, wordList, AIModel)
   })
 
   observer.observe(observeNode, {
