@@ -1,0 +1,56 @@
+.nebula_background {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Background, #f2f5f8);
+}
+.nebula_background_circle_1 {
+  position: absolute;
+  display: block;
+  top: -613px;
+  /* right: 340px; */
+  left: max(300px, 40%);
+  width: 793px;
+  height: 793px;
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #fd484d 0%,
+    rgba(253, 72, 77, 0) 100%
+  );
+  filter: blur(84.9px);
+  opacity: 70%;
+
+  @media screen and (max-width: 1440px) {
+    right: 321px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    background: transparent;
+  }
+}
+
+.nebula_background_circle_2 {
+  position: absolute;
+  display: block;
+  width: 703px;
+  height: 703px;
+  left: 56px;
+  top: 281px;
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #fd484d 0%,
+    rgba(253, 72, 77, 0) 100%
+  );
+  filter: blur(113px);
+  opacity: 70%;
+  z-index: 0;
+
+  @media screen and (max-width: 1024px) {
+    position: absolute;
+    left: 56px;
+    top: 410px;
+  }
+}
