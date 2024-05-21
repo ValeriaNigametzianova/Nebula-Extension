@@ -27,12 +27,12 @@
 .checkbox_popup {
   height: 15px;
   width: 15px;
-  border: 1px solid var(--Black, #000000);
+  border: 1px solid var(--Black, 0#02020d);
   border-radius: 2px;
 }
 
 .checkbox_popup:checked {
-  accent-color: var(--Black, #000000);
+  accent-color: var(--Black, #02020d);
 }
 
 .btn_setting {

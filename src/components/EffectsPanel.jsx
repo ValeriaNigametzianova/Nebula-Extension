@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Dots_1 } from '../images/dots/svg/1'
 import { Flower_1 } from '../images/flowers/svg/1'
 
@@ -30,7 +30,7 @@ export const EffectsPanel = ({ effect, setEffect }) => {
       <div
         className={effect === 'none' ? 'effect_selected' : 'effect'}
         id="none"
-        onClick={(e) => {
+        onClick={() => {
           setEffect('none')
         }}
       >
@@ -39,7 +39,7 @@ export const EffectsPanel = ({ effect, setEffect }) => {
       <div
         className={effect === 'dots_effect' ? 'effect_selected' : 'effect'}
         id="dots_effect"
-        onClick={(e) => {
+        onClick={() => {
           setEffect('dots_effect')
         }}
       >

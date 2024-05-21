@@ -30,7 +30,7 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
-        onClick={(e) => {
+        onClick={() => {
           setHoverBehavior('none')
         }}
       >
@@ -42,7 +42,7 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
-        onClick={(e) => {
+        onClick={() => {
           setHoverBehavior('blur')
         }}
       >
@@ -54,7 +54,7 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
             ? 'behavior btn_black_selected'
             : 'behavior btn_black'
         }
-        onClick={(e) => {
+        onClick={() => {
           setHoverBehavior('zoom')
         }}
       >

@@ -67,7 +67,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--Black, #000000);
+  background: var(--Black, #02020d);
   cursor: pointer;
   padding: 3px;
   border: none;

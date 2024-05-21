@@ -9,7 +9,7 @@ export const ColorPicker = ({ parameter, setParameter, parameterName }) => {
           blur_settings[parameterName] &&
           setParameter(blur_settings[parameterName])
       )
-  }, [])
+  }, [parameterName, setParameter])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -20,7 +20,7 @@ export const ColorPicker = ({ parameter, setParameter, parameterName }) => {
       )
     }, 200)
     return () => clearTimeout(delayDebounceFn)
-  }, [parameter])
+  }, [parameter, parameterName])
 
   return (
     <input
