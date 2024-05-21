@@ -23,12 +23,12 @@
   position: relative;
 }
 
-.nebula_mask_wrapper:hover .spoiler {
+.nebula_mask_wrapper:hover .nebula_spoiler {
   max-width: 0;
   background: transparent;
 }
 
-.spoiler {
+.nebula_spoiler {
   position: absolute;
   top: 0;
   left: 0;
