@@ -15,12 +15,14 @@ const WordsSettings = () => {
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
-        if (event.word_list) setWordList(event.word_list.newValue)
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
+        if (event.word_list) {
+          setWordList(event.word_list.newValue)
         }
       }
     )
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   useEffect(() => {
@@ -72,10 +74,10 @@ const WordsSettings = () => {
           </button>
         </div>
         <div id="list" className="list">
-          {word_list && Object.keys(word_list).length > 0 ? (
+          {sortedWordList.length > 0 ? (
             sortedWordList.map((word) => (
               <ListItem
-                key={word}
+                key={word + word_list[word].dateEdited}
                 word={word}
                 categories={word_list[word].categories}
                 word_list={word_list}
