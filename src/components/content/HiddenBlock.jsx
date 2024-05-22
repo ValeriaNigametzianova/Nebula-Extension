@@ -15,7 +15,6 @@ export const HiddenBlock = ({ node, word, category }) => {
       setBlurSettings(blur_settings)
     })
   }, [])
-
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
       <div
@@ -67,7 +66,15 @@ export const HiddenBlock = ({ node, word, category }) => {
                 previewWidth={node.offsetWidth}
               />
             ) : null}
-            <ShowMaskedWord word={word} category={category}></ShowMaskedWord>
+            {blurSettings?.use_neuronet &&
+              (blurSettings?.show_word || blurSettings?.show_category) && (
+                <ShowMaskedWord
+                  word={word}
+                  category={category}
+                  showWord={blurSettings.show_word}
+                  showCategory={blurSettings.show_category}
+                ></ShowMaskedWord>
+              )}
           </div>
         )}
       </div>
