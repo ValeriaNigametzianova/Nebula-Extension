@@ -6,30 +6,43 @@ import { AnalyseHTML, testRequest } from '../../utils/http'
 export const useHideText = () => {
   const [AIModel, setAIModel] = useState('')
   const [APIKey, setAPIKey] = useState('')
+  const [useNeuronet, setUseNeuronet] = useState('')
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
       setAIModel(storage.neuronet_model)
       setAPIKey(storage.API_keys[storage.neuronet_model])
+      setUseNeuronet(storage.use_neuronet)
     })
   }, [])
 
   const hideText = async (array, wordList) => {
     const currentURL = window.location.href
     await testRequest(currentURL)
-    const AIResponse = await AnalyseHTML(
-      wordList,
-      array.map((el) => el.textContent),
-      AIModel,
-      APIKey
-    )
-    // const AIResponse = Object.assign(
-    //   {},
-    //   array.map(() => {bool: true}) //раньше тут стоял elementsArray
-    // )
+    console.log(456)
+    let AIResponse = {}
+    if (APIKey && useNeuronet) {
+      AIResponse = await AnalyseHTML(
+        wordList,
+        array.map((el) => el.textContent),
+        AIModel,
+        APIKey
+      )
+    } else {
+      AIResponse = Object.assign(
+        {},
+        array.map(() => ({
+          bool: 'true',
+          word: '',
+          category: '',
+        })) //раньше тут стоял elementsArray
+      )
+    }
+
+    console.log(456, AIResponse)
 
     for (let key in AIResponse) {
-      if (AIResponse[key].bool === true) {
+      if (AIResponse[key].bool === 'true') {
         const node = array[key]
         const oldParent = node.parentNode
 

@@ -9,11 +9,12 @@ export const DropdownMenu = ({
   option_2,
   useNeuronet,
   neuronetModel,
+  disabled,
 }) => {
   return (
     <select
       className="select_dropdown mark"
-      disabled={!useNeuronet}
+      disabled={disabled && !useNeuronet}
       onChange={(e) => onClick(e.target.value)}
       value={neuronetModel}
     >

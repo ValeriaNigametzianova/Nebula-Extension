@@ -7,7 +7,6 @@ export const NeuronetSettings = () => {
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
-      console.log(123, storage)
       setUseNeuronet(storage.use_neuronet)
     })
   }, [])

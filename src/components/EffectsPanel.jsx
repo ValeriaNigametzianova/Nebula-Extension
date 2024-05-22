@@ -55,7 +55,6 @@ export const EffectsPanel = ({ effect, setEffect }) => {
       >
         <Flower_1 />
       </div>
-      <div className="effect"></div>
     </div>
   )
 }

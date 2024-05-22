@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Dots } from './effects/Dots'
 import { Flowers } from './effects/Flowers'
+import { ShowMaskedWord } from './content/ShowMaskedWord'
+import ShowContentButton from './ShowContentButton'
 
 export const Prewiew = ({ blurColor, effectColor, value }) => {
   const [settings, setSettings] = useState(null)
   const [previewHeight, setPrewiewHeight] = useState(null)
   const [previewWidth, setPrewiewWigth] = useState(null)
+  const [useNeuronet, setUseNeuronet] = useState(null)
   const ref = useRef(null)
 
   useEffect(() => {
@@ -21,8 +24,10 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
   }, [])
 
   useEffect(() => {
-    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
-      blur_settings && setSettings(blur_settings)
+    chrome.storage.sync.get().then((storage) => {
+      storage?.blur_settings && setSettings(storage.blur_settings)
+      console.log('storage', storage?.use_neuronet)
+      storage?.use_neuronet && setUseNeuronet(storage.use_neuronet)
     })
   }, [])
 
@@ -76,6 +81,20 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
           />
         ) : null}
       </div>
+      {console.log('first', useNeuronet)}
+
+      {useNeuronet ? (
+        (settings?.show_word || settings?.show_category) && (
+          <ShowMaskedWord
+            word={'Субботник'}
+            category={'Акция, Общество'}
+            showWord={settings?.show_word}
+            showCategory={settings?.show_category}
+          ></ShowMaskedWord>
+        )
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

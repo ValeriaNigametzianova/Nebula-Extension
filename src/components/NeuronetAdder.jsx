@@ -8,12 +8,10 @@ export const NeuronetAdder = ({ useNeuronet }) => {
   const inputRef = useRef(null)
 
   useEffect(() => {
-    if (neuronetModel) {
-      chrome.storage.sync.get().then((storage) => {
-        setNeuronetModel(storage.neuronet_model)
-        setAPIKey(storage.API_keys[neuronetModel])
-      })
-    }
+    chrome.storage.sync.get().then((storage) => {
+      setNeuronetModel(storage.neuronet_model)
+      setAPIKey(storage.API_keys[neuronetModel])
+    })
   }, [neuronetModel])
 
   const dropdownHandler = (value) => {
@@ -45,6 +43,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
           option_2={'GigaChat'}
           useNeuronet={useNeuronet}
           neuronetModel={neuronetModel}
+          disabled
         />
       </div>
 
@@ -76,7 +75,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
           await setNeuronetSettings()
         }}
       >
-        Сохранить
+        {!APIKey ? 'Сохранить' : 'Добавить новый'}
       </button>
     </div>
   )
