@@ -1,3 +1,5 @@
+import { stemmingWords } from './http'
+
 export const addWord = async (word, category) => {
   if (word && category.length) {
     const { word_list } = await chrome.storage.sync.get(['word_list'])
@@ -19,6 +21,7 @@ export const addWord = async (word, category) => {
         },
       })
     } else {
+      const stemms = await stemmingWords(word)
       await chrome.storage.sync.set({
         word_list: {
           ...word_list,
@@ -26,6 +29,7 @@ export const addWord = async (word, category) => {
             categories: category,
             dateCreated: new Date().toISOString(),
             dateEdited: new Date().toISOString(),
+            stemms: stemms,
           },
         },
       })

@@ -29,3 +29,18 @@ export const testRequest = async (url) => {
   const result = await res.json()
   return result
 }
+
+export const stemmingWords = async (words) => {
+  const res = await fetch(
+    `${import.meta.env.VITE_REACT_APP_API_URL}stemmingWords`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ words }),
+    }
+  )
+  const result = await res.json()
+  return result
+}

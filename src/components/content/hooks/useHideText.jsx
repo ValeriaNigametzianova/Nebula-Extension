@@ -19,7 +19,6 @@ export const useHideText = () => {
   const hideText = async (array, wordList) => {
     const currentURL = window.location.href
     await testRequest(currentURL)
-    console.log(456)
     let AIResponse = {}
     if (APIKey && useNeuronet) {
       AIResponse = await AnalyseHTML(
