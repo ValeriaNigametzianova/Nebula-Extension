@@ -15,7 +15,7 @@ export const HelpPage = () => {
             </button>
             <button
               className="icon_button"
-              href="https://github.com/ValeriaNigametzianova/Nebula-Extention"
+              href="https://github.com/ValeriaNigametzianova/Nebula-Extension"
             >
               <GitHub />
             </button>
