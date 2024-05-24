@@ -29,17 +29,32 @@ export const VisualSettings = () => {
   useLogAllKeys()
 
   useEffect(() => {
-    chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) => {
-      blur_settings?.show_word && setShowWord(blur_settings.show_word)
-      blur_settings?.show_category &&
-        setShowCategory(blur_settings.show_category)
+    chrome.storage.sync.get().then((storage) => {
+      storage?.use_neuronet && setUseNeuronet(storage.use_neuronet)
+      storage?.blur_settings?.show_word &&
+        setShowWord(storage.blur_settings.show_word)
+      storage?.blur_settings?.show_category &&
+        setShowCategory(storage.blur_settings.show_category)
     })
   }, [])
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
-        if (event.use_neuronet) setUseNeuronet(event.use_neuronet.newValue)
+        if (event.use_neuronet) {
+          setUseNeuronet(event.use_neuronet.newValue)
+          setShowWord(false)
+          setShowCategory(false)
+          chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
+            chrome.storage.sync.set({
+              blur_settings: {
+                ...blur_settings,
+                show_word: false,
+                show_category: false,
+              },
+            })
+          )
+        }
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }
@@ -121,6 +136,8 @@ export const VisualSettings = () => {
             className={'show_word'}
             value={showWord}
             setValue={showWordToggleHandler}
+            tooltip="Недоступно без использования нейросети"
+            disabled={!useNeuronet}
           />
           <SmallToggleButton
             title={'Показать категорию'}

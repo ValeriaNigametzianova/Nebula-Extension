@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Dots } from './effects/Dots'
 import { Flowers } from './effects/Flowers'
 import { ShowMaskedWord } from './content/ShowMaskedWord'
-import ShowContentButton from './ShowContentButton'
 
 export const Prewiew = ({ blurColor, effectColor, value }) => {
   const [settings, setSettings] = useState(null)
@@ -81,7 +80,6 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
           />
         ) : null}
       </div>
-      {console.log('first', useNeuronet)}
 
       {useNeuronet ? (
         (settings?.show_word || settings?.show_category) && (
