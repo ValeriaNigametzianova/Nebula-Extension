@@ -48,9 +48,8 @@ export const EffectsPanel = ({ effect, setEffect }) => {
       <div
         className={effect === 'flowers_effect' ? 'effect_selected' : 'effect'}
         id="flowers_effect"
-        onClick={(e) => {
+        onClick={() => {
           setEffect('flowers_effect')
-          console.log(e, 'sfsfsdfsf')
         }}
       >
         <Flower_1 />

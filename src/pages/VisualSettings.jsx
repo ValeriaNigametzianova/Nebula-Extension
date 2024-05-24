@@ -63,7 +63,6 @@ export const VisualSettings = () => {
   }, [])
 
   const showWordToggleHandler = (value) => {
-    console.log(value)
     setShowWord(value)
     chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
       chrome.storage.sync.set({

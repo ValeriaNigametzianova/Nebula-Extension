@@ -15,7 +15,6 @@ port.onMessage.addListener(function (msg) {
 })
 
 chrome.storage.sync.onChanged.addListener((changes) => {
-  console.log('chan', changes)
   if (changes.status) {
     const newValue = changes.status?.newValue
     if (newValue) {

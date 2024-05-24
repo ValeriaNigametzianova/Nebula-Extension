@@ -14,9 +14,6 @@ const DomainsSettings = () => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
         if (event.domains_list) setDomainList(event.domains_list.newValue)
-        chrome.storage.sync.get(null, (allkeys) => {
-          console.log('allkeys: ', allkeys)
-        })
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }

@@ -11,7 +11,6 @@ export const AnalyseHTML = async (wordList, elementsArray, AIModel, APIKey) => {
     body: JSON.stringify({ wordList, elementsArray, APIKey }),
   })
   const result = await res.json()
-  console.log('result', result)
   return result
 }
 

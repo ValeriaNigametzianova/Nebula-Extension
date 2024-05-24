@@ -36,7 +36,7 @@ export const Popup = () => {
               setWhiteURL(true)
               break
             } else {
-              console.log('no whiteURL')
+              continue
             }
           }
           sendResponse('I got activeTabURL')

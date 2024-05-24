@@ -29,5 +29,4 @@ export const parseHTML = (wordList, elementsArray) => {
       }
     }
   }
-  console.log('first', elementsArray)
 }

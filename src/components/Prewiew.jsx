@@ -25,7 +25,6 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
       storage?.blur_settings && setSettings(storage.blur_settings)
-      console.log('storage', storage?.use_neuronet)
       storage?.use_neuronet && setUseNeuronet(storage.use_neuronet)
     })
   }, [])
