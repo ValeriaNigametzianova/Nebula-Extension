@@ -31,17 +31,15 @@ export const useHideText = () => {
       AIResponse = Object.assign(
         {},
         array.map(() => ({
-          bool: 'true',
+          bool: true,
           word: '',
           category: '',
-        })) //раньше тут стоял elementsArray
+        }))
       )
     }
 
-    console.log(456, AIResponse)
-
     for (let key in AIResponse) {
-      if (AIResponse[key].bool === 'true') {
+      if (AIResponse[key].bool === true) {
         const node = array[key]
         const oldParent = node.parentNode
 
