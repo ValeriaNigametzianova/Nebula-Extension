@@ -1,4 +1,4 @@
-export const runInjected = async (tab) => {
+export const runInjected = async (tab, { dontCheckStatus } = {}) => {
   if (!tab) return false
   const currentURL = tab.url
   let whiteURL = false
@@ -15,7 +15,7 @@ export const runInjected = async (tab) => {
   }
 
   const { status } = await chrome.storage.sync.get()
-  if (!whiteURL && status && tab.status === 'complete') {
+  if (!whiteURL && status && (dontCheckStatus || tab.status === 'complete')) {
     return true
   } else {
     return false

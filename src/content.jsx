@@ -27,9 +27,9 @@ chrome.storage.sync.onChanged.addListener((changes) => {
 
 //one message connection
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.answer === 'Yes') {
+  if (request.answer === 'Inject') {
     injectExtension()
-    sendResponse({ message: 'ok' })
+    sendResponse({ message: 'Injected' })
   }
 
   if (request.message === 'Add this tab into list') {

@@ -38,7 +38,9 @@ chrome.runtime.onConnect.addListener((port) => {
       chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
         const senderId = sender.tab.id
         const activeTabId = tabs[0]?.id
-        const checkForInjecting = await runInjected(tabs[0])
+        const checkForInjecting = await runInjected(tabs[0], {
+          dontCheckStatus: true,
+        })
         if (senderId === activeTabId && checkForInjecting)
           port.postMessage({ answer: 'Yes' })
         else port.postMessage({ answer: 'No' })
@@ -58,7 +60,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
         await chrome.tabs.sendMessage(
           activeInfo.tabId,
           {
-            answer: 'Yes',
+            answer: 'Inject',
           },
           (response) => {
             console.log('contentResponseAnswer', response?.message)
