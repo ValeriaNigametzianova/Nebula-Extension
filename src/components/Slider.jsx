@@ -31,13 +31,13 @@ export const Slider = ({ value, setValue }) => {
   }
 
   return (
-    <div className="range_slider">
-      <span ref={labelRef} className="slider_label">
+    <div className="nebula_range_slider">
+      <span ref={labelRef} className="nebula_slider_label">
         {value}
       </span>
       <input
         ref={inputRef}
-        className="slider"
+        className="nebula_slider"
         type="range"
         value={value}
         onChange={(e) => {

@@ -23,12 +23,12 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
   }, [hoverBehavior])
 
   return (
-    <div className="behavior_wrapper">
+    <div className="nebula_behavior_wrapper">
       <button
         className={
           hoverBehavior === 'none'
-            ? 'behavior btn_black_selected button_text'
-            : 'behavior btn_black button_text'
+            ? 'nebula_behavior nebula_btn_black_selected nebula_button_text'
+            : 'nebula_behavior nebula_btn_black nebula_button_text'
         }
         onClick={() => {
           setHoverBehavior('none')
@@ -39,8 +39,8 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
       <button
         className={
           hoverBehavior === 'blur'
-            ? 'button_text behavior btn_black_selected'
-            : 'button_text behavior btn_black'
+            ? 'nebula_button_text nebula_behavior nebula_btn_black_selected'
+            : 'nebula_button_text nebula_behavior nebula_btn_black'
         }
         onClick={() => {
           setHoverBehavior('blur')
@@ -51,8 +51,8 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
       <button
         className={
           hoverBehavior === 'zoom'
-            ? 'button_text behavior btn_black_selected'
-            : 'button_text behavior btn_black'
+            ? 'nebula_button_text nebula_behavior nebula_btn_black_selected'
+            : 'nebula_button_text nebula_behavior nebula_btn_black'
         }
         onClick={() => {
           setHoverBehavior('zoom')

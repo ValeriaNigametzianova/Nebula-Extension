@@ -20,7 +20,7 @@
   line-height: normal;
 }
 
-.button_text {
+.nebula_button_text {
   font-family: Geologica;
   font-size: 16px;
   font-style: normal;
@@ -28,7 +28,7 @@
   line-height: normal;
 }
 
-.subtitle {
+.nebula_subtitle {
   color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 20px;
@@ -37,7 +37,7 @@
   line-height: normal;
 }
 
-.main_text {
+.nebula_main_text {
   color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 16px;
@@ -46,7 +46,7 @@
   line-height: normal;
 }
 
-.mark {
+.nebula_mark {
   font-family: Geologica;
   font-size: 14px;
   font-style: normal;
@@ -54,7 +54,7 @@
   line-height: normal;
 }
 
-.pop_text {
+.nebula_pop_text {
   color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 12px;
@@ -63,7 +63,7 @@
   line-height: normal;
 }
 
-.popup_button_text {
+.nebula_popup_button_text {
   color: var(--White, #ffffff);
   font-family: Geologica;
   font-size: 14px;

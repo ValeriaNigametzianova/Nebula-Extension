@@ -33,7 +33,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
 
   return (
     <div className="neuronet_adder">
-      <div className="neuronet_adder_dropdownMenu">
+      <div className="nebula_neuronet_adder_dropdownMenu">
         <DropdownMenu
           onClick={dropdownHandler}
           defaultOption={'Выберите нейросеть'}
@@ -47,9 +47,9 @@ export const NeuronetAdder = ({ useNeuronet }) => {
         />
       </div>
 
-      <div className="neuronet_APIKey_input">
+      <div className="nebula_neuronet_APIKey_input">
         {APIKey && (
-          <div className="icon_button" onClick={() => {}}>
+          <div className="nebula_icon_button" onClick={() => {}}>
             <Accept />
           </div>
         )}
@@ -59,7 +59,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
           disabled={!useNeuronet}
           // value={word}
           onChange={(e) => setAPIKey(e.target.value)}
-          className="input_page main_text"
+          className="nebula_input_page nebula_main_text"
           placeholder={
             APIKey
               ? `API-ключ для ${neuronetModel} уже добавлен`
@@ -69,7 +69,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
       </div>
 
       <button
-        className="button_text add_button_page btn_black"
+        className="nebula_button_text nebula_add_button_page nebula_btn_black"
         disabled={!APIKey}
         onClick={async () => {
           await setNeuronetSettings()

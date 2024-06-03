@@ -19,13 +19,13 @@ export const NeuronetSettings = () => {
   }
 
   return (
-    <div className="add_neuronet_section">
-      <div className="header">
-        <div className="subtitle">
+    <div className="nebula_add_neuronet_section">
+      <div className="nebula_header">
+        <div className="nebula_subtitle">
           Использование нейросети при анализе страниц
         </div>
         <SmallToggleButton
-          className={'show_word'}
+          className={'nebula_show_word'}
           value={useNeuronet}
           setValue={toggleHandler}
         />

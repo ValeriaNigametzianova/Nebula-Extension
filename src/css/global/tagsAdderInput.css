@@ -1,4 +1,4 @@
-.tags_adder {
+.nebula_tags_adder {
   display: flex;
   flex-direction: row;
   grid-column: 3 / 4;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.tagAdderInput_page {
+.nebula_tagAdderInput_page {
   .tags_adder_placeholder {
     color: #aab1bb;
     cursor: pointer;
@@ -15,7 +15,7 @@
   }
 }
 
-.tagAdderInput_popup {
+.nebula_tagAdderInput_popup {
   border-bottom: 1px solid var(--Black);
   .tags_adder_placeholder {
     color: #aab1bb;
@@ -24,7 +24,7 @@
   }
 }
 
-.tags_input {
+.nebula_tags_input {
   border: 1px solid var(--Black);
   border-radius: 3px;
   padding: 3px 4px;
@@ -46,7 +46,7 @@
   gap: 10px;
 }
 
-.tag {
+.nebula_tag {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +60,7 @@
   border: 1px solid var(--Black);
 }
 
-.tag_icon {
+.nebula_tag_icon {
   display: flex;
   width: 18px;
   height: 18px;
@@ -73,7 +73,7 @@
   border: none;
 }
 
-.tag_icon_add {
+.nebula_tag_icon_add {
   padding: 6px;
 
   width: 21px;

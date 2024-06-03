@@ -13,7 +13,7 @@ export const DropdownMenu = ({
 }) => {
   return (
     <select
-      className="select_dropdown mark"
+      className="nebula_select_dropdown nebula_mark"
       disabled={disabled && !useNeuronet}
       onChange={(e) => onClick(e.target.value)}
       value={neuronetModel}

@@ -42,7 +42,7 @@ export const Scripts = () => {
       }}
     >
       <button
-        className="btn_red"
+        className="nebula_btn_red"
         style={{
           width: '300px',
           padding: '10px 25px',

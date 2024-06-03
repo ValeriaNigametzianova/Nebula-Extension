@@ -1,8 +1,8 @@
-.range_slider {
+.nebula_range_slider {
   border-bottom: 0;
   width: 100%;
 }
-.slider {
+.nebula_slider {
   -webkit-appearance: none;
   width: 100%;
   height: 1px;
@@ -13,7 +13,7 @@
   transition: opacity 0.2s;
 }
 
-.slider::-webkit-slider-thumb {
+.nebula_slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 14px;
@@ -23,7 +23,7 @@
   border-radius: 7px;
 }
 
-.slider::-moz-range-thumb {
+.nebula_slider::-moz-range-thumb {
   width: 14px;
   height: 14px;
   background-color: var(--Red, #f05365);
@@ -31,7 +31,7 @@
   border-radius: 7px;
 }
 
-.slider_label {
+.nebula_slider_label {
   position: relative;
   transform-origin: center center;
   display: block;
@@ -47,24 +47,24 @@
   border: 0;
 }
 
-.range_slider:hover {
-  > .slider_label {
+.nebula_range_slider:hover {
+  > .nebula_slider_label {
     color: #ff96a2;
     border-bottom: 0;
   }
-  > .slider {
+  > .nebula_slider {
     border-bottom: 1px solid var(--Black, #02020b);
   }
 
-  > .slider::-webkit-slider-thumb {
+  > .nebula_slider::-webkit-slider-thumb {
     background-color: #ff96a2;
   }
-  > .slider::-moz-range-thumb {
+  > .nebula_slider::-moz-range-thumb {
     background-color: #ff96a2;
   }
 }
 
-.slider:hover,
-.slider:focus {
+.nebula_slider:hover,
+.nebula_slider:focus {
   border-bottom: 1px solid var(--Black, #02020b);
 }

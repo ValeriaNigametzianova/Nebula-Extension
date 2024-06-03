@@ -11,11 +11,11 @@ export const SmallToggleButton = ({
 }) => {
   return (
     <div className={className}>
-      <div className="show_toggle_title">
-        {title && <div className="name mark">{title}</div>}
+      <div className="nebula_show_toggle_title">
+        {title && <div className="nebula_name nebula_mark">{title}</div>}
         {tooltip && (
           <button
-            className="icon_button_toolip"
+            className="nebula_icon_button_toolip"
             style={{ scale: '0.8' }}
             title={tooltip}
           >
@@ -23,9 +23,9 @@ export const SmallToggleButton = ({
           </button>
         )}
       </div>
-      <div className="show_toggle" id="show_toggle">
+      <div className="nebula_show_toggle" id="show_toggle">
         <input
-          className="checkbox_input"
+          className="nebula_checkbox_input"
           disabled={disabled}
           type="checkbox"
           checked={value}

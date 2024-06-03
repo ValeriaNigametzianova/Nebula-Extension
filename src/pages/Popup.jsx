@@ -71,13 +71,13 @@ export const Popup = () => {
   }, [])
 
   return (
-    <div className="body_popup">
+    <div className="nebula_body_popup">
       <h1 className="nebula_title">Небула</h1>
-      <div className="toggle">
-        <div className="main_text">выкл</div>
-        <div className="toggle-btn" id="_1st_toggle-btn">
+      <div className="nebula_toggle">
+        <div className="nebula_main_text">выкл</div>
+        <div className="nebula_toggle-btn" id="_1st_toggle-btn">
           <input
-            className="checkbox_input"
+            className="nebula_checkbox_input"
             type="checkbox"
             checked={isWorked}
             onChange={(e) => {
@@ -86,14 +86,16 @@ export const Popup = () => {
           />
           <span></span>
         </div>
-        <div className="main_text">вкл</div>
+        <div className="nebula_main_text">вкл</div>
       </div>
-      <div className="links">
+      <div className="nebula_links">
         <div style={{ display: 'flex', gap: '10px' }}>
-          <div className="btn btn_link popup-text">Доверять этому сайту</div>
+          <div className="btn nebula_btn_link popup-text">
+            Доверять этому сайту
+          </div>
           <input
             ref={checkboxRef}
-            className="checkbox_popup"
+            className="nebula_checkbox_popup"
             type="checkbox"
             checked={whiteURl}
             onChange={async (e) => {
@@ -109,8 +111,8 @@ export const Popup = () => {
           ></input>
         </div>
         <div
-          className="btn btn_link popup-text"
-          id="btn_setting"
+          className="btn nebula_btn_link popup-text"
+          id="nebula_btn_setting"
           onClick={() => {
             const url = chrome.runtime.getURL('src/html/page.html')
             chrome.tabs.create({ url })
@@ -120,7 +122,7 @@ export const Popup = () => {
           Перейти ко всем настройкам
         </div>
         <div
-          className="btn btn_link popup-text"
+          className="btn nebula_btn_link popup-text"
           onClick={() => {
             const url = chrome.runtime.getURL('src/html/helpPage.html')
             chrome.tabs.create({ url })
@@ -130,22 +132,22 @@ export const Popup = () => {
           Помощь
         </div>
       </div>
-      <div className="add_word">
-        <div className="inputs">
+      <div className="nebula_add_word">
+        <div className="nebula_inputs">
           <input
             value={word}
             onChange={(e) => setWord(e.target.value)}
-            className="input_popup"
+            className="nebula_input_popup"
             placeholder="Введите слово"
           />
           <TagAdderInput
             state={category}
             setState={setCategory}
-            className={'tagAdderInput_popup'}
+            className={'nebula_tagAdderInput_popup'}
           />
         </div>
         <button
-          className="btn_red add_button_popup popup_button_text"
+          className="nebula_btn_red nebula_add_button_popup nebula_popup_button_text"
           onClick={async () => {
             await addWord(word, category)
             setWord('')

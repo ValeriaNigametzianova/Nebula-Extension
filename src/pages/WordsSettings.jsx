@@ -42,12 +42,12 @@ const WordsSettings = () => {
         required
         multi
       />
-      <div className="list_section">
-        <div className="list_start_line">
-          <div className="subtitle">Весь список слов</div>
-          <div className="list_sorting">
+      <div className="nebula_list_section">
+        <div className="nebula_list_start_line">
+          <div className="nebula_subtitle">Весь список слов</div>
+          <div className="nebula_list_sorting">
             <button
-              className="mark btn_black"
+              className="nebula_mark nebula_btn_black"
               onClick={() => setAscending(!ascending)}
             >
               {ascending ? 'А-Я' : 'Я-А'}
@@ -61,11 +61,11 @@ const WordsSettings = () => {
             />
           </div>
         </div>
-        <div className="list_header">
-          <div className="word mark">Слово</div>
-          <div className="category mark">Категории</div>
+        <div className="nebula_list_header">
+          <div className="nebula_word nebula_mark">Слово</div>
+          <div className="nebula_category nebula_mark">Категории</div>
           <button
-            className="mark btn_link"
+            className="nebula_mark nebula_btn_link"
             onClick={async () => {
               await chrome.storage.sync.remove(['word_list'])
             }}
@@ -73,7 +73,7 @@ const WordsSettings = () => {
             Удалить все
           </button>
         </div>
-        <div id="list" className="list">
+        <div id="list" className="nebula_list">
           {sortedWordList.length > 0 ? (
             sortedWordList.map((word) => (
               <ListItem
@@ -84,7 +84,7 @@ const WordsSettings = () => {
               />
             ))
           ) : (
-            <div className="mark">Нет добавленных слов</div>
+            <div className="nebula_mark">Нет добавленных слов</div>
           )}
         </div>
       </div>

@@ -11,31 +11,31 @@ export const WordAdder = ({
   const [word, setWord] = useState('')
   const [category, setCategory] = useState(multi ? [] : '')
   return (
-    <div className="add_word_section">
+    <div className="nebula_add_word_section">
       <>
-        <div className="subtitle">{subtitle}</div>
+        <div className="nebula_subtitle">{subtitle}</div>
         <input
           value={word}
           onChange={(e) => setWord(e.target.value)}
-          className="input_page main_text"
+          className="nebula_input_page nebula_main_text"
           placeholder={placeholder}
         ></input>
         {multi ? (
           <TagAdderInput
             state={category}
             setState={setCategory}
-            className={'tagAdderInput_page'}
+            className={'nebula_tagAdderInput_page'}
           />
         ) : (
           <input
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="input_page_right main_text"
+            className="nebula_input_page_right nebula_main_text"
             placeholder="Можете дать название"
           ></input>
         )}
         <button
-          className="button_text add_button_page btn_black"
+          className="nebula_button_text nebula_add_button_page nebula_btn_black"
           disabled={required && (!word || !category.length)}
           onClick={() => {
             onSubmit(word, category)

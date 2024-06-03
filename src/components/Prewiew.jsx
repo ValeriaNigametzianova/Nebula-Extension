@@ -46,18 +46,18 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
   }
 
   return (
-    <div className="preview_wrap">
+    <div className="nebula_preview_wrap">
       <div
         className={
           settings?.hover_behavior === 'zoom'
             ? 'effects_wrap zoom'
             : settings?.hover_behavior === 'blur'
-              ? 'effects_wrap blur'
+              ? 'effects_wrap nebula_blur'
               : 'effects_wrap'
         }
       >
-        <div className="preview" ref={ref}>
-          <div className="main_text" style={{ padding: '10px' }}>
+        <div className="nebula_preview" ref={ref}>
+          <div className="nebula_main_text" style={{ padding: '10px' }}>
             ВАШИНГТОН, 12 фев — РИА Новости. Российская экономика развивается
             лучше, чем ожидалось, заявила первый заместитель главы
             Международного валютного фонда (МВФ) Гита Гопинат в интервью журналу

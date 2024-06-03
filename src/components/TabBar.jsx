@@ -12,9 +12,9 @@ export const TabBar = ({ activePage, setActivePage }) => {
     setAiButton(!AiButton)
   }
   return (
-    <div className="tabs">
+    <div className="nebula_tabs">
       <button
-        className={'nebula_title btn_tab tab'}
+        className={'nebula_title nebula_btn_tab nebula_tab'}
         id="btn_words"
         onClick={(e) => {
           TabClick(e)
@@ -23,7 +23,7 @@ export const TabBar = ({ activePage, setActivePage }) => {
         Слова
       </button>
       <button
-        className={'nebula_title btn_tab tab'}
+        className={'nebula_title nebula_btn_tab nebula_tab'}
         id="btn_domains"
         onClick={(e) => {
           TabClick(e)
@@ -32,7 +32,7 @@ export const TabBar = ({ activePage, setActivePage }) => {
         Домены
       </button>
       <button
-        className={'nebula_title btn_tab tab'}
+        className={'nebula_title nebula_btn_tab nebula_tab'}
         id="btn_neuronet"
         onClick={(e) => {
           TabClick(e)
@@ -40,7 +40,7 @@ export const TabBar = ({ activePage, setActivePage }) => {
       >
         Нейросеть
       </button>
-      <div className="active_line">
+      <div className="nebula_active_line">
         {activePage === 'btn_words' ? (
           <></>
         ) : activePage === 'btn_domains' ? (

@@ -45,7 +45,7 @@ export const useHideText = () => {
 
         // создаем подкорень Реакта
         const wrapper = document.createElement('div')
-        wrapper.setAttribute('class', 'hidden_block_wrapper')
+        wrapper.setAttribute('class', 'nebula_hidden_block_wrapper')
         wrapper.id = 'root ' + key
         oldParent?.replaceChild(wrapper, node)
 

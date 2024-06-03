@@ -97,42 +97,42 @@ export const VisualSettings = () => {
     <div>
       <div className="nebula_title">Внешний вид</div>
       <Prewiew blurColor={blurColor} effectColor={effectColor} value={value} />
-      <div className="levers">
-        <div className="blur_degree">
-          <div className="name mark">Степень размытия</div>
+      <div className="nebula_levers">
+        <div className="nebula_blur_degree">
+          <div className="nebula_name nebula_mark">Степень размытия</div>
           <Slider value={value} setValue={setValue}></Slider>
         </div>
-        <div className="blur_color">
-          <div className="name mark">Цвет размытия</div>
+        <div className="nebula_blur_color">
+          <div className="nebula_name nebula_mark">Цвет размытия</div>
           <ColorPicker
             parameter={blurColor}
             setParameter={setBlurColor}
             parameterName={'blur_color'}
           />
         </div>
-        <div className="additional_effects">
-          <div className="name mark">Дополнительные эффекты</div>
+        <div className="nebula_additional_effects">
+          <div className="nebula_name nebula_mark">Дополнительные эффекты</div>
           <EffectsPanel effect={effect} setEffect={setEffect} />
         </div>
-        <div className="effects_color">
-          <div className="name mark">Цвет эффекта</div>
+        <div className="nebula_effects_color">
+          <div className="nebula_name nebula_mark">Цвет эффекта</div>
           <ColorPicker
             parameter={effectColor}
             setParameter={setEffectColor}
             parameterName={'effect_color'}
           />
         </div>
-        <div className="hover_behavior">
-          <div className="name mark">Поведение при наведении</div>
+        <div className="nebula_hover_behavior">
+          <div className="nebula_name nebula_mark">Поведение при наведении</div>
           <HoverBehaviorPanel
             hoverBehavior={hoverBehavior}
             setHoverBehavior={setHoverBehavior}
           />
         </div>
-        <div className="show_options">
+        <div className="nebula_show_options">
           <SmallToggleButton
             title={'Показать слово'}
-            className={'show_word'}
+            className={'nebula_show_word'}
             value={showWord}
             setValue={showWordToggleHandler}
             tooltip="Недоступно без использования нейросети"
@@ -140,14 +140,17 @@ export const VisualSettings = () => {
           />
           <SmallToggleButton
             title={'Показать категорию'}
-            className={'show_category'}
+            className={'nebula_show_category'}
             value={showCategory}
             setValue={showCategoryToggleHandler}
             tooltip="Недоступно без использования нейросети"
             disabled={!useNeuronet}
           />
         </div>
-        <button className="reset_button mark btn_link" onClick={resetSettings}>
+        <button
+          className="nebula_reset_button nebula_mark nebula_btn_link"
+          onClick={resetSettings}
+        >
           Сбросить все
         </button>
       </div>

@@ -17,33 +17,36 @@ export const ListItem = (props) => {
     <div className={editMode === false ? 'nebula_item' : 'nebula_item_active'}>
       {props.word &&
         (editMode === false ? (
-          <div className="nebula_item_word main_text">{props.word}</div>
+          <div className="nebula_item_word nebula_main_text">{props.word}</div>
         ) : (
           <input
             value={newWord}
             onChange={(e) => setNewWord(e.target.value)}
-            className="input_page main_text"
+            className="nebula_input_page nebula_main_text"
             placeholder="Введите слово или фразу"
           ></input>
         ))}
 
       {props.domain &&
         (editMode === false ? (
-          <div title={props.domain} className="nebula_item_word main_text">
+          <div
+            title={props.domain}
+            className="nebula_item_word nebula_main_text"
+          >
             {props.domain}
           </div>
         ) : (
           <input
             value={newDomain}
             onChange={(e) => setNewDomain(e.target.value)}
-            className="input_page main_text"
+            className="nebula_input_page nebula_main_text"
             placeholder="https://domain.com"
           ></input>
         ))}
 
       {props.categories &&
         (editMode === false ? (
-          <div className="nebula_item_category main_text">
+          <div className="nebula_item_category nebula_main_text">
             {categories.map((category, index) => (
               <span key={index}>
                 {index === categories.length - 1 ? category : category + ', '}
@@ -54,18 +57,20 @@ export const ListItem = (props) => {
           <TagAdderInput
             state={categories}
             setState={setCategories}
-            className="tagAdderInput_page"
+            className="nebula_tagAdderInput_page"
           />
         ))}
 
       {props.domain &&
         (editMode === false ? (
-          <div className="nebula_item_category main_text">{domainName}</div>
+          <div className="nebula_item_category nebula_main_text">
+            {domainName}
+          </div>
         ) : (
           <input
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
-            className="input_page_right main_text"
+            className="nebula_input_page_right nebula_main_text"
             placeholder="Можете дать название"
           ></input>
         ))}
@@ -77,7 +82,7 @@ export const ListItem = (props) => {
       >
         {editMode === false ? (
           <button
-            className="icon_button"
+            className="nebula_icon_button"
             onClick={() => {
               setEditMode(true)
             }}
@@ -86,7 +91,7 @@ export const ListItem = (props) => {
           </button>
         ) : (
           <button
-            className="icon_button"
+            className="nebula_icon_button"
             onClick={async () => {
               props.word && (await editWord(props.word, newWord, categories))
               props.domain &&
@@ -101,7 +106,7 @@ export const ListItem = (props) => {
         )}
 
         <button
-          className="icon_button"
+          className="nebula_icon_button"
           onClick={async () => {
             props.word && (await deleteWord(props.word))
             props.domain && (await deleteDomain(props.domain))

@@ -25,7 +25,7 @@ export const HiddenBlock = ({ node, word, category }) => {
                 blurSettings?.hover_behavior === 'zoom'
                   ? ' zoom'
                   : blurSettings?.hover_behavior === 'blur'
-                    ? ' blur'
+                    ? ' nebula_blur'
                     : ''
               }`
         }
@@ -78,7 +78,7 @@ export const HiddenBlock = ({ node, word, category }) => {
           </div>
         )}
       </div>
-      <div className="hidden_block_show_options">
+      <div className="nebula_hidden_block_show_options">
         <ShowContentButton onClick={setVisibility} visibility={visibility} />
       </div>
     </div>

@@ -7,14 +7,14 @@
   }
 }
 
-.dot {
+.nebula_dot {
   position: absolute;
   border-radius: 50%;
   background: white;
   /* animation-name: dots; */
   /* animation-iteration-count: 0.5s infinite; */
 }
-.hidden_block_wrapper {
+.nebula_hidden_block_wrapper {
   position: relative;
   overflow: hidden;
 }
@@ -38,7 +38,7 @@
   overflow: hidden;
 }
 
-.hidden_block_show_options {
+.nebula_hidden_block_show_options {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -47,7 +47,7 @@
   gap: 5px;
 }
 
-.show_masked_word {
+.nebula_show_masked_word {
   position: absolute;
   top: 5px;
   right: 100px;

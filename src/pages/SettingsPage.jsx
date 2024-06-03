@@ -12,9 +12,9 @@ export const SettingsPage = () => {
   const [activePage, setActivePage] = useState('btn_words')
 
   return (
-    <div className="wrapper_page">
+    <div className="nebula_wrapper_page">
       <button
-        className="help_button btn_red nebula_title"
+        className="nebula_help_button nebula_btn_red nebula_title"
         onClick={() => {
           const url = chrome.runtime.getURL('src/html/helpPage.html')
           chrome.tabs.create({ url })
@@ -22,7 +22,7 @@ export const SettingsPage = () => {
       >
         ?
       </button>
-      <div className="left_side">
+      <div className="nebula_left_side">
         <TabBar activePage={activePage} setActivePage={setActivePage} />
         {activePage == 'btn_words' && <WordsSettings />}
         {activePage == 'btn_domains' && <DomainsSettings />}
@@ -31,7 +31,7 @@ export const SettingsPage = () => {
 
       <div
         ref={rightSideRef}
-        className="right_side"
+        className="nebula_right_side"
         style={
           rightSideRef?.current?.scrollHeight >= height
             ? { position: 'absolute' }

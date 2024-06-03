@@ -42,12 +42,12 @@ const DomainsSettings = () => {
           addDomain(domain, domainName)
         }}
       />
-      <div className="list_section">
-        <div className="list_start_line">
-          <div className="list_title subtitle">Весь список сайтов</div>
-          <div className="list_sorting">
+      <div className="nebula_list_section">
+        <div className="nebula_list_start_line">
+          <div className="list_title nebula_subtitle">Весь список сайтов</div>
+          <div className="nebula_list_sorting">
             <button
-              className="mark btn_black"
+              className="nebula_mark nebula_btn_black"
               onClick={() => setAscending(!ascending)}
             >
               {ascending ? 'А-Я' : 'Я-А'}
@@ -61,14 +61,17 @@ const DomainsSettings = () => {
             />
           </div>
         </div>
-        <div className="list_header">
-          <div className="word mark">Домен</div>
-          <div className="category mark">Имя</div>
-          <button className="mark btn_link" onClick={removeDomains}>
+        <div className="nebula_list_header">
+          <div className="nebula_word nebula_mark">Домен</div>
+          <div className="nebula_category nebula_mark">Имя</div>
+          <button
+            className="nebula_mark nebula_btn_link"
+            onClick={removeDomains}
+          >
             Удалить все
           </button>
         </div>
-        <div id="list" className="list">
+        <div id="list" className="nebula_list">
           {domainsList && Object.keys(domainsList).length > 0 ? (
             sortedDomainsList.map((domain) => (
               <ListItem

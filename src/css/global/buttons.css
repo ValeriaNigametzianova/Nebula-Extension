@@ -1,4 +1,4 @@
-.btn_tab {
+.nebula_btn_tab {
   cursor: pointer;
   display: flex;
   background: transparent;
@@ -8,23 +8,23 @@
   padding: 15px 10px;
 }
 
-.btn_tab:focus,
-.btn_tab:focus-visible {
+.nebula_btn_tab:focus,
+.nebula_btn_tab:focus-visible {
   border-style: 1px solid var(--Black, #02020d);
 }
 
-.btn_link {
+.nebula_btn_link {
   cursor: pointer;
   color: var(--Dark-grey, #aab1bb);
   background-color: transparent;
 }
 
-.btn_link:hover,
-.btn_link:focus {
+.nebula_btn_link:hover,
+.nebula_btn_link:focus {
   color: var(--Light-red, #fd484d);
 }
 
-.btn_red {
+.nebula_btn_red {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -35,15 +35,15 @@
   border: 0px;
 }
 
-.btn_red:hover {
+.nebula_btn_red:hover {
   background: var(--Light-red, #ff697a);
 }
 
-.btn_red:active {
+.nebula_btn_red:active {
   background: var(--Light-red, #ff697a);
 }
 
-.btn_black {
+.nebula_btn_black {
   cursor: pointer;
   display: flex;
   background-color: var(--Black, #02020b);
@@ -55,7 +55,7 @@
   padding: 10px;
 }
 
-.btn_black_selected {
+.nebula_btn_black_selected {
   cursor: pointer;
   display: flex;
   background-color: transparent;
@@ -66,26 +66,15 @@
   padding: 10px;
 }
 
-.btn_black:hover {
+.nebula_btn_black:hover {
   background: #282833;
 }
-.btn_black:active {
+.nebula_btn_black:active {
   color: var(--Black, #02020b);
   background: var(--Background, #fbfbfb);
 }
 
-.btn_black_select {
-  cursor: pointer;
-  display: flex;
-  background: var(--Background, #fbfbfb);
-  justify-content: center;
-  align-items: center;
-  color: var(--Black, #02020b);
-  border: 1px solid var(--Black, #02020b);
-  padding: 10px;
-}
-
-.btn_show_content {
+.nebula_btn_show_content {
   cursor: pointer;
 
   background: var(--Red, #f05365);
@@ -101,7 +90,7 @@
   line-height: normal;
 }
 
-.icon_button {
+.nebula_icon_button {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -112,12 +101,12 @@
   padding: 5px;
 }
 
-.icon_button:hover {
+.nebula_icon_button:hover {
   background-color: var(--White, #ffffff);
   border-radius: 50%;
 }
 
-.icon_button_black {
+.nebula_icon_button_black {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -128,7 +117,7 @@
   border-radius: 50%;
 }
 
-.icon_button_toolip {
+.nebula_icon_button_toolip {
   display: flex;
   justify-content: center;
   align-items: center;
