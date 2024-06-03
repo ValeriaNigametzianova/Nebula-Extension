@@ -116,7 +116,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             tab.id,
             { message: 'Remove this tab out of list' },
             (response) => {
-              console.log('Remove ex', response)
+              console.log('Add ex', response)
             }
           )
         } else {
