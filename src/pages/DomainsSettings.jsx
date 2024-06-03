@@ -47,7 +47,7 @@ const DomainsSettings = () => {
           <div className="list_title subtitle">Весь список сайтов</div>
           <div className="list_sorting">
             <button
-              className="btn_black mark"
+              className="mark btn_black"
               onClick={() => setAscending(!ascending)}
             >
               {ascending ? 'А-Я' : 'Я-А'}

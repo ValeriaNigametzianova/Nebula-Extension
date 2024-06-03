@@ -21,7 +21,6 @@
 }
 
 .button_text {
-  color: var(--White, #ffffff);
   font-family: Geologica;
   font-size: 16px;
   font-style: normal;
@@ -48,7 +47,6 @@
 }
 
 .mark {
-  color: var(--Black, #02020b);
   font-family: Geologica;
   font-size: 14px;
   font-style: normal;

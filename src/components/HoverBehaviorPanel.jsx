@@ -27,8 +27,8 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
       <button
         className={
           hoverBehavior === 'none'
-            ? 'behavior btn_black_selected'
-            : 'behavior btn_black'
+            ? 'behavior btn_black_selected button_text'
+            : 'behavior btn_black button_text'
         }
         onClick={() => {
           setHoverBehavior('none')
@@ -39,8 +39,8 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
       <button
         className={
           hoverBehavior === 'blur'
-            ? 'behavior btn_black_selected'
-            : 'behavior btn_black'
+            ? 'button_text behavior btn_black_selected'
+            : 'button_text behavior btn_black'
         }
         onClick={() => {
           setHoverBehavior('blur')
@@ -51,8 +51,8 @@ export const HoverBehaviorPanel = ({ hoverBehavior, setHoverBehavior }) => {
       <button
         className={
           hoverBehavior === 'zoom'
-            ? 'behavior btn_black_selected'
-            : 'behavior btn_black'
+            ? 'button_text behavior btn_black_selected'
+            : 'button_text behavior btn_black'
         }
         onClick={() => {
           setHoverBehavior('zoom')
