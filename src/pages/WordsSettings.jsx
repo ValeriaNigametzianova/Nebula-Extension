@@ -47,7 +47,7 @@ const WordsSettings = () => {
           <div className="subtitle">Весь список слов</div>
           <div className="list_sorting">
             <button
-              className="btn_black mark"
+              className="mark btn_black"
               onClick={() => setAscending(!ascending)}
             >
               {ascending ? 'А-Я' : 'Я-А'}

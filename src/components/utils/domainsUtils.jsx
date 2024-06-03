@@ -1,12 +1,15 @@
+import { getURLDomain } from './getURLDomain'
+
 export const addDomain = async (domain, domainName) => {
   if (domain) {
+    const currentOrigin = getURLDomain(domain)
     const { domains_list } = await chrome.storage.sync.get(['domains_list'])
-    if (domains_list[domain]) return
+    if (domains_list[currentOrigin]) return
     else {
       await chrome.storage.sync.set({
         domains_list: {
           ...domains_list,
-          [domain]: {
+          [currentOrigin]: {
             domain_name: domainName,
             dateCreated: new Date().toISOString(),
             dateEdited: new Date().toISOString(),
@@ -50,9 +53,19 @@ export const editDomain = async (domain, newDomain, domainName) => {
 
 export const deleteDomain = async (domain) => {
   chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
-    delete domains_list[domain]
-    chrome.storage.sync.set({
-      domains_list,
-    })
+    const currentOrigin = getURLDomain(domain)
+    console.log(currentOrigin)
+    console.log(domains_list)
+    for (let key in domains_list) {
+      if (key === currentOrigin) {
+        delete domains_list[key]
+        chrome.storage.sync.set({
+          domains_list,
+        })
+        break
+      } else {
+        continue
+      }
+    }
   })
 }
