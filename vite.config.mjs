@@ -23,6 +23,9 @@ export default defineConfig({
       input: {
         popup: fileURLToPath(new URL('./src/html/popup.html', import.meta.url)),
         page: fileURLToPath(new URL('./src/html/page.html', import.meta.url)),
+        helpPage: fileURLToPath(
+          new URL('./src/html/helpPage.html', import.meta.url)
+        ),
       },
     },
   },

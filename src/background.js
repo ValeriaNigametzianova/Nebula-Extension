@@ -6,6 +6,7 @@ chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason == 'install') {
     console.log('This is a first install!', details)
 
+    const url = chrome.runtime.getURL('src/html/helpPage.html')
     const DEFAULT_OBJECT = {
       word_list: {},
       domains_list: {},
@@ -28,6 +29,7 @@ chrome.runtime.onInstalled.addListener((details) => {
     }
 
     chrome.storage.sync.set(DEFAULT_OBJECT)
+    chrome.tabs.create({ url })
   }
 })
 
