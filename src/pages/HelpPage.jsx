@@ -1,7 +1,9 @@
 import React from 'react'
 import { Telegram } from '../icons/Telegram'
 import { GitHub } from '../icons/GitHub'
+import { Gmail } from '../icons/Gmail'
 import { useResize } from '../components/content/hooks/useResize'
+import { ContactsLinkButton } from '../components/ContactsLinkButton'
 
 export const HelpPage = () => {
   const { width } = useResize()
@@ -28,18 +30,15 @@ export const HelpPage = () => {
         <div className="nebula_help_page_contacts">
           <div className="nebula_subtitle">Связаться с разработчиком</div>
           <div className="nebula_help_page_links">
-            <button
-              className="nebula_icon_button"
-              href="https://t.me/nerpyshka"
-            >
+            <ContactsLinkButton href="mailto:valeria.ngmtzva@gmail.com?subject=Расширение%20Небула">
+              <Gmail />
+            </ContactsLinkButton>
+            <ContactsLinkButton href="https://t.me/nerpyshka">
               <Telegram />
-            </button>
-            <button
-              className="nebula_icon_button"
-              href="https://github.com/ValeriaNigametzianova/Nebula-Extension"
-            >
+            </ContactsLinkButton>
+            <ContactsLinkButton href="https://github.com/ValeriaNigametzianova/Nebula-Extension">
               <GitHub />
-            </button>
+            </ContactsLinkButton>
           </div>
         </div>
       </div>
