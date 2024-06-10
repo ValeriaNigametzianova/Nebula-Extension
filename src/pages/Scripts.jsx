@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../css/global/spoiler.css'
 import '../css/global/buttons.css'
 import '../css/pages/page.css'
@@ -30,36 +30,5 @@ export const Scripts = () => {
     }
   }, [wordList, elementsArray, loading])
 
-  // return null
-  // }
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <button
-        className="nebula_btn_red"
-        style={{
-          width: '300px',
-          padding: '10px 25px',
-          color: '#ffffff',
-          backgroundColor: '#f05365',
-          cursor: 'pointer',
-          fontFamily: 'Geologica',
-          fontSize: '20px',
-          marginTop: '20px',
-          marginBottom: '20px',
-          border: '0px',
-          borderRadius: '2px',
-          zIndex: '5',
-        }}
-      >
-        Замаскировать контент
-      </button>
-    </div>
-  )
+  return null
 }
