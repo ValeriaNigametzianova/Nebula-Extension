@@ -24,9 +24,9 @@ export const SettingsPage = () => {
       </button>
       <div className="nebula_left_side">
         <TabBar activePage={activePage} setActivePage={setActivePage} />
-        {activePage == 'btn_words' && <WordsSettings />}
-        {activePage == 'btn_domains' && <DomainsSettings />}
-        {activePage == 'btn_neuronet' && <NeuronetSettings />}
+        {activePage === 'btn_words' && <WordsSettings />}
+        {activePage === 'btn_domains' && <DomainsSettings />}
+        {activePage === 'btn_neuronet' && <NeuronetSettings />}
       </div>
 
       <div
