@@ -1,5 +1,4 @@
 export const runInjected = async (tab, { dontCheckStatus } = {}) => {
-  console.log('tab', tab)
   if (!tab) return false
 
   const currentURL = tab?.url

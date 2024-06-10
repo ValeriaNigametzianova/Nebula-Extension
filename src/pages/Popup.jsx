@@ -34,10 +34,8 @@ export const Popup = () => {
           for (let key in domains_list) {
             if (key.includes(currentOrigin)) {
               setWhiteURL(true)
-              console.log(1)
               break
             } else {
-              console.log(2)
               continue
             }
           }
@@ -101,10 +99,8 @@ export const Popup = () => {
             onChange={async (e) => {
               setWhiteURL(!whiteURl)
               if (e.target.checked) {
-                console.log('addDomain', currentURL)
                 await addDomain(currentURL, '')
               } else {
-                console.log('deleteDomain', currentURL)
                 await deleteDomain(currentURL)
               }
             }}

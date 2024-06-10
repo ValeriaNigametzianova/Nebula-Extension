@@ -66,15 +66,14 @@ export const HiddenBlock = ({ node, word, category }) => {
                 previewWidth={node.offsetWidth}
               />
             ) : null}
-            {blurSettings?.use_neuronet &&
-              (blurSettings?.show_word || blurSettings?.show_category) && (
-                <ShowMaskedWord
-                  word={word}
-                  category={category}
-                  showWord={blurSettings.show_word}
-                  showCategory={blurSettings.show_category}
-                ></ShowMaskedWord>
-              )}
+            {(blurSettings?.show_word || blurSettings?.show_category) && (
+              <ShowMaskedWord
+                word={word}
+                category={category}
+                showWord={blurSettings?.show_word}
+                showCategory={blurSettings?.show_category}
+              ></ShowMaskedWord>
+            )}
           </div>
         )}
       </div>

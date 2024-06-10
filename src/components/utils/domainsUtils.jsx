@@ -54,11 +54,8 @@ export const editDomain = async (domain, newDomain, domainName) => {
 export const deleteDomain = async (domain) => {
   chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
     const currentOrigin = getURLDomain(domain)
-    console.log(currentOrigin)
-    console.log(domains_list)
     for (let key in domains_list) {
       if (key === currentOrigin) {
-        console.log('key === currentOrigin', key === currentOrigin)
         delete domains_list[key]
         chrome.storage.sync.set({
           domains_list,
