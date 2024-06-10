@@ -17,6 +17,7 @@ export const addWord = async (word, category) => {
             categories: listOfWordCategories,
             dateCreated: word_list[word].dateCreated,
             dateEdited: new Date().toISOString(),
+            stemms: word_list[word].stemms,
           },
         },
       })
@@ -49,11 +50,13 @@ export const editWord = async (word, newWord, categories) => {
             categories: categories,
             dateCreated: dateCreated,
             dateEdited: new Date().toISOString(),
+            stemms: word_list[word].stemms,
           },
         },
       })
     } else {
       delete word_list[word]
+      const stemms = await stemmingWords(word)
       await chrome.storage.sync.set({
         word_list: {
           ...word_list,
@@ -61,6 +64,7 @@ export const editWord = async (word, newWord, categories) => {
             categories: categories,
             dateCreated: dateCreated,
             dateEdited: new Date().toISOString(),
+            stemms: stemms,
           },
         },
       })
