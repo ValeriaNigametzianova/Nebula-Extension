@@ -15,7 +15,7 @@
 
 .nebula_btn_link {
   cursor: pointer;
-  color: var(--Dark-grey, #aab1bb);
+  color: var(--Black, #aab1bb);
   background-color: transparent;
 }
 

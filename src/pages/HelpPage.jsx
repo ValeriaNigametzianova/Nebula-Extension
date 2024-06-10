@@ -4,6 +4,7 @@ import { GitHub } from '../icons/GitHub'
 import { Gmail } from '../icons/Gmail'
 import { useResize } from '../components/content/hooks/useResize'
 import { ContactsLinkButton } from '../components/ContactsLinkButton'
+import { Behance } from '../icons/Behance'
 
 export const HelpPage = () => {
   const { width } = useResize()
@@ -38,6 +39,9 @@ export const HelpPage = () => {
             </ContactsLinkButton>
             <ContactsLinkButton href="https://github.com/ValeriaNigametzianova/Nebula-Extension">
               <GitHub />
+            </ContactsLinkButton>
+            <ContactsLinkButton href="https://www.behance.net/valeria_ngmtzva">
+              <Behance />
             </ContactsLinkButton>
           </div>
         </div>
