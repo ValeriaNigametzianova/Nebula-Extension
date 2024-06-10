@@ -2,12 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Scripts } from './pages/Scripts'
 
-let extensionStatus = false
+let injected = false
+
+//port messaging
+var port = chrome.runtime.connect({ name: 'nebula-script' })
+port.postMessage({ execute: 'execute?' })
+port.onMessage.addListener(function (msg) {
+  if (msg.answer === 'Yes') {
+    injectExtension()
+  }
+  port.disconnect()
+})
 
 chrome.storage.sync.onChanged.addListener((changes) => {
   if (changes.status) {
-    const newValue = changes.status.newValue
-    console.log('Extension status changed:', newValue)
+    const newValue = changes.status?.newValue
     if (newValue) {
       injectExtension()
     } else {
@@ -16,8 +25,33 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   }
 })
 
-function injectExtension() {
-  console.log('Injecting extension...')
+//one message connection
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.answer === 'Inject') {
+    injectExtension()
+    sendResponse({ message: 'Injected' })
+  }
+
+  if (request.message === 'Add this tab into list') {
+    removeExtension()
+    sendResponse({ message: 'Script was removed' })
+  }
+
+  if (request.message === 'Remove this tab out of list') {
+    injectExtension()
+    sendResponse({ message: 'Script was injected' })
+  } else {
+    sendResponse({ message: 'no ok' })
+  }
+  return true
+})
+
+const injectExtension = () => {
+  if (injected) {
+    return
+  }
+  injected = true
+  console.log('Injecting extension...', new Date().toLocaleString())
   const root = document.createElement('div')
   root.id = 'crx-root'
   document.body.prepend(root)
@@ -33,18 +67,12 @@ function injectExtension() {
   )
 }
 
-function removeExtension() {
+const removeExtension = () => {
+  if (!injected) return
+  injected = false
   console.log('Removing extension...')
   const root = document.getElementById('crx-root')
   if (root) {
     root.remove()
   }
 }
-
-// Check initial extension status
-chrome.storage.sync.get('status', (data) => {
-  extensionStatus = data.status
-  if (extensionStatus) {
-    injectExtension()
-  }
-})

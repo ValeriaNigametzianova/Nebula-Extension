@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { ListItem } from '../components/ListItem'
-import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
 import { addWord } from '../components/utils/wordsUtils'
 import { useSortList } from '../components/utils/sorting'
+import { WordAdder } from '../components/WordAdder'
+import { DropdownMenu } from '../components/DropdownMenu'
 
 const WordsSettings = () => {
-  const [word, setWord] = useState('')
-  const [category, setCategory] = useState([])
   const [word_list, setWordList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
@@ -16,15 +15,14 @@ const WordsSettings = () => {
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
-        if (event.word_list) setWordList(event.word_list.newValue)
-        chrome.storage.sync.get(null, (allkeys) => {
-          console.log('allkeys: ', allkeys)
-        })
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
+        if (event.word_list) {
+          setWordList(event.word_list.newValue)
         }
       }
     )
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   useEffect(() => {
@@ -34,74 +32,59 @@ const WordsSettings = () => {
   }, [])
 
   return (
-    <div className="wrapper_content">
-      <div className="add_word_section">
-        <input
-          value={word}
-          onChange={(e) => setWord(e.target.value)}
-          className="input_page main_text"
-          placeholder="Введите слово или фразу"
-        ></input>
-        <TagAdderInput
-          state={category}
-          setState={setCategory}
-          className={'tagAdderInput_page'}
-        />
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={() => {
-            addWord(word, category)
-            setWord('')
-            setCategory([])
-          }}
-        >
-          Добавить
-        </button>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={async () => {
-            await chrome.storage.sync.remove(['word_list'])
-          }}
-        >
-          Удалить все
-        </button>
-      </div>
-      <div className="list_section">
-        <div className="list_start_line">
-          <div className="list_title subtitle">Весь список</div>
-          <div className="list_sorting">
+    <div>
+      <WordAdder
+        subtitle="Добавьте слово, которое следует замаскировать"
+        placeholder="Введите слово или фразу"
+        onSubmit={(word, categories) => {
+          addWord(word, categories)
+        }}
+        required
+        multi
+      />
+      <div className="nebula_list_section">
+        <div className="nebula_list_start_line">
+          <div className="nebula_subtitle">Весь список слов</div>
+          <div className="nebula_list_sorting">
             <button
-              className="btn_black"
-              style={{ borderRadius: '2px' }}
+              className="nebula_mark nebula_btn_black"
               onClick={() => setAscending(!ascending)}
             >
-              {ascending ? 'A-Z' : 'Z-A'}
+              {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <select
-              className="select_dropdown mark"
-              onClick={(e) => setFilter(e.target.value)}
-            >
-              <option value="date">По дате добавления</option>
-              <option value="alphabet">По алфавиту</option>
-            </select>
+            <DropdownMenu
+              onClick={setFilter}
+              value_1={'date'}
+              value_2={'alphabet'}
+              option_1={'По дате добавления'}
+              option_2={'По алфавиту'}
+            />
           </div>
         </div>
-        <div className="list_header">
-          <div className="word mark">Слово</div>
-          <div className="category mark">Категория</div>
+        <div className="nebula_list_header">
+          <div className="nebula_word nebula_mark">Слово</div>
+          <div className="nebula_category nebula_mark">Категории</div>
+          <button
+            className="nebula_mark nebula_btn_link"
+            onClick={async () => {
+              await chrome.storage.sync.remove(['word_list'])
+            }}
+          >
+            Удалить все
+          </button>
         </div>
-        <div id="list" className="list">
-          {word_list ? (
+        <div id="list" className="nebula_list">
+          {sortedWordList.length > 0 ? (
             sortedWordList.map((word) => (
               <ListItem
-                key={word}
+                key={word + word_list[word].dateEdited}
                 word={word}
                 categories={word_list[word].categories}
                 word_list={word_list}
               />
             ))
           ) : (
-            <div>Load</div>
+            <div className="nebula_mark">Нет добавленных слов</div>
           )}
         </div>
       </div>

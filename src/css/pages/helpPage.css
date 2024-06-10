@@ -1,0 +1,37 @@
+.nebula_help_page_wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.nebula_help_page_content {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  background-color: var(--White, #ffffff);
+  width: 50%;
+  padding: 40px;
+  border-radius: 5px;
+}
+
+.nebula_help_page_contacts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nebula_help_page_links {
+  display: flex;
+  gap: 5px;
+}
+
+.nebula_wrap_tutorual {
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+}
+.nebula_tutorial {
+  width: 100%;
+  aspect-ratio: 1;
+}

@@ -1,17 +1,19 @@
 {
-  "name": "nebula-extention",
+  "name": "nebula-extension",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build",
+    "build-extension": "npm run build && copy src\\manifest.json dist\\ && copy src\\content.jsx dist\\",
     "preview": "vite preview",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ValeriaNigametzianova/Nebula-Extention.git"
+    "url": "git+https://github.com/ValeriaNigametzianova/Nebula-Extension.git"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.2.1",

@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ListItem } from '../components/ListItem'
 import { addDomain } from '../components/utils/domainsUtils'
 import { useSortList } from '../components/utils/sorting'
+import { WordAdder } from '../components/WordAdder'
+import { DropdownMenu } from '../components/DropdownMenu'
 
 const DomainsSettings = () => {
-  const [domain, setDomain] = useState('')
-  const [domainName, setDomainName] = useState('')
   const [domainsList, setDomainList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
@@ -14,9 +14,6 @@ const DomainsSettings = () => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
       (event) => {
         if (event.domains_list) setDomainList(event.domains_list.newValue)
-        chrome.storage.sync.get(null, (allkeys) => {
-          console.log('allkeys: ', allkeys)
-        })
         return () => {
           chrome.storage.sync.onChanged.removeListener(storageListener)
         }
@@ -32,71 +29,50 @@ const DomainsSettings = () => {
 
   const removeDomains = async () => {
     await chrome.storage.sync.remove(['domains_list'])
-    const { domains_list } = await chrome.storage.sync.get(['domains_list'])
-    const list = domains_list ? Object.keys(domains_list) : null
-    // ChangeManifest(list)
   }
 
   const sortedDomainsList = useSortList(domainsList, filter, ascending)
 
   return (
     <div className="wrapper_content">
-      <div className="add_word_section">
-        <input
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-          className="input_page main_text"
-          placeholder="https://domain.com"
-        ></input>
-        <input
-          value={domainName}
-          onChange={(e) => setDomainName(e.target.value)}
-          className="input_page_right main_text"
-          placeholder="Можете дать название"
-        ></input>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={async () => {
-            await addDomain(domain, domainName)
-            setDomain('')
-            setDomainName('')
-          }}
-        >
-          Добавить
-        </button>
-        <button
-          className="button_text add_button_page btn_red"
-          onClick={removeDomains}
-        >
-          Удалить все
-        </button>
-      </div>
-      <div className="list_section">
-        <div className="list_start_line">
-          <div className="list_title subtitle">Весь список</div>
-          <div className="list_sorting">
+      <WordAdder
+        subtitle="Добавьте сайт, на котором не следует анализировать"
+        placeholder="https://domain.com"
+        onSubmit={(domain, domainName) => {
+          addDomain(domain, domainName)
+        }}
+      />
+      <div className="nebula_list_section">
+        <div className="nebula_list_start_line">
+          <div className="list_title nebula_subtitle">Весь список сайтов</div>
+          <div className="nebula_list_sorting">
             <button
-              className="btn_black"
-              style={{ borderRadius: '2px' }}
+              className="nebula_mark nebula_btn_black"
               onClick={() => setAscending(!ascending)}
             >
-              {ascending ? 'A-Z' : 'Z-A'}
+              {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <select
-              className="select_dropdown mark"
-              onClick={(e) => setFilter(e.target.value)}
-            >
-              <option value="date">По дате добавления</option>
-              <option value="alphabet">По алфавиту</option>
-            </select>
+            <DropdownMenu
+              onClick={setFilter}
+              value_1={'date'}
+              value_2={'alphabet'}
+              option_1={'По дате добавления'}
+              option_2={'По алфавиту'}
+            />
           </div>
         </div>
-        <div className="list_header">
-          <div className="word mark">Домен</div>
-          <div className="category mark">Имя</div>
+        <div className="nebula_list_header">
+          <div className="nebula_word nebula_mark">Домен</div>
+          <div className="nebula_category nebula_mark">Имя</div>
+          <button
+            className="nebula_mark nebula_btn_link"
+            onClick={removeDomains}
+          >
+            Удалить все
+          </button>
         </div>
-        <div id="list" className="list">
-          {domainsList ? (
+        <div id="list" className="nebula_list">
+          {domainsList && Object.keys(domainsList).length > 0 ? (
             sortedDomainsList.map((domain) => (
               <ListItem
                 key={domain}
@@ -105,7 +81,7 @@ const DomainsSettings = () => {
               />
             ))
           ) : (
-            <div>Load</div>
+            <div>Нет добавленных сайтов</div>
           )}
         </div>
       </div>

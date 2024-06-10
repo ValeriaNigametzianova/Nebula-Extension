@@ -1,6 +1,5 @@
-.body {
+.nebula_body_popup {
   width: 300px;
-  /* height: 385px; */
   border-radius: 10px;
   background: var(--Background, #fbfbfb);
   padding: 30px;
@@ -12,12 +11,12 @@
   flex-direction: column;
 }
 
-.title {
+.nebula_title {
   display: flex;
   justify-content: center;
 }
 
-.links {
+.nebula_links {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -25,15 +24,26 @@
   font-weight: 300;
 }
 
-.btn_setting {
+.nebula_checkbox_popup {
+  height: 15px;
+  width: 15px;
+  border: 1px solid var(--Black, 0#02020d);
+  border-radius: 2px;
+}
+
+.nebula_checkbox_popup:checked {
+  accent-color: var(--Black, #02020d);
+}
+
+.nebula_btn_setting {
   cursor: pointer;
 }
-.add_word {
+.nebula_add_word {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.inputs {
+.nebula_inputs {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,13 +53,13 @@
   font-weight: 300;
 }
 
-.input_popup {
+.nebula_input_popup {
   width: 100%;
   padding: 7px 0;
   font-size: 16px;
   font-weight: 300;
 }
 
-.add_button_popup {
+.nebula_add_button_popup {
   width: auto;
 }

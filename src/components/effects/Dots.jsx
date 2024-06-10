@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Dots_1 } from '../../images/dots/svg/1.jsx'
 import { Dots_2 } from '../../images/dots/svg/2.jsx'
 import { Dots_3 } from '../../images/dots/svg/3.jsx'

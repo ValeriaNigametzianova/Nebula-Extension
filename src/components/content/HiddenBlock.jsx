@@ -3,8 +3,9 @@ import { useAppendChild } from './hooks/useAppendChild'
 import { Flowers } from '../effects/Flowers'
 import { Dots } from '../effects/Dots'
 import ShowContentButton from '../ShowContentButton'
+import { ShowMaskedWord } from './ShowMaskedWord'
 
-export const HiddenBlock = ({ node }) => {
+export const HiddenBlock = ({ node, word, category }) => {
   const nodeRef = useAppendChild(node)
   const [visibility, setVisibility] = useState(false)
   const [blurSettings, setBlurSettings] = useState(null)
@@ -14,18 +15,17 @@ export const HiddenBlock = ({ node }) => {
       setBlurSettings(blur_settings)
     })
   }, [])
-
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>
       <div
         className={
           visibility
             ? undefined
-            : `nebula_mask_wrapper ${
+            : `nebula_mask_wrapper${
                 blurSettings?.hover_behavior === 'zoom'
-                  ? 'zoom'
+                  ? ' zoom'
                   : blurSettings?.hover_behavior === 'blur'
-                    ? 'blur'
+                    ? ' nebula_blur'
                     : ''
               }`
         }
@@ -66,11 +66,21 @@ export const HiddenBlock = ({ node }) => {
                 previewWidth={node.offsetWidth}
               />
             ) : null}
+            {blurSettings?.use_neuronet &&
+              (blurSettings?.show_word || blurSettings?.show_category) && (
+                <ShowMaskedWord
+                  word={word}
+                  category={category}
+                  showWord={blurSettings.show_word}
+                  showCategory={blurSettings.show_category}
+                ></ShowMaskedWord>
+              )}
           </div>
         )}
       </div>
-
-      <ShowContentButton onClick={setVisibility} visibility={visibility} />
+      <div className="nebula_hidden_block_show_options">
+        <ShowContentButton onClick={setVisibility} visibility={visibility} />
+      </div>
     </div>
   )
 }

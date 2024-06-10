@@ -19,7 +19,6 @@ export const TagAdderInput = ({ state, setState, className }) => {
 
   useEffect(() => {
     if (inputVisible) inputRef.current.focus()
-    console.log(state.length, 'state.lenght')
   }, [inputVisible])
 
   useEffect(() => {
@@ -27,19 +26,22 @@ export const TagAdderInput = ({ state, setState, className }) => {
   }, [inputValue])
 
   return (
-    <div className={`${className} tags_adder main_text`}>
+    <div className={`${className} nebula_tags_adder nebula_main_text`}>
       <ul id="tags">
         {state &&
           state.map((tag, index) => (
-            <li key={index} className="tag mark">
-              <span className="tag-title">{tag}</span>
-              <button className="tag_icon" onClick={() => removeTags(index)}>
+            <li key={index} className="nebula_tag nebula_mark">
+              <span className="tag_title">{tag}</span>
+              <button
+                className="nebula_tag_icon"
+                onClick={() => removeTags(index)}
+              >
                 <CloseIcon style={{ scale: '1.5' }} />
               </button>
             </li>
           ))}
         <div
-          className="tags_adder_placeholder main_text"
+          className="tags_adder_placeholder nebula_main_text"
           style={{
             display: inputVisible || state.length > 0 ? 'none' : 'block',
           }}
@@ -58,7 +60,7 @@ export const TagAdderInput = ({ state, setState, className }) => {
             minWidth: inputWidth,
             width: inputWidth,
           }}
-          className="tags_input mark"
+          className="nebula_tags_input nebula_mark"
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={(event) => {
             if (event.key === 'Enter') {
@@ -71,18 +73,19 @@ export const TagAdderInput = ({ state, setState, className }) => {
           }}
         />
         <span
-          className="tags_input mark"
+          className="nebula_tags_input nebula_mark"
           ref={spanRef}
           style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}
         >
           {inputValue}
         </span>
         <button
-          className="tag_icon tag_icon_add"
+          className="nebula_tag_icon nebula_tag_icon_add"
           onClick={() => {
             setInputVisible(true)
             addTags(inputValue)
             setInputValue('')
+            if (inputVisible) inputRef.current.focus()
           }}
         >
           <AddIcon />

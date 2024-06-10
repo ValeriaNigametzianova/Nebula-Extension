@@ -1,4 +1,4 @@
-.toggle {
+.nebula_toggle {
   display: grid;
   flex-direction: row;
   gap: 10px;
@@ -8,7 +8,7 @@
   font-weight: 300;
   font-size: 16px;
 }
-.toggle-btn {
+.nebula_toggle-btn {
   position: relative;
   width: 138px;
   height: 53px;
@@ -19,7 +19,7 @@
   justify-self: center;
 }
 
-.checkbox_input {
+.nebula_checkbox_input {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -32,9 +32,6 @@
   opacity: 0;
   z-index: 2;
 }
-/* #_2nd-toggle-btn {
-  margin: 60px auto 76px auto;
-} */
 
 #_1st_toggle-btn span {
   position: absolute;
@@ -66,26 +63,38 @@
     0.4s ease background-color;
 }
 
-#_1st_toggle-btn .checkbox_input:checked + span {
+#_1st_toggle-btn .nebula_checkbox_input:checked + span {
   border: 1px solid var(--Black, #02020b);
 }
 
-#_1st_toggle-btn .checkbox_input:checked + span:before {
+#_1st_toggle-btn .nebula_checkbox_input:checked + span:before {
   background-color: var(--Red, #f05365);
   transform: translate(87px, 0px);
 }
 
 /*  --------------------------------- */
 
-.show_word,
-.show_category {
+.nebula_show_word,
+.nebula_show_category {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  .nebula_show_toggle_title {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+  }
 }
-.show_toggle {
+
+.nebula_show_category:has(.nebula_icon_button_toolip) {
+  gap: 16px;
+}
+
+.nebula_show_toggle {
   position: relative;
-  width: 104px;
+  width: 88px;
   height: 40px;
   margin: 0 0;
   border-radius: 20px;
@@ -94,7 +103,7 @@
   justify-self: center;
 }
 
-.checkbox_input {
+.nebula_checkbox_input {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -107,9 +116,6 @@
   opacity: 0;
   z-index: 2;
 }
-/* #_2nd-toggle-btn {
-  margin: 60px auto 76px auto;
-} */
 
 #show_toggle span {
   position: absolute;
@@ -141,11 +147,11 @@
     0.4s ease background-color;
 }
 
-#show_toggle .checkbox_input:checked + span {
+#show_toggle .nebula_checkbox_input:checked + span {
   border: 1px solid var(--Black, #02020b);
 }
 
-#show_toggle .checkbox_input:checked + span:before {
+#show_toggle .nebula_checkbox_input:checked + span:before {
   background-color: var(--Black, #02020b);
-  transform: translate(69px, 0px);
+  transform: translate(53px, 0px);
 }

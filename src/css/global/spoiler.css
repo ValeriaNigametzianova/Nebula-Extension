@@ -7,14 +7,14 @@
   }
 }
 
-.dot {
+.nebula_dot {
   position: absolute;
   border-radius: 50%;
   background: white;
   /* animation-name: dots; */
   /* animation-iteration-count: 0.5s infinite; */
 }
-.hidden_block_wrapper {
+.nebula_hidden_block_wrapper {
   position: relative;
   overflow: hidden;
 }
@@ -23,12 +23,12 @@
   position: relative;
 }
 
-.nebula_mask_wrapper:hover .spoiler {
+.nebula_mask_wrapper:hover .nebula_spoiler {
   max-width: 0;
   background: transparent;
 }
 
-.spoiler {
+.nebula_spoiler {
   position: absolute;
   top: 0;
   left: 0;
@@ -36,4 +36,25 @@
   height: 100%;
   transition: 0.35s;
   overflow: hidden;
+}
+
+.nebula_hidden_block_show_options {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.nebula_show_masked_word {
+  position: absolute;
+  top: 5px;
+  right: 100px;
+  display: flex;
+  flex-direction: row;
+  padding: 3px;
+  background-color: var(--White, #02020d);
+  color: var(--Black, #02020d);
+  gap: 5px;
 }

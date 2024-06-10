@@ -31,9 +31,10 @@ input {
   border-bottom: 1px solid var(--Black, #02020b);
   outline: 0;
   color: var(--Black, #02020b);
+  background-color: transparent;
 }
 
 input:hover,
-:focus {
+input:focus {
   border-bottom: 1px solid var(--Red, #f05365);
 }
