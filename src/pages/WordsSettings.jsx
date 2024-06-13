@@ -9,7 +9,11 @@ const WordsSettings = () => {
   const [word_list, setWordList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
-
+  const sortingParameters = {
+    dateCreated: 'По дате добавления',
+    dateEdited: 'По дате изменения',
+    alphabet: 'По алфавиту',
+  }
   const sortedWordList = useSortList(word_list, filter, ascending)
 
   useEffect(() => {
@@ -54,10 +58,7 @@ const WordsSettings = () => {
             </button>
             <DropdownMenu
               onClick={setFilter}
-              value_1={'date'}
-              value_2={'alphabet'}
-              option_1={'По дате добавления'}
-              option_2={'По алфавиту'}
+              sortingParameters={sortingParameters}
             />
           </div>
         </div>
