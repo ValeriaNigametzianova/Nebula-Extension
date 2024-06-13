@@ -17,6 +17,7 @@
 .nebula_hidden_block_wrapper {
   position: relative;
   overflow: hidden;
+  border-radius: 3px;
 }
 
 .nebula_mask_wrapper {
