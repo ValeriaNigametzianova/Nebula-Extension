@@ -6,6 +6,10 @@ export const NeuronetAdder = ({ useNeuronet }) => {
   const [APIKey, setAPIKey] = useState('')
   const [neuronetModel, setNeuronetModel] = useState('')
   const inputRef = useRef(null)
+  const listOfNeuronetModel = {
+    ChatGPT: 'ChatGPT',
+    GigaChat: 'GigaChat',
+  }
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
@@ -37,10 +41,7 @@ export const NeuronetAdder = ({ useNeuronet }) => {
         <DropdownMenu
           onClick={dropdownHandler}
           defaultOption={'Выберите нейросеть'}
-          value_1={'ChatGPT'}
-          value_2={'GigaChat'}
-          option_1={'ChatGPT'}
-          option_2={'GigaChat'}
+          optionItems={listOfNeuronetModel}
           useNeuronet={useNeuronet}
           neuronetModel={neuronetModel}
           disabled

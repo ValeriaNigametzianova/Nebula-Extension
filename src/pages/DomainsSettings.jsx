@@ -9,6 +9,11 @@ const DomainsSettings = () => {
   const [domainsList, setDomainList] = useState(null)
   const [filter, setFilter] = useState('date')
   const [ascending, setAscending] = useState(true)
+  const sortingParameters = {
+    dateCreated: 'По дате добавления',
+    dateEdited: 'По дате изменения',
+    alphabet: 'По алфавиту',
+  }
 
   useEffect(() => {
     const storageListener = chrome.storage.sync.onChanged.addListener(
@@ -52,13 +57,7 @@ const DomainsSettings = () => {
             >
               {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <DropdownMenu
-              onClick={setFilter}
-              value_1={'date'}
-              value_2={'alphabet'}
-              option_1={'По дате добавления'}
-              option_2={'По алфавиту'}
-            />
+            <DropdownMenu onClick={setFilter} optionItems={sortingParameters} />
           </div>
         </div>
         <div className="nebula_list_header">

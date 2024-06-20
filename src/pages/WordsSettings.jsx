@@ -56,10 +56,7 @@ const WordsSettings = () => {
             >
               {ascending ? 'А-Я' : 'Я-А'}
             </button>
-            <DropdownMenu
-              onClick={setFilter}
-              sortingParameters={sortingParameters}
-            />
+            <DropdownMenu onClick={setFilter} optionItems={sortingParameters} />
           </div>
         </div>
         <div className="nebula_list_header">

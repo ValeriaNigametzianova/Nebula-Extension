@@ -3,7 +3,7 @@ import React from 'react'
 export const DropdownMenu = ({
   onClick,
   defaultOption,
-  sortingParameters,
+  optionItems,
   useNeuronet,
   neuronetModel,
   disabled,
@@ -22,7 +22,7 @@ export const DropdownMenu = ({
       ) : (
         <></>
       )}
-      {Object.entries(sortingParameters).map((sortingPair) => (
+      {Object.entries(optionItems).map((sortingPair) => (
         <option key={sortingPair[0]} value={sortingPair[0]}>
           {sortingPair[1]}
         </option>
