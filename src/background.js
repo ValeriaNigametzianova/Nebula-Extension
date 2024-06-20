@@ -1,6 +1,6 @@
 import { runInjected } from './components/utils/runInjected'
 
-console.log('CONNECTED')
+console.log('NEBULA-EXTENSION CONNECTED')
 
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason == 'install') {
@@ -93,8 +93,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return true
     })
   }
-
-  console.log('CATCH')
   return true
 })
 
@@ -108,7 +106,6 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   const filteredURL = addingURL
     ? newArray.find((newURL) => !oldArray.includes(newURL))
     : oldArray.find((oldURL) => !newArray.includes(oldURL))
-  console.log(filteredURL)
 
   chrome.tabs.query({}, async (tabs) => {
     for (let tab of tabs) {
@@ -118,7 +115,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             tab.id,
             { message: 'Remove this tab out of list' },
             (response) => {
-              console.log('Add ex', response)
+              console.log('Add extension', response)
             }
           )
         } else {
@@ -126,7 +123,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             tab.id,
             { message: 'Add this tab into list' },
             (response) => {
-              console.log('Remove ex', response)
+              console.log('Remove extension', response)
             }
           )
         }
