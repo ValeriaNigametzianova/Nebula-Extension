@@ -2,6 +2,7 @@ import { getElementsArray } from './getElementsArray'
 import { transliterate } from './transliterate'
 
 export const parseHTML = (wordList, elementsArray) => {
+  let currentWords = new Set()
   for (let word in wordList) {
     const stemms = wordList[word].stemms
     const transliteration = transliterate(stemms)
@@ -17,7 +18,11 @@ export const parseHTML = (wordList, elementsArray) => {
           null
         )
         for (let i = 0, length = headings.snapshotLength; i < length; ++i) {
-          getElementsArray(headings.snapshotItem(i), elementsArray)
+          const textIncudeWord = getElementsArray(
+            headings.snapshotItem(i),
+            elementsArray
+          )
+          if (textIncudeWord) currentWords.add(word)
         }
       }
     else {
@@ -30,10 +35,15 @@ export const parseHTML = (wordList, elementsArray) => {
         null
       )
       for (let i = 0, length = headings.snapshotLength; i < length; ++i) {
-        getElementsArray(headings.snapshotItem(i), elementsArray)
+        const textIncudeWord = getElementsArray(
+          headings.snapshotItem(i),
+          elementsArray
+        )
+        if (textIncudeWord) currentWords.add(word)
       }
     }
   }
+  return currentWords
 }
 
 export const getXpathContains = (param) => {

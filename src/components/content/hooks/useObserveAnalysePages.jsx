@@ -3,7 +3,7 @@ import { debounce } from '../../utils/debounce'
 import { getElementsArray } from '../preparationForAnalyse/getElementsArray'
 import { useHideText } from './useHideText'
 
-export const useObserveAnalysePages = (wordList, AIModel) => {
+export const useObserveAnalysePages = (wordList) => {
   const observeNode = document.getElementsByTagName('body')[0]
   let newElementsArray = []
   const [isNodeHasClass, setIsNodeHasClass] = useState(false)
@@ -11,11 +11,12 @@ export const useObserveAnalysePages = (wordList, AIModel) => {
   const hideText = useHideText()
 
   let observer = new MutationObserver((mutations) => {
+    let currentWords = new Set()
+
     mutations.map((el) => {
       if (el.addedNodes.length > 0) {
         const node = el.addedNodes[el.addedNodes.length - 1]
-
-        if (!node.getAttributeNode('class')) {
+        if (!node?.getAttributeNode || !node.getAttributeNode('class')) {
           setIsNodeHasClass(false)
         } else {
           setIsNodeHasClass(true)
@@ -30,20 +31,19 @@ export const useObserveAnalysePages = (wordList, AIModel) => {
           node.textContent &&
           !newElementsArray.some((el) => node.isEqualNode(el))
         ) {
-          let trust = false
           for (let word in wordList) {
             if (node.textContent.includes(word)) {
-              trust = true
+              const textIncudeWord = getElementsArray(node, newElementsArray)
+              if (textIncudeWord) currentWords.add(word)
               return
             }
           }
-          if (trust) getElementsArray(node, newElementsArray)
         }
       }
     })
 
     if (newElementsArray.length > 0)
-      debouncedHideText(newElementsArray, wordList, AIModel)
+      debouncedHideText(newElementsArray, currentWords, wordList)
   })
 
   observer.observe(observeNode, {

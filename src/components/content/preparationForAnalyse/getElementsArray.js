@@ -6,8 +6,35 @@ export const getElementsArray = (element, array) => {
     element.nodeName !== 'BUTTON' &&
     element.nodeName !== 'IFRAME' &&
     element.nodeName !== 'A' &&
-    element.nodeName !== 'STYLE'
+    element.nodeName !== 'STYLE' &&
+    element.nodeName !== 'TEXTAREA' &&
+    element.nodeName !== 'IFARME' &&
+    element.nodeName !== 'NOINDEX' &&
+    element.nodeName !== 'IMG'
   ) {
-    array.push(element)
+    let dublicate = false
+    let nodeHasHref = false
+    let node = element
+
+    while (node.parentNode) {
+      const oldParent = node.parentNode
+      if (oldParent?.getAttributeNode && oldParent.getAttributeNode('href')) {
+        nodeHasHref = true
+        break
+      }
+      node = oldParent
+    }
+
+    array?.map((node) => {
+      if (node === element) {
+        dublicate = true
+      }
+    })
+
+    if (!dublicate && !nodeHasHref) {
+      array.push(element)
+      return true
+    }
   }
+  return false
 }

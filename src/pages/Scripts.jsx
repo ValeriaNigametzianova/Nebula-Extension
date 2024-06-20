@@ -21,14 +21,27 @@ export const Scripts = () => {
     })
   }, [])
 
+  useEffect(() => {
+    const storageListener = chrome.storage.sync.onChanged.addListener(
+      (event) => {
+        if (event.word_list) {
+          setWordList(event.word_list.newValue)
+        }
+        return () => {
+          chrome.storage.sync.onChanged.removeListener(storageListener)
+        }
+      }
+    )
+  }, [])
+
   const [loading, setLoading] = useState(false)
   useEffect(() => {
-    parseHTML(wordList, elementsArray)
+    const currentWords = parseHTML(wordList, elementsArray)
     if (!loading && wordList && elementsArray?.length) {
       setLoading(true)
-      hideText(elementsArray, wordList)
+      hideText(elementsArray, currentWords, wordList)
     }
-  }, [wordList, elementsArray, loading])
+  }, [wordList, loading])
 
   return null
 }

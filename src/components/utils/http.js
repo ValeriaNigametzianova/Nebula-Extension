@@ -1,4 +1,10 @@
-export const AnalyseHTML = async (wordList, elementsArray, AIModel, APIKey) => {
+export const AnalyseHTML = async (
+  currentWords,
+  wordList,
+  elementsArray,
+  AIModel,
+  APIKey
+) => {
   const url =
     AIModel === 'ChatGPT'
       ? `${import.meta.env.VITE_REACT_APP_API_URL}analyseHTML/chatgpt`
@@ -8,7 +14,7 @@ export const AnalyseHTML = async (wordList, elementsArray, AIModel, APIKey) => {
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify({ wordList, elementsArray, APIKey }),
+    body: JSON.stringify({ currentWords, wordList, elementsArray, APIKey }),
   })
   const result = await res.json()
   return result
