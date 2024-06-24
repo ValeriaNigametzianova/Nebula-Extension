@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Telegram } from '../icons/Telegram'
 import { GitHub } from '../icons/GitHub'
 import { Gmail } from '../icons/Gmail'
@@ -22,12 +22,21 @@ export const HelpPage = () => {
             type="text/html"
             width={(width * 45) / 100 + 'px'}
             height={(width * 26) / 100 + 'px'}
-            src="https://youtube.com/embed/gd7XKKL2izo"
+            src={`https://youtube.com/embed/gd7XKKL2izo?origin=chrome-extension://${chrome.runtime.id}`}
             frameBorder="0"
             allowFullScreen="true"
           ></iframe>
+          <div className="nebula_mark">
+            Если видео не загрузилось, то оно также доступно по ссылке:{' '}
+            <a
+              href="https://youtu.be/gd7XKKL2izo?si=d1bh6pMazXc872IS"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://youtu.be/gd7XKKL2izo?si=d1bh6pMazXc872IS
+            </a>
+          </div>
         </div>
-
         <div className="nebula_help_page_contacts">
           <div className="nebula_subtitle">Связаться с разработчиком</div>
           <div className="nebula_help_page_links">
