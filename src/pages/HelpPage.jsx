@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Telegram } from '../icons/Telegram'
 import { GitHub } from '../icons/GitHub'
 import { Gmail } from '../icons/Gmail'
