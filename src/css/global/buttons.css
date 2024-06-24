@@ -8,7 +8,9 @@
   padding: 15px 10px;
 }
 
-.nebula_btn_tab:focus,
+.nebula_btn_tab:hover {
+  color: var(--Light-red);
+}
 .nebula_btn_tab:focus-visible {
   border-style: 1px solid var(--Black, #02020d);
 }
@@ -20,7 +22,7 @@
 }
 
 .nebula_btn_link:hover,
-.nebula_btn_link:focus {
+.nebula_btn_link:focus-visible {
   color: var(--Light-red, #fd484d);
 }
 
@@ -55,6 +57,22 @@
   padding: 10px;
 }
 
+.nebula_btn_black:hover:enabled {
+  background: var(--Light-black, #282833);
+}
+.nebula_btn_black:active:enabled {
+  color: var(--Black, #02020b);
+  background: var(--Background, #fbfbfb);
+}
+.nebula_btn_black:disabled {
+  background-color: var(--Dark-grey);
+  border: 1px solid var(--Dark-grey);
+}
+
+.nebula_btn_black:focus-visible {
+  outline: 2px solid var(--Red);
+}
+
 .nebula_btn_black_selected {
   cursor: pointer;
   display: flex;
@@ -66,12 +84,8 @@
   padding: 10px;
 }
 
-.nebula_btn_black:hover {
-  background: #282833;
-}
-.nebula_btn_black:active {
-  color: var(--Black, #02020b);
-  background: var(--Background, #fbfbfb);
+.nebula_btn_black_selected:focus-visible {
+  outline: 2px solid var(--Red);
 }
 
 .nebula_btn_show_content {
@@ -88,6 +102,10 @@
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+}
+
+.nebula_btn_show_content:hover {
+  background: var(--Light-red, #ff697a);
 }
 
 .nebula_icon_button {

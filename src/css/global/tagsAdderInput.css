@@ -29,7 +29,7 @@
   border-radius: 3px;
   padding: 3px 4px;
   &:hover,
-  &:focus {
+  &:focus-visible {
     border: 1px solid var(--Red);
   }
 }
@@ -73,9 +73,16 @@
   border: none;
 }
 
+.nebula_tag_icon:hover {
+  background: var(--Light-black, #282833);
+}
+
+.nebula_tag_icon:focus {
+  outline: 2px solid var(--Red);
+}
+
 .nebula_tag_icon_add {
   padding: 6px;
-
   width: 21px;
   height: 21px;
 }
