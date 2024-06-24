@@ -50,7 +50,7 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
       <div
         className={
           settings?.hover_behavior === 'zoom'
-            ? 'effects_wrap zoom'
+            ? 'effects_wrap nebula_zoom'
             : settings?.hover_behavior === 'blur'
               ? 'effects_wrap nebula_blur'
               : 'effects_wrap'
