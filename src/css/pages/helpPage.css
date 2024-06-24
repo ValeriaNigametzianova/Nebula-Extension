@@ -19,6 +19,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media screen and (max-width: 1440px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .nebula_help_page_links {
