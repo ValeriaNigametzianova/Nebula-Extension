@@ -30,18 +30,6 @@ export const HiddenBlock = ({ node, word, category }) => {
               }`
         }
       >
-        {console.log(
-          1,
-          visibility
-            ? undefined
-            : `nebula_mask_wrapper${
-                blurSettings?.hover_behavior === 'zoom'
-                  ? ' nebula_zoom'
-                  : blurSettings?.hover_behavior === 'blur'
-                    ? ' nebula_blur'
-                    : ''
-              }`
-        )}
         <div
           style={
             visibility

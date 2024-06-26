@@ -136,6 +136,23 @@
   top: 3.5px;
   width: 30px;
   height: 30px;
+  background-color: var(--Black, #02020b);
+  border-radius: 22px;
+  transform: translate(5px, 0px);
+  transition:
+    0.4s ease border-radius,
+    0.4s ease transform,
+    0.6s ease width,
+    0.6s ease margin-left,
+    0.4s ease background-color;
+}
+
+#show_toggle span:disabled {
+  content: '';
+  position: absolute;
+  top: 3.5px;
+  width: 30px;
+  height: 30px;
   background-color: var(--Dark_grey, #aab1bb);
   border-radius: 22px;
   transform: translate(5px, 0px);
@@ -152,6 +169,20 @@
 }
 
 #show_toggle .nebula_checkbox_input:checked + span:before {
-  background-color: var(--Black, #02020b);
+  background-color: var(--Red);
   transform: translate(53px, 0px);
+}
+
+#show_toggle:hover {
+  .nebula_checkbox_input + span:before {
+    background-color: var(--Light-black, #282833);
+  }
+
+  .nebula_checkbox_input:checked + span:before {
+    background-color: var(--Light-red);
+  }
+}
+
+#show_toggle .nebula_checkbox_input:focus-visible + span {
+  outline: 2px solid var(--Red);
 }

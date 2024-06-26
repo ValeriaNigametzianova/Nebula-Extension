@@ -1,13 +1,16 @@
 export const runInjected = async (tab, { dontCheckStatus } = {}) => {
-  if (!tab) return false
+  if (!tab) {
+    return false
+  }
 
   const currentURL = tab?.url
   const pendingUrl = tab?.pendingUrl
   if (
-    currentURL?.includes('chrome-extension:/') ||
-    pendingUrl?.includes('chrome-extension:/')
-  )
+    currentURL?.includes('chrome-extension://') ||
+    pendingUrl?.includes('chrome-extension://')
+  ) {
     return false
+  }
 
   let whiteURL = false
   const { domains_list } = await chrome.storage.sync.get(['domains_list'])

@@ -1,7 +1,3 @@
-.nebula_range_slider {
-  border-bottom: 0;
-  width: 100%;
-}
 .nebula_slider {
   -webkit-appearance: none;
   width: 100%;
@@ -47,6 +43,11 @@
   border: 0;
 }
 
+.nebula_range_slider {
+  border-bottom: 0;
+  width: 100%;
+}
+
 .nebula_range_slider:hover {
   > .nebula_slider_label {
     color: #ff96a2;
@@ -59,12 +60,13 @@
   > .nebula_slider::-webkit-slider-thumb {
     background-color: #ff96a2;
   }
+
   > .nebula_slider::-moz-range-thumb {
     background-color: #ff96a2;
   }
 }
 
 .nebula_slider:hover,
-.nebula_slider:focus {
+.nebula_slider:focus-visible {
   border-bottom: 1px solid var(--Black, #02020b);
 }

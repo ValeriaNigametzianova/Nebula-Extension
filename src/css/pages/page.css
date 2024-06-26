@@ -176,7 +176,7 @@
   @media screen and (max-width: 1440px) {
     padding: 30px 20px;
     grid-template-columns: 46% auto 46% 0 0;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
   }
 }
 .neuronet_adder {
@@ -194,7 +194,7 @@
   }
 
   @media screen and (max-width: 1440px) {
-    grid-area: 2 / 1 / 2 /6;
+    grid-area: 2 / 1 / 4 /6;
     grid-template-columns: 35% auto 57% 0 0;
 
     button {
@@ -242,6 +242,10 @@
   }
 }
 
+.nebula_add_button_page:focus-visible {
+  outline: 1px solid var(--Red);
+}
+
 .nebula_list_section {
   background-color: var(--White, #ffffff);
   padding: 30px;
@@ -280,6 +284,14 @@
   border-bottom: 1px solid var(--Black, #02020b);
   outline: 0;
   align-self: start;
+}
+
+.nebula_select_dropdown:hover {
+  border-bottom: 1px solid var(--Red);
+}
+
+.nebula_select_dropdown:focus-visible {
+  outline: 1px solid var(--Red);
 }
 
 .nebula_list_header {
@@ -402,7 +414,7 @@
 }
 
 .nebula_item_word:hover + .nebula_tooltip_text,
-.nebula_item_word:focus + .nebula_tooltip_text {
+.nebula_item_word:focus-visible + .nebula_tooltip_text {
   display: block;
 }
 
@@ -496,6 +508,16 @@ input[type='color'] {
   }
 }
 
+input[type='color']::-webkit-color-swatch:hover {
+  border: 1px solid var(--Red);
+}
+
+input[type='color']:focus-visible {
+  &::-webkit-color-swatch {
+    outline: 1px solid var(--Red);
+  }
+}
+
 .nebula_additional_effects {
   display: flex;
   flex-direction: column;
@@ -537,6 +559,14 @@ input[type='color'] {
     border-radius: 7px;
   }
 
+  > .nebula_effect:hover {
+    border: 1px solid var(--Red);
+  }
+
+  > .nebula_effect:focus-visible {
+    outline: 2px solid var(--Red);
+  }
+
   > .nebula_effect_selected {
     display: flex;
     align-items: center;
@@ -547,11 +577,12 @@ input[type='color'] {
     border-radius: 7px;
   }
 
-  > .nebula_effect:hover {
-    width: 40px;
-    height: 40px;
+  > .nebula_effect_selected:hover {
     border: 2px solid var(--Red);
-    border-radius: 7px;
+  }
+
+  > .nebula_effect_selected:focus-visible {
+    outline: 2px solid var(--Red);
   }
 }
 
