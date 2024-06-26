@@ -100,6 +100,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   if (!changes.domains_list) return
 
   const { newValue, oldValue } = changes.domains_list
+  if (!oldValue) return
   const newArray = Object.keys(newValue)
   const oldArray = Object.keys(oldValue)
   const addingURL = newArray.length > oldArray.length
