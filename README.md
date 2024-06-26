@@ -16,7 +16,7 @@
 
 ### Порядок установки расширения в Chrome:
 
-1. Скачать и разархивировать билд Build-Nebula-Extension.zip из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.0);
+1. Скачать и разархивировать билд Build-Nebula-Extension.zip из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.1);
 2. Перейти в "Управление расширениями" ("Manage extensions");
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/528cf43c-ec5b-4589-b747-69f5f6692b10)
@@ -33,7 +33,7 @@
 
 ### Порядок установки расширения в Opera:
 
-1. Скачать билд Nebula-Extension.crx из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.0);
+1. Скачать билд Nebula-Extension.crx из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.1);
 2. Перейти в "Управление расширениями" ("Manage extensions");
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/676ea0ea-c7ba-4bc9-8abf-0d75a74932ef)
@@ -51,7 +51,7 @@
 
 ### Порядок установки расширения в Яндекс Браузере:
 
-1. Скачать билд Nebula-Extension.crx из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.0);
+1. Скачать билд Nebula-Extension.crx из последнего [релиза](https://github.com/ValeriaNigametzianova/Nebula-Extension/releases/tag/Nebula-Extension-v1.1.1);
 2. Перейти в "Управление расширениями" ("Manage extensions");
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/42bcd0b3-718b-4218-b707-84aa033f0df5)
