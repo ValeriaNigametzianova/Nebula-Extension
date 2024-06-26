@@ -27,7 +27,7 @@ export const EffectsPanel = ({ effect, setEffect }) => {
 
   return (
     <div className="nebula_effects_wrapper">
-      <div
+      <button
         className={
           effect === 'none' ? 'nebula_effect_selected' : 'nebula_effect'
         }
@@ -37,8 +37,8 @@ export const EffectsPanel = ({ effect, setEffect }) => {
         }}
       >
         Нет
-      </div>
-      <div
+      </button>
+      <button
         className={
           effect === 'dots_effect' ? 'nebula_effect_selected' : 'nebula_effect'
         }
@@ -48,8 +48,8 @@ export const EffectsPanel = ({ effect, setEffect }) => {
         }}
       >
         <Dots_1></Dots_1>
-      </div>
-      <div
+      </button>
+      <button
         className={
           effect === 'flowers_effect'
             ? 'nebula_effect_selected'
@@ -61,7 +61,7 @@ export const EffectsPanel = ({ effect, setEffect }) => {
         }}
       >
         <Flower_1 />
-      </div>
+      </button>
     </div>
   )
 }

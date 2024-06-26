@@ -564,7 +564,7 @@ input[type='color']:focus-visible {
   }
 
   > .nebula_effect:focus-visible {
-    border: 1px solid var(--Red);
+    outline: 2px solid var(--Red);
   }
 
   > .nebula_effect_selected {
@@ -579,6 +579,10 @@ input[type='color']:focus-visible {
 
   > .nebula_effect_selected:hover {
     border: 2px solid var(--Red);
+  }
+
+  > .nebula_effect_selected:focus-visible {
+    outline: 2px solid var(--Red);
   }
 }
 
