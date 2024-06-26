@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "name": "Nebula",
   "description": "Небула предназначена для маскировки контента, который вы нежелаете видеть. Расширение поможет избавиться от спойлеров и новостей на неприятную вам тему.",
+  "author": "Valeria Nigametzianova https://github.com/ValeriaNigametzianova/Nebula-Extension",
   "icons": {
     "16": "favicon16.png",
     "32": "favicon32.png",
@@ -24,7 +25,7 @@
       "js": ["src/content.jsx"]
     }
   ],
-  "permissions": ["tabs", "storage", "activeTab", "scripting", "alarms"],
+  "permissions": ["tabs", "storage", "activeTab", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background.js"
