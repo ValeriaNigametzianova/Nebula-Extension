@@ -19,28 +19,18 @@ export const useHideText = () => {
   const hideText = async (array, currentWords, wordList) => {
     const currentURL = window.location.href
     await testRequest(currentURL)
-    let AIResponse = {}
-    if (APIKey && useNeuronet) {
-      AIResponse = await AnalyseHTML(
-        [...currentWords],
-        wordList,
-        array.map((el) => el.textContent),
-        AIModel,
-        APIKey
-      )
-    } else {
-      AIResponse = Object.assign(
-        {},
-        array.map(() => ({
-          bool: true,
-          word: '',
-          category: '',
-        }))
-      )
-    }
 
-    for (let key in AIResponse) {
-      if (AIResponse[key].bool === true) {
+    let premasking = Object.assign(
+      {},
+      array.map(() => ({
+        bool: true,
+        word: '',
+        category: '',
+      }))
+    )
+
+    for (let key in premasking) {
+      if (premasking[key].bool === true) {
         const node = array[key]
         const oldParent = node.parentNode
 
@@ -55,14 +45,41 @@ export const useHideText = () => {
             <React.StrictMode>
               <HiddenBlock
                 node={node}
-                word={AIResponse[key].word}
-                category={AIResponse[key].category}
+                word={premasking[key].word}
+                category={premasking[key].category}
               />
             </React.StrictMode>
           )
         } else return
       }
     }
+
+    let AIResponse = {}
+    if (APIKey && useNeuronet) {
+      AIResponse = await AnalyseHTML(
+        [...currentWords],
+        wordList,
+        array.map((el) => el.textContent),
+        AIModel,
+        APIKey
+      )
+    }
+
+    for (let key in AIResponse) {
+      if (AIResponse[key].bool === false || !AIResponse[key].bool) {
+        const node = array[key]
+        const wrapper = document.getElementById(`${'root ' + key}`)
+        const oldParent = wrapper.parentNode
+
+        // создаем подкорень Реакта
+        oldParent?.replaceChild(node, wrapper)
+
+        if (wrapper) {
+          wrapper.remove()
+        }
+      }
+    }
+
     array = []
   }
   return hideText
