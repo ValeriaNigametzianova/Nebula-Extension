@@ -65,17 +65,19 @@ export const useHideText = () => {
       )
     }
 
-    for (let key in AIResponse) {
-      if (AIResponse[key].bool === false || !AIResponse[key].bool) {
-        const node = array[key]
-        const wrapper = document.getElementById(`${'root ' + key}`)
-        const oldParent = wrapper.parentNode
+    if (AIResponse) {
+      for (let key in AIResponse) {
+        if (AIResponse[key].bool === false || !AIResponse[key].bool) {
+          const node = array[key]
+          const wrapper = document.getElementById(`${'root ' + key}`)
+          const oldParent = wrapper.parentNode
 
-        // создаем подкорень Реакта
-        oldParent?.replaceChild(node, wrapper)
+          // создаем подкорень Реакта
+          oldParent?.replaceChild(node, wrapper)
 
-        if (wrapper) {
-          wrapper.remove()
+          if (wrapper) {
+            wrapper.remove()
+          }
         }
       }
     }

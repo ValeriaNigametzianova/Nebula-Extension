@@ -17,13 +17,12 @@ const WordsSettings = () => {
   const sortedWordList = useSortList(word_list, filter, ascending)
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.word_list) {
-          setWordList(event.word_list.newValue)
-        }
+    const storageListener = (event) => {
+      if (event.word_list) {
+        setWordList(event.word_list.newValue)
       }
-    )
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
     return () => {
       chrome.storage.sync.onChanged.removeListener(storageListener)
     }

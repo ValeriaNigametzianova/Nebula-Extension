@@ -13,7 +13,7 @@ export const Scripts = () => {
   const hideText = useHideText()
 
   useLogAllKeys()
-  useObserveAnalysePages(wordList)
+  // useObserveAnalysePages(wordList)
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
@@ -22,16 +22,15 @@ export const Scripts = () => {
   }, [])
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.word_list) {
-          setWordList(event.word_list.newValue)
-        }
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
-        }
+    const storageListener = (event) => {
+      if (event.word_list) {
+        setWordList(event.word_list.newValue)
       }
-    )
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   const [loading, setLoading] = useState(false)

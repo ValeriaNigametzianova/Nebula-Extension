@@ -25,6 +25,7 @@ export const Popup = () => {
         console.log(response)
       }
     )
+
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if (request.message === 'Send you activeTabURL') {
         const activeTabURL = request.activeTabURL
@@ -56,16 +57,15 @@ export const Popup = () => {
   }, [isWorked])
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.word_list) setWordList(event.word_list.newValue)
-        if (event.status) setIsWorked(event.status.newValue)
+    const storageListener = (event) => {
+      if (event.word_list) setWordList(event.word_list.newValue)
+      if (event.status) setIsWorked(event.status.newValue)
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
 
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
-        }
-      }
-    )
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   return (

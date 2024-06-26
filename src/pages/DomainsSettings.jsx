@@ -16,14 +16,13 @@ const DomainsSettings = () => {
   }
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.domains_list) setDomainList(event.domains_list.newValue)
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
-        }
-      }
-    )
+    const storageListener = (event) => {
+      if (event.domains_list) setDomainList(event.domains_list.newValue)
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   useEffect(() => {

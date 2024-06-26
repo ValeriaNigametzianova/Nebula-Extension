@@ -11,15 +11,13 @@ export const Prewiew = ({ blurColor, effectColor, value }) => {
   const ref = useRef(null)
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.blur_settings) setSettings(event.blur_settings.newValue)
-
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
-        }
-      }
-    )
+    const storageListener = (event) => {
+      if (event.blur_settings) setSettings(event.blur_settings.newValue)
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   useEffect(() => {

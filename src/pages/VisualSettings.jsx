@@ -39,27 +39,26 @@ export const VisualSettings = () => {
   }, [])
 
   useEffect(() => {
-    const storageListener = chrome.storage.sync.onChanged.addListener(
-      (event) => {
-        if (event.use_neuronet) {
-          setUseNeuronet(event.use_neuronet.newValue)
-          setShowWord(false)
-          setShowCategory(false)
-          chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
-            chrome.storage.sync.set({
-              blur_settings: {
-                ...blur_settings,
-                show_word: false,
-                show_category: false,
-              },
-            })
-          )
-        }
-        return () => {
-          chrome.storage.sync.onChanged.removeListener(storageListener)
-        }
+    const storageListener = (event) => {
+      if (event.use_neuronet) {
+        setUseNeuronet(event.use_neuronet.newValue)
+        setShowWord(false)
+        setShowCategory(false)
+        chrome.storage.sync.get(['blur_settings']).then(({ blur_settings }) =>
+          chrome.storage.sync.set({
+            blur_settings: {
+              ...blur_settings,
+              show_word: false,
+              show_category: false,
+            },
+          })
+        )
       }
-    )
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
   }, [])
 
   const showWordToggleHandler = (value) => {
