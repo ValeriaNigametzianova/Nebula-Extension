@@ -75,6 +75,24 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   })
 })
 
+//отслеживание выключения расширения
+chrome.storage.sync.onChanged.addListener((changes) => {
+  if (!changes.status) {
+    return
+  }
+  const { newValue } = changes.status
+  if (newValue === false) {
+    chrome.tabs.query({}, async (tabs) => {
+      for (let tab of tabs) {
+        chrome.tabs.sendMessage(tab.id, { message: 'Remove' }, (response) => {
+          console.log('Remove extension', response)
+        })
+      }
+    })
+  }
+})
+
+//общение с Pop-up
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { message } = request
   if (message === 'Send me an activeTab') {
@@ -96,10 +114,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true
 })
 
+//отслеживание добавление/удаление домена из списка
 chrome.storage.sync.onChanged.addListener((changes) => {
-  if (!changes.domains_list) return
+  if (!changes.domains_list) {
+    return
+  }
 
   const { newValue, oldValue } = changes.domains_list
+  console.log('oldValue', oldValue)
   if (!oldValue) return
   const newArray = Object.keys(newValue)
   const oldArray = Object.keys(oldValue)
@@ -110,8 +132,9 @@ chrome.storage.sync.onChanged.addListener((changes) => {
 
   chrome.tabs.query({}, async (tabs) => {
     for (let tab of tabs) {
-      if (tab.url === filteredURL)
-        if (tab.active && !addingURL) {
+      let tabURL = new URL(tab.url).origin
+      if (tabURL === filteredURL) {
+        if (!addingURL) {
           chrome.tabs.sendMessage(
             tab.id,
             { message: 'Remove this tab out of list' },
@@ -128,6 +151,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             }
           )
         }
+      }
     }
   })
 })

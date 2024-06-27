@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
+import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
@@ -16,36 +17,40 @@ export const Popup = () => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
       status && setIsWorked(status)
     })
-
-    chrome.runtime.sendMessage(
-      {
-        message: 'Send me an activeTab',
-      },
-      (response) => {
-        console.log(response)
-      }
-    )
-
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (request.message === 'Send you activeTabURL') {
-        const activeTabURL = request.activeTabURL
-        setCurrentURL(activeTabURL)
-        chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
-          const currentOrigin = new URL(activeTabURL).origin
-          for (let key in domains_list) {
-            if (key.includes(currentOrigin)) {
-              setWhiteURL(true)
-              break
-            } else {
-              continue
-            }
-          }
-          sendResponse('I got activeTabURL')
-        })
-      }
-      return true
-    })
   }, [])
+
+  useEffect(() => {
+    if (isWorked) {
+      chrome.runtime.sendMessage(
+        {
+          message: 'Send me an activeTab',
+        },
+        (response) => {
+          console.log(response)
+        }
+      )
+
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.message === 'Send you activeTabURL') {
+          const activeTabURL = request.activeTabURL
+          setCurrentURL(activeTabURL)
+          chrome.storage.sync.get(['domains_list']).then(({ domains_list }) => {
+            const currentOrigin = new URL(activeTabURL).origin
+            for (let key in domains_list) {
+              if (key.includes(currentOrigin)) {
+                setWhiteURL(true)
+                break
+              } else {
+                continue
+              }
+            }
+            sendResponse('I got activeTabURL')
+          })
+        }
+        return true
+      })
+    }
+  }, [isWorked])
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -67,6 +72,7 @@ export const Popup = () => {
       chrome.storage.sync.onChanged.removeListener(storageListener)
     }
   }, [])
+  useLogAllKeys()
 
   return (
     <div className="nebula_body_popup">
