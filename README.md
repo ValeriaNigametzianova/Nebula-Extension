@@ -25,7 +25,7 @@
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/38b4e00f-6893-40aa-a130-1dd9d2c6738b)
 
-4. Нажать "Загрузить распакованное расширение" ("Load unpacked") и выбрать **разархивированную** папку;
+4. Нажать "Загрузить распакованное расширение" ("Load unpacked") и выбрать папку dist;
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/d6d2e7e4-771b-4b50-a19c-d69f3431eb94)
 
@@ -47,7 +47,7 @@
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/80be4d97-e0e7-4320-9c2e-ca1504c70748)
 
-5. Нажать "Загрузить распакованное расширение" ("Load unpacked") и выбрать **разархивированную** папку;
+5. Нажать "Загрузить распакованное расширение" ("Load unpacked") и выбрать и выбрать папку dist;
 
    ![image](https://github.com/ValeriaNigametzianova/Nebula-Extension/assets/71436617/46b9e357-8039-4d3a-9242-720737363035)
 
