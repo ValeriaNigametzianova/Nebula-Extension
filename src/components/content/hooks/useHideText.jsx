@@ -20,7 +20,7 @@ export const useHideText = () => {
     const currentURL = window.location.href
     await testRequest(currentURL)
 
-    let premasking = Object.assign(
+    const premasking = Object.assign(
       {},
       array.map(() => ({
         bool: true,
@@ -37,6 +37,8 @@ export const useHideText = () => {
         // создаем подкорень Реакта
         const wrapper = document.createElement('div')
         wrapper.setAttribute('class', 'nebula_hidden_block_wrapper')
+        node.dataset.nebulaTargetElement = true
+        node.setAttribute('class', ' nebula')
         wrapper.id = 'root ' + key
         oldParent?.replaceChild(wrapper, node)
 

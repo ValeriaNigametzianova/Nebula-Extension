@@ -15,6 +15,7 @@
   /* animation-iteration-count: 0.5s infinite; */
 }
 .nebula_hidden_block_wrapper {
+  display: inline-block;
   position: relative;
   overflow: hidden;
   border-radius: 3px;
