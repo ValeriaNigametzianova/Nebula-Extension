@@ -3,17 +3,16 @@ import '../css/global/spoiler.css'
 import '../css/global/buttons.css'
 import '../css/pages/page.css'
 import { parseHTML } from '../components/content/preparationForAnalyse/parseHTML'
-import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 import { useHideText } from '../components/content/hooks/useHideText'
 import { useObserveAnalysePages } from '../components/content/hooks/useObserveAnalysePages'
+import { removeTargetMasks } from '../components/utils/removeTargetMasks'
 
 export const Scripts = () => {
   const [wordList, setWordList] = useState(null)
   let elementsArray = []
   const hideText = useHideText()
 
-  useLogAllKeys()
-  // useObserveAnalysePages(wordList)
+  useObserveAnalysePages(wordList)
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {
@@ -23,8 +22,19 @@ export const Scripts = () => {
 
   useEffect(() => {
     const storageListener = (event) => {
-      if (event.word_list) {
-        setWordList(event.word_list.newValue)
+      if (!event.word_list) return
+      setWordList(event.word_list.newValue)
+
+      const { newValue, oldValue } = event.word_list
+      if (!oldValue) return
+      const newArray = Object.keys(newValue)
+      const oldArray = Object.keys(oldValue)
+      const addingWord = newArray.length > oldArray.length
+      const filteredWord = addingWord
+        ? newArray.find((newWord) => !oldArray.includes(newWord))
+        : oldArray.find((oldWord) => !newArray.includes(oldWord))
+      if (!addingWord) {
+        removeTargetMasks(oldValue[filteredWord])
       }
     }
     chrome.storage.sync.onChanged.addListener(storageListener)
@@ -33,14 +43,14 @@ export const Scripts = () => {
     }
   }, [])
 
-  const [loading, setLoading] = useState(false)
   useEffect(() => {
-    const currentWords = parseHTML(wordList, elementsArray)
-    if (!loading && wordList && elementsArray?.length) {
-      setLoading(true)
+    let currentWords = parseHTML(wordList, elementsArray)
+    if (wordList && elementsArray?.length) {
       hideText(elementsArray, currentWords, wordList)
+      elementsArray = []
+      currentWords = []
     }
-  }, [wordList, loading])
+  }, [wordList])
 
   return null
 }

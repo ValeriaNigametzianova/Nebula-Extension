@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Scripts } from './pages/Scripts'
+import { removeAllMasks } from './components/utils/removeAllMasks'
 
 let injected = false
 
@@ -71,6 +72,7 @@ const injectExtension = () => {
 }
 
 const removeExtension = () => {
+  removeAllMasks()
   if (!injected) return
   injected = false
   console.log('Removing extension...')
