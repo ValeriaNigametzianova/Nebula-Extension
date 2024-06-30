@@ -11,9 +11,20 @@
   flex-direction: column;
 }
 
-.nebula_title {
+.nebula_popup_title {
   display: flex;
+  align-items: baseline;
+  position: relative;
   justify-content: center;
+}
+.nebula_title {
+}
+
+.nebula_popup_version {
+  position: absolute;
+  right: 0;
+  bottom: 2px;
+  color: var(--Dark-grey);
 }
 
 .nebula_links {

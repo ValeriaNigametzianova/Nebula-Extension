@@ -11,6 +11,7 @@ export const Popup = () => {
   const [whiteURl, setWhiteURL] = useState(false)
   const [currentURL, setCurrentURL] = useState('')
   const checkboxRef = useRef(null)
+  const manifestVersion = chrome.runtime.getManifest().version
 
   useEffect(() => {
     chrome.storage.sync.get(['status']).then(({ status }) => {
@@ -74,7 +75,13 @@ export const Popup = () => {
 
   return (
     <div className="nebula_body_popup">
-      <h1 className="nebula_title">Небула</h1>
+      <div className="nebula_popup_title">
+        <h1 className="nebula_title">Небула</h1>
+        <div className="nebula_popup_version nebula_mark">
+          v{manifestVersion}
+        </div>
+      </div>
+
       <div className="nebula_toggle">
         <div className="nebula_main_text">выкл</div>
         <div className="nebula_toggle-btn" id="_1st_toggle-btn">
