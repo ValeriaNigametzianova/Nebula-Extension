@@ -90,7 +90,7 @@
 
 .nebula_btn_show_content {
   cursor: pointer;
-
+  height: auto;
   background: var(--Red, #f05365);
   color: var(--White, #ffffff);
   border-radius: 2px;

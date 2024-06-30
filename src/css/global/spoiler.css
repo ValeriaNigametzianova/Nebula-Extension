@@ -44,9 +44,10 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  display: flex;
+  display: block;
   flex-direction: row;
   gap: 5px;
+  height: max-content;
 }
 
 .nebula_show_masked_word {
