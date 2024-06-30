@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { HiddenBlock } from '../HiddenBlock'
-import { AnalyseHTML, testRequest } from '../../utils/http'
+import { AnalyseHTML } from '../../utils/http'
 
 export const useHideText = () => {
   const [AIModel, setAIModel] = useState('')
@@ -17,9 +17,6 @@ export const useHideText = () => {
   }, [])
 
   const hideText = async (array, currentWords, wordList) => {
-    const currentURL = window.location.href
-    await testRequest(currentURL)
-
     const premasking = Object.assign(
       {},
       array.map(() => ({
@@ -33,7 +30,6 @@ export const useHideText = () => {
       if (premasking[key].bool === true) {
         const node = array[key]
         const oldParent = node.parentNode
-
         // создаем подкорень Реакта
         const wrapper = document.createElement('div')
         wrapper.setAttribute('class', 'nebula_hidden_block_wrapper')
@@ -52,10 +48,9 @@ export const useHideText = () => {
               />
             </React.StrictMode>
           )
-        } else return
+        }
       }
     }
-
     let AIResponse = {}
     if (APIKey && useNeuronet) {
       AIResponse = await AnalyseHTML(
