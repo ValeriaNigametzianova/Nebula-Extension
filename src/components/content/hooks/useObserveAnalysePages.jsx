@@ -4,6 +4,7 @@ import { useHideText } from './useHideText'
 import { transliterate } from '../preparationForAnalyse/transliterate'
 import { hasNebulaClassName } from '../../utils/hasNebulaClassName'
 import { getDirectTextContent } from '../../utils/getDirectTextContent'
+import { debounce } from '../../utils/debounce'
 
 export const useObserveAnalysePages = (wordList) => {
   const [isWorked, setIsWorked] = useState(false)
@@ -32,6 +33,7 @@ export const useObserveAnalysePages = (wordList) => {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.message === 'Add this tab into list') {
           observer.disconnect()
+          observer = null
           sendResponse('I`v been removed')
         }
         return true
@@ -45,6 +47,7 @@ export const useObserveAnalysePages = (wordList) => {
       if (event.status.newValue === false) {
         if (observer) {
           observer.disconnect()
+          observer = null
         }
       }
     }
@@ -109,12 +112,11 @@ export const useObserveAnalysePages = (wordList) => {
           inspectNode(node)
         })
       })
-      if (newElementsArray.length > 0) {
-        hideText(newElementsArray, currentWords, wordList)
+      if (newElementsArray.length > 0 && isWorked) {
+        debouncedHideText(newElementsArray, currentWords, wordList)
         newElementsArray = []
       }
     }
-
     observer = new MutationObserver(mutationCallback)
 
     observer.observe(observeNode, {
@@ -122,7 +124,7 @@ export const useObserveAnalysePages = (wordList) => {
       subtree: true,
     })
 
-    // const debouncedHideText = debounce(hideText, 1000)
+    const debouncedHideText = debounce(hideText, 1000)
 
     return () => {
       if (observer) {

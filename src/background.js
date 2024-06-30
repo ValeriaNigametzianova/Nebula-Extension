@@ -49,7 +49,7 @@ chrome.runtime.onConnect.addListener((port) => {
       })
     }
   })
-  // return true возможно не нужно, так как используется при одиночном сообщении
+  return true
 })
 
 //one message connection
@@ -102,20 +102,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const checkForInjecting = await runInjected(tabs[0], {
         dontCheckStatus: true,
       })
-      if (senderId === activeTabId && checkForInjecting)
-        chrome.runtime.sendMessage(
-          {
-            message: 'No, this tab isn`t in domain list',
-          },
+      if (senderId === activeTabId && checkForInjecting) {
+        chrome.tabs.sendMessage(
+          senderId,
+          { message: 'No, this tab isn`t in domain list' },
           (response) => {
             console.log(response)
           }
         )
-      else
-        chrome.runtime.sendMessage(
-          {
-            message: 'Yes, this tab is in domain list',
-          },
+      } else
+        chrome.tabs.sendMessage(
+          senderId,
+          { message: 'Yes, this tab is in domain list' },
           (response) => {
             console.log(response)
           }
@@ -152,6 +150,9 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   if (!changes.domains_list) {
     return
   }
+  chrome.storage.sync.get(['status']).then(({ status }) => {
+    if (!status) return
+  })
 
   const { newValue, oldValue } = changes.domains_list
   if (!oldValue) return

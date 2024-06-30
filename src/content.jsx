@@ -16,7 +16,7 @@ port.onMessage.addListener(function (msg) {
 })
 
 chrome.storage.sync.onChanged.addListener((changes) => {
-  if (changes.status) {
+  if (changes.status.newValue) {
     const newValue = changes.status?.newValue
     if (newValue) {
       chrome.runtime.sendMessage(
@@ -29,6 +29,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
       )
     }
   }
+  return true
 })
 
 //one message connection
