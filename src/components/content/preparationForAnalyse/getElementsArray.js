@@ -1,3 +1,5 @@
+import { hasNebulaClassName } from '../../utils/hasNebulaClassName'
+
 export const getElementsArray = (element, array) => {
   if (
     element &&
@@ -31,8 +33,15 @@ export const getElementsArray = (element, array) => {
       }
     })
 
-    if (!dublicate && !nodeHasHref) {
-      array.push(element)
+    if (!dublicate && !nodeHasHref && !hasNebulaClassName(element)) {
+      if (
+        element.nodeName === 'EM' ||
+        element.nodeName === 'I' ||
+        element.nodeName === 'B' ||
+        element.nodeName === 'STRONG'
+      )
+        array.push(element.parentNode)
+      else array.push(element)
       return true
     }
   }

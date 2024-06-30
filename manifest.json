@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "1.0.0",
+  "version": "1.2.0",
   "name": "Nebula",
   "description": "Небула предназначена для маскировки контента, который вы нежелаете видеть. Расширение поможет избавиться от спойлеров и новостей на неприятную вам тему.",
   "author": "Valeria Nigametzianova https://github.com/ValeriaNigametzianova/Nebula-Extension",
