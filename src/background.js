@@ -65,7 +65,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
             answer: 'Inject',
           },
           (response) => {
-            console.log('contentResponseAnswer', response?.message)
+            console.log('contentResponseAnswer', response)
           }
         )
       } catch (error) {
@@ -90,6 +90,39 @@ chrome.storage.sync.onChanged.addListener((changes) => {
       }
     })
   }
+})
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const { message } = request
+  if (message === 'Is this tab in domains list?') {
+    sendResponse('Wait...')
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      const senderId = sender.tab.id
+      const activeTabId = tabs[0]?.id
+      const checkForInjecting = await runInjected(tabs[0], {
+        dontCheckStatus: true,
+      })
+      if (senderId === activeTabId && checkForInjecting)
+        chrome.runtime.sendMessage(
+          {
+            message: 'No, this tab isn`t in domain list',
+          },
+          (response) => {
+            console.log(response)
+          }
+        )
+      else
+        chrome.runtime.sendMessage(
+          {
+            message: 'Yes, this tab is in domain list',
+          },
+          (response) => {
+            console.log(response)
+          }
+        )
+    })
+  }
+  return true
 })
 
 //общение с Pop-up
@@ -138,7 +171,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             tab.id,
             { message: 'Remove this tab out of list' },
             (response) => {
-              console.log('Add extension', response)
+              console.log(response)
             }
           )
         } else {
@@ -146,7 +179,7 @@ chrome.storage.sync.onChanged.addListener((changes) => {
             tab.id,
             { message: 'Add this tab into list' },
             (response) => {
-              console.log('Remove extension', response)
+              console.log(response)
             }
           )
         }

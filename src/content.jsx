@@ -19,9 +19,14 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   if (changes.status) {
     const newValue = changes.status?.newValue
     if (newValue) {
-      injectExtension()
-    } else {
-      removeExtension()
+      chrome.runtime.sendMessage(
+        {
+          message: 'Is this tab in domains list?',
+        },
+        (response) => {
+          console.log(response)
+        }
+      )
     }
   }
 })
@@ -44,6 +49,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.message === 'Remove this tab out of list') {
+    injectExtension()
+    sendResponse({ message: 'Script was injected' })
+  }
+
+  if (request.message === 'No, this tab isn`t in domain list') {
     injectExtension()
     sendResponse({ message: 'Script was injected' })
   }

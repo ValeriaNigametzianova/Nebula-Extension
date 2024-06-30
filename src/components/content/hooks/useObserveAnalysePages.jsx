@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { debounce } from '../../utils/debounce'
+import { useEffect, useState } from 'react'
 import { getElementsArray } from '../preparationForAnalyse/getElementsArray'
 import { useHideText } from './useHideText'
 import { transliterate } from '../preparationForAnalyse/transliterate'
@@ -7,9 +6,38 @@ import { hasNebulaClassName } from '../../utils/hasNebulaClassName'
 import { getDirectTextContent } from '../../utils/getDirectTextContent'
 
 export const useObserveAnalysePages = (wordList) => {
+  const [isWorked, setIsWorked] = useState(false)
   const hideText = useHideText()
   let currentWords = new Set()
   let observer
+
+  useEffect(() => {
+    const storageListener = (event) => {
+      if (event.status) setIsWorked(event.status.newValue)
+    }
+    chrome.storage.sync.onChanged.addListener(storageListener)
+    return () => {
+      chrome.storage.sync.onChanged.removeListener(storageListener)
+    }
+  }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.get(['status']).then(({ status }) => {
+      status && setIsWorked(status)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (isWorked) {
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.message === 'Add this tab into list') {
+          observer.disconnect()
+          sendResponse('I`v been removed')
+        }
+        return true
+      })
+    }
+  }, [isWorked])
 
   useEffect(() => {
     const storageListener = (event) => {
