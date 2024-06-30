@@ -31,6 +31,17 @@ export const removeTargetMasks = (newWord) => {
         getDirectTextContent(tagretNode).includes(transliterateWord)
       ) {
         oldNode.replaceChild(tagretNode, node)
+
+        if (
+          tagretNode?.getAttributeNode &&
+          tagretNode.getAttributeNode('class')
+        ) {
+          const nodeClassName = tagretNode?.getAttributeNode('class').value
+          const defaulNodeClassName = nodeClassName.replace(' nebula', '')
+
+          tagretNode.setAttribute('class', defaulNodeClassName)
+        }
+
         return true
       }
     }
