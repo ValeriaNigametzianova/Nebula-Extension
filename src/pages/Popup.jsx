@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { addWord } from '../components/utils/wordsUtils'
 import { addDomain, deleteDomain } from '../components/utils/domainsUtils'
 import { TagAdderInput } from '../components/TagAdder/TagAdderInput'
-import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 
 export const Popup = () => {
   const [category, setCategory] = useState([])
@@ -72,7 +71,6 @@ export const Popup = () => {
       chrome.storage.sync.onChanged.removeListener(storageListener)
     }
   }, [])
-  useLogAllKeys()
 
   return (
     <div className="nebula_body_popup">

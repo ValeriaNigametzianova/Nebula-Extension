@@ -121,7 +121,6 @@ chrome.storage.sync.onChanged.addListener((changes) => {
   }
 
   const { newValue, oldValue } = changes.domains_list
-  console.log('oldValue', oldValue)
   if (!oldValue) return
   const newArray = Object.keys(newValue)
   const oldArray = Object.keys(oldValue)

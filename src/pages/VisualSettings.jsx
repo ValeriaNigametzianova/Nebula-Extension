@@ -4,7 +4,6 @@ import { Slider } from '../components/Slider'
 import { EffectsPanel } from '../components/EffectsPanel'
 import { ColorPicker } from '../components/ColorPicker'
 import { HoverBehaviorPanel } from '../components/HoverBehaviorPanel'
-import { useLogAllKeys } from '../components/content/hooks/useLogAllKeys'
 import { SmallToggleButton } from '../components/SmallToggleButton'
 const DEFAULT_OBJECT = {
   blur_degree: '50',
@@ -25,8 +24,6 @@ export const VisualSettings = () => {
   const [showWord, setShowWord] = useState(DEFAULT_OBJECT.show_word)
   const [showCategory, setShowCategory] = useState(DEFAULT_OBJECT.show_category)
   const [useNeuronet, setUseNeuronet] = useState(false)
-
-  useLogAllKeys()
 
   useEffect(() => {
     chrome.storage.sync.get().then((storage) => {

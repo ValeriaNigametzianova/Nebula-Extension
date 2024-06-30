@@ -3,8 +3,6 @@ import { Dots_1 } from '../images/dots/svg/1'
 import { Flower_1 } from '../images/flowers/svg/1'
 
 export const EffectsPanel = ({ effect, setEffect }) => {
-  // const [currentEffect, setCurrentEffect] = useState(effect)
-
   useEffect(() => {
     chrome.storage.sync
       .get(['blur_settings'])

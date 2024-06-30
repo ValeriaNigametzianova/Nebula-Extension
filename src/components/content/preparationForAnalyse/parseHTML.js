@@ -22,6 +22,7 @@ export const parseHTML = (wordList, elementsArray) => {
             headings.snapshotItem(i),
             elementsArray
           )
+
           if (textIncudeWord) currentWords.add(word)
         }
       }
