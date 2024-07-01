@@ -30,7 +30,7 @@ export const Scripts = () => {
     }
   }, [wordList, elementsArray, loading])
 
-  // return null
+  //   return null
   // }
 
   return (

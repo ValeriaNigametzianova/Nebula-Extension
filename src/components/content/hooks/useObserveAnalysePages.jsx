@@ -15,11 +15,11 @@ export const useObserveAnalysePages = (wordList, AIModel) => {
       if (el.addedNodes.length > 0) {
         const node = el.addedNodes[el.addedNodes.length - 1]
 
-        if (!node.getAttributeNode('class')) {
+        if (!node.getAttribute('class')) {
           setIsNodeHasClass(false)
         } else {
           setIsNodeHasClass(true)
-          setNodeClass(node.getAttributeNode('class').value)
+          setNodeClass(node.getAttribute('class'))
         }
 
         if (nodeClass.includes('nebula')) setIsNodeHasClass(true)
